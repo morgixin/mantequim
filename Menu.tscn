@@ -95,6 +95,7 @@ offset_bottom = 416.0
 scale = Vector2(1, 0.973363)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/EnterGameBtn"]
+layout_mode = 0
 offset_left = 48.0
 offset_top = 27.7389
 offset_right = 192.0
@@ -110,6 +111,7 @@ offset_right = 696.0
 offset_bottom = 512.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/ConfigBtn"]
+layout_mode = 0
 offset_left = 63.0
 offset_top = 28.0
 offset_right = 174.0
@@ -125,6 +127,7 @@ offset_right = 696.0
 offset_bottom = 608.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/ExitBtn"]
+layout_mode = 0
 offset_left = 102.0
 offset_top = 28.0
 offset_right = 132.0
