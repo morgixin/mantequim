@@ -18,6 +18,8 @@ func _process(delta: float) -> void:
 	pass
 
 
+# ON HOVER
+
 ### menu btns hover interaction
 func _on_new_game_btn_mouse_entered() -> void:
 	print(\"new game????\")
@@ -46,6 +48,18 @@ func _on_exit_btn_mouse_entered() -> void:
 	
 func _on_exit_btn_mouse_exited() -> void:
 	$ExitBtn/RichTextLabel.text = \"Sair\"
+
+
+# ON CLICK
+
+# muda de tela
+#var configscn = preload(\"res://Config.tscn\").instantiate()
+func _on_config_btn_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Config.tscn\")
+
+# sai do jogo
+func _on_exit_btn_pressed() -> void:
+	get_tree().quit()
 "
 
 [node name="Menu" type="Node2D"]
@@ -193,5 +207,7 @@ theme_override_font_sizes/normal_font_size = 14
 [connection signal="mouse_exited" from="BtnOptions/EnterGameBtn" to="BtnOptions" method="_on_enter_game_btn_mouse_exited"]
 [connection signal="mouse_entered" from="BtnOptions/ConfigBtn" to="BtnOptions" method="_on_config_btn_mouse_entered"]
 [connection signal="mouse_exited" from="BtnOptions/ConfigBtn" to="BtnOptions" method="_on_config_btn_mouse_exited"]
+[connection signal="pressed" from="BtnOptions/ConfigBtn" to="BtnOptions" method="_on_config_btn_pressed"]
 [connection signal="mouse_entered" from="BtnOptions/ExitBtn" to="BtnOptions" method="_on_exit_btn_mouse_entered"]
 [connection signal="mouse_exited" from="BtnOptions/ExitBtn" to="BtnOptions" method="_on_exit_btn_mouse_exited"]
+[connection signal="pressed" from="BtnOptions/ExitBtn" to="BtnOptions" method="_on_exit_btn_pressed"]
