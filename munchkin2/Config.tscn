@@ -1,0 +1,97 @@
+[gd_scene load_steps=4 format=3 uid="uid://7h7kxwtk87ko"]
+
+[ext_resource type="FontFile" uid="uid://cmk05c25d4mm3" path="res://assets/fonts/Pixeled.ttf" id="1_4yo3e"]
+[ext_resource type="Texture2D" uid="uid://b4rtj0vytj22y" path="res://icon.svg" id="2_a46e1"]
+
+[sub_resource type="GDScript" id="GDScript_o51eu"]
+script/source = "extends Node
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	$\"../Node/RichTextLabel\".text=\"claudinha123\"
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+# ON HOVER
+
+func _on_exit_btn_mouse_entered() -> void:
+	print(\"sair????\")
+	$ExitBtn/RichTextLabel.text = \"[wave]\"+$ExitBtn/RichTextLabel.text
+	
+func _on_exit_btn_mouse_exited() -> void:
+	$ExitBtn/RichTextLabel.text = \"Sair\"
+
+
+func _on_back_to_menu_btn_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Menu.tscn\")
+"
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 339.0
+offset_top = 182.0
+offset_right = 885.0
+offset_bottom = 273.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_4yo3e")
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "[rainbow]CONFIGURAÇÕES!!!!1!UM"
+fit_content = true
+scroll_active = false
+
+[node name="BtnOptions" type="Node" parent="."]
+script = SubResource("GDScript_o51eu")
+
+[node name="BackToMenuBtn" type="Button" parent="."]
+offset_left = 475.0
+offset_top = 369.0
+offset_right = 715.0
+offset_bottom = 449.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BackToMenuBtn"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -17.0
+offset_right = 41.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_4yo3e")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "Menu"
+fit_content = true
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node"]
+position = Vector2(952.6, 59.6)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_a46e1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Node"]
+offset_left = 985.6
+offset_top = 36.6
+offset_right = 1128.6
+offset_bottom = 80.6
+theme_override_fonts/normal_font = ExtResource("1_4yo3e")
+theme_override_font_sizes/normal_font_size = 14
+
+[connection signal="pressed" from="BackToMenuBtn" to="BtnOptions" method="_on_back_to_menu_btn_pressed"]

@@ -1,0 +1,158 @@
+[gd_scene load_steps=4 format=3 uid="uid://vlr6he2fwspg"]
+
+[ext_resource type="FontFile" uid="uid://cmk05c25d4mm3" path="res://assets/fonts/Pixeled.ttf" id="1_llpjc"]
+[ext_resource type="Texture2D" uid="uid://b4rtj0vytj22y" path="res://icon.svg" id="2_wg2el"]
+
+[sub_resource type="GDScript" id="GDScript_ol461"]
+script/source = "extends Node
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	$\"../Node/RichTextLabel\".text=\"claudinha123\"
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+### menu btns hover interaction
+func _on_new_game_btn_mouse_entered() -> void:
+	print(\"new game????\")
+	$NewGameBtn/RichTextLabel.text = \"[wave]\"+$NewGameBtn/RichTextLabel.text
+	
+func _on_new_game_btn_mouse_exited() -> void:
+	$NewGameBtn/RichTextLabel.text = \"Criar novo jogo\"
+
+func _on_enter_game_btn_mouse_entered() -> void:
+	print(\"entrar no game????\")
+	$EnterGameBtn/RichTextLabel.text = \"[wave]\"+$EnterGameBtn/RichTextLabel.text
+
+func _on_enter_game_btn_mouse_exited() -> void:
+	$EnterGameBtn/RichTextLabel.text = \"Entrar em um jogo\"
+	
+func _on_config_btn_mouse_entered() -> void:
+	print(\"config???\")
+	$ConfigBtn/RichTextLabel.text = \"[wave]\"+$ConfigBtn/RichTextLabel.text
+	
+func _on_config_btn_mouse_exited() -> void:
+	$ConfigBtn/RichTextLabel.text = \"Configurações\"
+
+func _on_exit_btn_mouse_entered() -> void:
+	print(\"sair????\")
+	$ExitBtn/RichTextLabel.text = \"[wave]\"+$ExitBtn/RichTextLabel.text
+	
+func _on_exit_btn_mouse_exited() -> void:
+	$ExitBtn/RichTextLabel.text = \"Sair\"
+"
+
+[node name="Menu" type="Node2D"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 307.0
+offset_top = 93.0
+offset_right = 853.0
+offset_bottom = 184.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_llpjc")
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "[rainbow]MANTEQUIM   O   JOGO"
+fit_content = true
+scroll_active = false
+
+[node name="BtnOptions" type="Node" parent="."]
+script = SubResource("GDScript_ol461")
+
+[node name="NewGameBtn" type="Button" parent="BtnOptions"]
+offset_left = 456.0
+offset_top = 240.0
+offset_right = 696.0
+offset_bottom = 320.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/NewGameBtn"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 28.0
+offset_right = 184.0
+offset_bottom = 53.0
+bbcode_enabled = true
+text = "Criar novo jogo"
+fit_content = true
+
+[node name="EnterGameBtn" type="Button" parent="BtnOptions"]
+offset_left = 456.0
+offset_top = 336.0
+offset_right = 696.0
+offset_bottom = 416.0
+scale = Vector2(1, 0.973363)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/EnterGameBtn"]
+offset_left = 48.0
+offset_top = 27.7389
+offset_right = 192.0
+offset_bottom = 52.7389
+bbcode_enabled = true
+text = "Entrar em um jogo"
+fit_content = true
+
+[node name="ConfigBtn" type="Button" parent="BtnOptions"]
+offset_left = 456.0
+offset_top = 432.0
+offset_right = 696.0
+offset_bottom = 512.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/ConfigBtn"]
+offset_left = 63.0
+offset_top = 28.0
+offset_right = 174.0
+offset_bottom = 53.0
+bbcode_enabled = true
+text = "Configurações"
+fit_content = true
+
+[node name="ExitBtn" type="Button" parent="BtnOptions"]
+offset_left = 456.0
+offset_top = 528.0
+offset_right = 696.0
+offset_bottom = 608.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/ExitBtn"]
+offset_left = 102.0
+offset_top = 28.0
+offset_right = 132.0
+offset_bottom = 53.0
+bbcode_enabled = true
+text = "Sair"
+fit_content = true
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node"]
+position = Vector2(952.6, 59.6)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_wg2el")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Node"]
+offset_left = 985.6
+offset_top = 36.6
+offset_right = 1128.6
+offset_bottom = 80.6
+theme_override_fonts/normal_font = ExtResource("1_llpjc")
+theme_override_font_sizes/normal_font_size = 14
+
+[connection signal="mouse_entered" from="BtnOptions/NewGameBtn" to="BtnOptions" method="_on_new_game_btn_mouse_entered"]
+[connection signal="mouse_exited" from="BtnOptions/NewGameBtn" to="BtnOptions" method="_on_new_game_btn_mouse_exited"]
+[connection signal="mouse_entered" from="BtnOptions/EnterGameBtn" to="BtnOptions" method="_on_enter_game_btn_mouse_entered"]
+[connection signal="mouse_exited" from="BtnOptions/EnterGameBtn" to="BtnOptions" method="_on_enter_game_btn_mouse_exited"]
+[connection signal="mouse_entered" from="BtnOptions/ConfigBtn" to="BtnOptions" method="_on_config_btn_mouse_entered"]
+[connection signal="mouse_exited" from="BtnOptions/ConfigBtn" to="BtnOptions" method="_on_config_btn_mouse_exited"]
+[connection signal="mouse_entered" from="BtnOptions/ExitBtn" to="BtnOptions" method="_on_exit_btn_mouse_entered"]
+[connection signal="mouse_exited" from="BtnOptions/ExitBtn" to="BtnOptions" method="_on_exit_btn_mouse_exited"]
