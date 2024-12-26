@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw6mgdqymw4pd"]
+
+[ext_resource type="Script" path="res://cartas_da_mesa.gd" id="1_4h4px"]
+[ext_resource type="PackedScene" uid="uid://jvtuamjq0x3h" path="res://Carta.tscn" id="1_kxduo"]
+
+[node name="Mesa" type="Node2D"]
+
+[node name="cartasDaMesa" type="Node2D" parent="."]
+script = ExtResource("1_4h4px")
+
+[node name="Carta" parent="cartasDaMesa" instance=ExtResource("1_kxduo")]
+position = Vector2(554, 421)
+
+[node name="Carta2" parent="cartasDaMesa" instance=ExtResource("1_kxduo")]
+position = Vector2(838, 443)
