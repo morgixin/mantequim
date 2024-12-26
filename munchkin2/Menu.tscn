@@ -60,6 +60,10 @@ func _on_config_btn_pressed() -> void:
 # sai do jogo
 func _on_exit_btn_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_new_game_btn_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Mesa.tscn\")
 "
 
 [node name="Menu" type="Node2D"]
@@ -104,6 +108,7 @@ offset_right = 80.5
 offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("1_llpjc")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
@@ -130,6 +135,7 @@ offset_right = 92.5
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("1_llpjc")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
@@ -155,6 +161,7 @@ offset_right = 72.5
 offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("1_llpjc")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
@@ -180,6 +187,7 @@ offset_right = 21.0
 offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("1_llpjc")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
@@ -203,6 +211,7 @@ theme_override_font_sizes/normal_font_size = 14
 
 [connection signal="mouse_entered" from="BtnOptions/NewGameBtn" to="BtnOptions" method="_on_new_game_btn_mouse_entered"]
 [connection signal="mouse_exited" from="BtnOptions/NewGameBtn" to="BtnOptions" method="_on_new_game_btn_mouse_exited"]
+[connection signal="pressed" from="BtnOptions/NewGameBtn" to="BtnOptions" method="_on_new_game_btn_pressed"]
 [connection signal="mouse_entered" from="BtnOptions/EnterGameBtn" to="BtnOptions" method="_on_enter_game_btn_mouse_entered"]
 [connection signal="mouse_exited" from="BtnOptions/EnterGameBtn" to="BtnOptions" method="_on_enter_game_btn_mouse_exited"]
 [connection signal="mouse_entered" from="BtnOptions/ConfigBtn" to="BtnOptions" method="_on_config_btn_mouse_entered"]

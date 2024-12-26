@@ -28,8 +28,9 @@ func start_drag(card):
 	card.scale = Vector2(1, 1)
 	
 func stop_drag():
-	cardBeingDragged.scale = Vector2(1.05, 1.05)
-	cardBeingDragged = null
+	if (cardBeingDragged != null):
+		cardBeingDragged.scale = Vector2(1.05, 1.05)
+		cardBeingDragged = null
 
 func connect_card_signals(card):
 	card.connect("hovered", hovered_on_card)
