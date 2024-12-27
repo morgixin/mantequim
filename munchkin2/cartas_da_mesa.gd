@@ -39,7 +39,18 @@ func stop_drag():
 		print(cardSlotFound)
 		if cardSlotFound:
 			playerHandReference.removeDaMao(cardBeingDragged)
+			
+			cardSlotFound.getNextStackIndex()
+			cardBeingDragged.z_index = cardSlotFound.stack_index
+			
+			
 			cardBeingDragged.position = cardSlotFound.position
+			var random_degrees = randf_range(-10, 10)
+			cardBeingDragged.rotation = deg_to_rad(
+				random_degrees
+			)
+			print("Carta deletada: ")
+			print(cardBeingDragged)
 			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = true
 		else:
 			playerHandReference.addMao(cardBeingDragged)
@@ -64,13 +75,14 @@ func hovered_off_card(card):
 			isHoveringOnCard = false
 	
 func highlight_card(card, hovered):
-	if hovered:
-		card.scale = Vector2(1.05, 1.05)
-		card.z_index = 2
-	else:
-		card.scale = Vector2(1, 1)
-		card.z_index = 1
-	
+	if playerHandReference.maoJogador.has(card):
+		if hovered:
+			card.scale = Vector2(1.05, 1.05)
+			card.z_index = 100
+		else:
+			card.scale = Vector2(1, 1)
+			card.z_index = 1
+
 	
 func get_card_with_highest_z_index(cards):
 	var highest_z_card = cards[0].collider.get_parent()

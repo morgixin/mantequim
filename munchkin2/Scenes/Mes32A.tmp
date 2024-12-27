@@ -1,9 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://cw6mgdqymw4pd"]
+[gd_scene load_steps=6 format=3 uid="uid://cw6mgdqymw4pd"]
 
 [ext_resource type="Script" path="res://cartas_da_mesa.gd" id="1_4h4px"]
 [ext_resource type="Texture2D" uid="uid://chxmn512uuukp" path="res://assets/imagens/mesa_sprite.png" id="3_qbhdc"]
 [ext_resource type="PackedScene" uid="uid://cfo24lfmidt7w" path="res://Scenes/MaoJogador.tscn" id="4_l4aqy"]
 [ext_resource type="PackedScene" uid="uid://csq8ckr67n081" path="res://Scenes/Card_slot.tscn" id="4_o3s88"]
+
+[sub_resource type="GDScript" id="GDScript_e5wse"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [node name="Mesa" type="Node2D"]
 
@@ -17,5 +31,6 @@ script = ExtResource("1_4h4px")
 
 [node name="cardSlot" parent="." instance=ExtResource("4_o3s88")]
 position = Vector2(607, 335)
+script = SubResource("GDScript_e5wse")
 
 [node name="MaoJogador" parent="." instance=ExtResource("4_l4aqy")]

@@ -14,9 +14,9 @@ func _ready() -> void:
 	center_screen_x = get_viewport().size.x / 2
 	var cardScene = preload(CARD_PATH)
 	for i in range(HAND_COUNT):
-		var newCard = cardScene.instantiate()
+		var newCard = cardScene.instantiate().create_card_instance("a", randi_range(0, 22), "b")
+		newCard.name = "Carta-%s" % str(i)
 		$"../cartasDaMesa".add_child(newCard)
-		newCard.name = "Carta"
 		addMao(newCard)
 
 func addMao(card):
@@ -28,11 +28,14 @@ func addMao(card):
 		
 	
 func updatePosicoes():
+	print("Reorganizando cartas")
 	for i in range(maoJogador.size()):
-		maoJogador[i].z_index = i
-		var newPosition = Vector2(calculaPosicao(i), MAO_Y + randi_range(1, 8)*5)
+		maoJogador[i].z_index = maoJogador.size() - i
+		var newPosition = Vector2(calculaPosicao(i), MAO_Y + randi_range(0, 25))
+		var random_degrees = randf_range(-3, 3)
 		var cartinha = maoJogador[i]
 		cartinha.posInicial = newPosition
+		cartinha.rotation = deg_to_rad(random_degrees)
 		animateCardToPosition(cartinha, newPosition)
 
 func animateCardToPosition(card, newPosition):
