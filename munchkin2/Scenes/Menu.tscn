@@ -55,7 +55,7 @@ func _on_exit_btn_mouse_exited() -> void:
 # muda de tela
 #var configscn = preload(\"res://Config.tscn\").instantiate()
 func _on_config_btn_pressed() -> void:
-	get_tree().change_scene_to_file(\"res://Config.tscn\")
+	get_tree().change_scene_to_file(\"res://Scenes/Config.tscn\")
 
 # sai do jogo
 func _on_exit_btn_pressed() -> void:
@@ -63,7 +63,7 @@ func _on_exit_btn_pressed() -> void:
 
 
 func _on_new_game_btn_pressed() -> void:
-	get_tree().change_scene_to_file(\"res://Mesa.tscn\")
+	get_tree().change_scene_to_file(\"res://Scenes/Mesa.tscn\")
 "
 
 [node name="Menu" type="Node2D"]

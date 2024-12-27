@@ -3,9 +3,13 @@ extends Node2D
 var cardBeingDragged
 var screenSize
 var isHoveringOnCard
+var playerHandReference
+const COLLISION_MASK = 1
+const COLLISION_MASK_SLOT = 2
 
 func _ready() -> void:
 	screenSize = get_viewport_rect().size
+	playerHandReference = $"../MaoJogador"
 
 func _process(delta: float) -> void:
 	if cardBeingDragged:
@@ -20,7 +24,8 @@ func _input(event: InputEvent) -> void:
 			if card:
 				start_drag(card)
 		else:
-			stop_drag()
+			if cardBeingDragged:
+				stop_drag()
 			
 
 func start_drag(card):
@@ -30,6 +35,14 @@ func start_drag(card):
 func stop_drag():
 	if (cardBeingDragged != null):
 		cardBeingDragged.scale = Vector2(1.05, 1.05)
+		var cardSlotFound = raycast_check_for_card_slot()
+		print(cardSlotFound)
+		if cardSlotFound:
+			playerHandReference.removeDaMao(cardBeingDragged)
+			cardBeingDragged.position = cardSlotFound.position
+			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = true
+		else:
+			playerHandReference.addMao(cardBeingDragged)
 		cardBeingDragged = null
 
 func connect_card_signals(card):
@@ -72,12 +85,23 @@ func get_card_with_highest_z_index(cards):
 	return highest_z_card
 	
 
+func raycast_check_for_card_slot():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_SLOT
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider.get_parent()
+	return null
+
 func raycast_check_for_card():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = 1
+	parameters.collision_mask = COLLISION_MASK
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return get_card_with_highest_z_index(result)

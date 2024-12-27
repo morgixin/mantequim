@@ -11,6 +11,11 @@ config_version=5
 [application]
 
 config/name="Munchkin2"
-run/main_scene="res://Menu.tscn"
+run/main_scene="res://Scenes/Menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1200
+window/size/viewport_height=720
