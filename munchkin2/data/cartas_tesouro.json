@@ -1,0 +1,16 @@
+[
+  {
+	"nome_carta": "Thief",
+	"tipo": 1,
+	"frame": -1,
+	"equip_tipo": -1,
+	"isbig": false,
+	"raça_exigida": -1,
+	"classe_exigida": -1,
+	"descricao_carta": "",
+	"força": -1,
+	"acao": 3,
+	"acao_parametro": 10
+  },
+  {}
+]

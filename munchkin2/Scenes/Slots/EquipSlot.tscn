@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://p8okoxmgg5qm"]
+
+[ext_resource type="Script" path="res://Scripts/equip_slot.gd" id="1_ou0v0"]
+[ext_resource type="Texture2D" uid="uid://bqv78wgudco2o" path="res://assets/imagens/EquipSlot.png" id="2_idj2e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f3bjm"]
+size = Vector2(141, 224)
+
+[node name="EquipSlot" type="Node2D"]
+script = ExtResource("1_ou0v0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.758, 0.82)
+texture = ExtResource("2_idj2e")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_f3bjm")

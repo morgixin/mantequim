@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cw6mgdqymw4pd"]
+[gd_scene load_steps=9 format=3 uid="uid://cw6mgdqymw4pd"]
 
-[ext_resource type="Script" path="res://cartas_da_mesa.gd" id="1_4h4px"]
+[ext_resource type="Script" path="res://Scripts/cartas_da_mesa.gd" id="1_4h4px"]
 [ext_resource type="Texture2D" uid="uid://chxmn512uuukp" path="res://assets/imagens/mesa_sprite.png" id="3_qbhdc"]
 [ext_resource type="PackedScene" uid="uid://cfo24lfmidt7w" path="res://Scenes/MaoJogador.tscn" id="4_l4aqy"]
 [ext_resource type="PackedScene" uid="uid://csq8ckr67n081" path="res://Scenes/Card_slot.tscn" id="4_o3s88"]
+[ext_resource type="PackedScene" uid="uid://p8okoxmgg5qm" path="res://Scenes/Slots/EquipSlot.tscn" id="5_hsnkd"]
+[ext_resource type="PackedScene" uid="uid://boqr4i7ccynr4" path="res://Scenes/MaoEquipados.tscn" id="5_twdfu"]
+[ext_resource type="PackedScene" uid="uid://d045xd5ex2g3" path="res://Scenes/Jogador.tscn" id="7_yad1l"]
+[ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="8_jl68w"]
 
 [node name="Mesa" type="Node2D"]
 
@@ -18,4 +22,47 @@ script = ExtResource("1_4h4px")
 [node name="cardSlot" parent="." instance=ExtResource("4_o3s88")]
 position = Vector2(607, 335)
 
+[node name="EquipSlot" parent="." instance=ExtResource("5_hsnkd")]
+position = Vector2(1075, 571)
+
+[node name="MaoEquipados" parent="." instance=ExtResource("5_twdfu")]
+
 [node name="MaoJogador" parent="." instance=ExtResource("4_l4aqy")]
+
+[node name="Jogador" parent="." instance=ExtResource("7_yad1l")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 35.0
+offset_top = 35.0
+offset_right = 290.0
+offset_bottom = 99.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("8_jl68w")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Jogador: "
+fit_content = true
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("8_jl68w")
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "Nível:"
+fit_content = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("8_jl68w")
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "Força:"
+fit_content = true
