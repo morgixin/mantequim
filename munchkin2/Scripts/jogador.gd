@@ -4,8 +4,8 @@ extends Node2D
 @export var jogador: String = "Rafael"
 @export var nivel: int = 1
 @export var força: int = 1
-var classe: int = 1
-var raca: int = 1
+var classe: int = -1
+var raca: int = 1 #começa como humano
 var maoCartas
 var maoCartasEquipadas
 
