@@ -17,7 +17,15 @@ func addMao(card):
 		animateCardToPosition(card, card.posInicial)
 		
 	
+func calcularForca():
+	var jogadorReference = $"../Jogador"
+	var forcaAtual = jogadorReference.nivel
+	for i in range(cartasEquipadas.size()):
+		forcaAtual += cartasEquipadas[i].forca
+	jogadorReference.setForca(forcaAtual)
+	
 func updatePosicoes():
+	calcularForca()
 	for i in range(cartasEquipadas.size()):
 		cartasEquipadas[i].z_index = cartasEquipadas.size() - i
 		var newPosition = Vector2(calculaPosicao(i), MAO_Y - randi_range(0,15))

@@ -5,8 +5,11 @@ extends CartaClass
 @export var tipo_equipamento: int = -1
 @export var isBig: bool = false
 @export var forca: int = 0
-@export var classe_exigida = []
-@export var raca_exigida = []
+@export var classe_exigida = -1
+@export var raca_exigida = -1
+@export var classe_restrita = -1
+@export var raca_restrita = -1
+@export var tipo = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

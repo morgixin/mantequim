@@ -7,20 +7,31 @@ const MAO_Y = 633
 
 var maoJogador = []
 var center_screen_x 
+var cartas_tesouro = []
 
-
-# Called when the node enters the scene tree for the first time.
+func carregarCartas():
+	var json_file = FileAccess.open("res://data/cartas_tesouro.json", FileAccess.READ)
+	cartas_tesouro = JSON.parse_string(json_file.get_as_text())
+	json_file.close()
+	
 func _ready() -> void:
+	carregarCartas()
 	center_screen_x = get_viewport().size.x / 2
 	var cardScene = preload(CARD_PATH)
 	for i in range(HAND_COUNT):		
-		
+		var selectedCard = cartas_tesouro[randi_range(0, cartas_tesouro.size()-1)]
 		var newCard = cardScene.instantiate()
-		newCard.nome = "Carta A"
-		newCard.descricao = "Lorem Ipsum"
-		newCard.frame = randi_range(0,77)
+		newCard.nome = selectedCard.nome_carta
+		newCard.descricao = selectedCard.descricao_carta
+		newCard.frame = selectedCard.frame
 		newCard.name = "Carta-%s" % str(i)
-
+		newCard.classe_exigida = selectedCard.classe_exigida
+		newCard.raca_exigida = selectedCard.raça_exigida
+		newCard.classe_restrita = selectedCard.classe_restrita
+		newCard.raca_restrita = selectedCard.raça_restrita
+		newCard.tipo = selectedCard.tipo
+		newCard.isBig = selectedCard.isbig
+		newCard.forca = selectedCard.força
 		$"../cartasDaMesa".add_child(newCard)
 		addMao(newCard)
 

@@ -59,7 +59,7 @@ func stop_drag():
 				random_degrees
 			)
 			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = true
-		elif cardEquipFound:
+		elif cardEquipFound and (cardBeingDragged.tipo == 2): 
 			playerHandReference.removeDaMao(cardBeingDragged)
 			#cardBeingDragged.position = cardEquipFound.position
 			cardBeingDragged.z_index = cardEquipFound.getNextStackIndex()
