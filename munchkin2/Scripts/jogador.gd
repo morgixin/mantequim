@@ -4,22 +4,35 @@ extends Node2D
 @export var jogador: String = "Rafael"
 @export var nivel: int = 1
 @export var força: int = 1
-var classe: int = -1
+var classe: int = 1
 var raca: int = 1 #começa como humano
 var maoCartas
 var maoCartasEquipadas
+
+const racaDict = {
+	-1: "Nenhum",
+	1: "Humano",
+	2: "Elfo"
+}
+const classeDict = {
+	-1: "Nenhum",
+	1: "Ladrão",
+	2: "Clérigo"
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	maoCartas = $"../MaoJogador"
 	maoCartasEquipadas = $"../MaoEquipados"
-	$"../VBoxContainer/RichTextLabel".text = "Jogador: " + jogador
+	$"../VBoxContainer/NomeJogador".text = "Jogador: " + jogador
 
 func setForca(novo_valor: int) -> void:
 	força = novo_valor
 	
 func aumentarNivel(qtd_niveis: int) -> void:
 	nivel += qtd_niveis
+
+
 	
 func verificaEquipadas(carta: CartaItem):
 	var tipo = carta.getTipoEquip()
@@ -39,7 +52,7 @@ func verificaEquipadas(carta: CartaItem):
 		return false
 	return true
 
-func admitirCarta(carta: CartaItem) -> bool:
+func admitirCarta(carta: CartaClass) -> bool:
 	if !carta.isTreasure:
 		return false
 	if carta.tipo != 2:
@@ -61,7 +74,11 @@ func admitirCarta(carta: CartaItem) -> bool:
 	return true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	$"../VBoxContainer/HSplitContainer/RichTextLabel2".text = "Nível: " + str(nivel)
-	$"../VBoxContainer/HSplitContainer/RichTextLabel3".text = "Força: " + str(força)
+func _process(_delta: float) -> void:
+	$"../VBoxContainer/HSplitContainer/NivelText".text = "Nível: " + str(nivel)
+	$"../VBoxContainer/HSplitContainer/ForçaText".text = "Força: " + str(força)
+	
+	$"../VBoxContainer/HSplitContainer2/Raça".text = "Raça: " + racaDict[raca]
+	$"../VBoxContainer/HSplitContainer2/Classe".text = "Classe: " + classeDict[classe]
+	
 	

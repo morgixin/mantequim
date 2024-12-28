@@ -1,0 +1,14 @@
+[
+  {
+	"tipo": 3,
+	"nome_carta": "Magic Missile",
+	"descricao_carta": "Pode ser usada durante combate. Adiciona +5 de força ao jogador ou monstro",
+	"frame": 0,
+	"força": -1,
+	"força_especifica": -1,
+	"classe_especifica": -1,
+	"raça_especifica": -1,
+	"acao": 1,
+	"acao_parametro": 5
+  },
+]

@@ -10,14 +10,15 @@ const CARD_PATH = "res://Scenes/Cartas/Carta.tscn"
 @export var descricao: String
 @export var frame: int
 var isTreasure: bool
+var isMonster: bool = false
 var cardScene = preload(CARD_PATH)
 
 
-func create_card_instance(nome: String, frame: int, descricao: String) -> Node2D:
+func create_card_instance(nome: String, frame: int, descricao_new: String) -> Node2D:
 	var instance = cardScene.instantiate()
 	instance.nome = nome
 	instance.frame = frame
-	instance.descricao = descricao
+	instance.descricao = descricao_new
 	return instance
 
 func definirFrame() -> void:
