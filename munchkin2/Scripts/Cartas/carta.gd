@@ -9,6 +9,7 @@ const CARD_PATH = "res://Scenes/Cartas/Carta.tscn"
 @export var nome: String
 @export var descricao: String
 @export var frame: int
+var isTreasure: bool
 var cardScene = preload(CARD_PATH)
 
 

@@ -32,6 +32,7 @@ func _ready() -> void:
 		newCard.tipo = selectedCard.tipo
 		newCard.isBig = selectedCard.isbig
 		newCard.forca = selectedCard.força
+		newCard.tipo_equipamento = selectedCard.equip_tipo
 		$"../cartasDaMesa".add_child(newCard)
 		addMao(newCard)
 

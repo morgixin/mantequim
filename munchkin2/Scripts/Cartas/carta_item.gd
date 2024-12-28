@@ -15,11 +15,15 @@ extends CartaClass
 func _ready() -> void:
 	get_parent().connect_card_signals(self)
 	definirFrame()
+	self.isTreasure = true
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func getTipoEquip() -> int:
+	return self.tipo_equipamento
 
 func _on_area_2d_mouse_entered() -> void:
 	emit_signal("hovered", self)

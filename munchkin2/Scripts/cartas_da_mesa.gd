@@ -5,6 +5,7 @@ var screenSize
 var isHoveringOnCard
 var playerHandReference
 var playerItemsHandReference
+var playerReference
 const COLLISION_MASK = 1
 const COLLISION_MASK_SLOT = 2
 const COLLISION_MASK_EQUIP = 4
@@ -13,6 +14,7 @@ func _ready() -> void:
 	screenSize = get_viewport_rect().size
 	playerHandReference = $"../MaoJogador"
 	playerItemsHandReference = $"../MaoEquipados"
+	playerReference = $"../Jogador"
 
 func _process(delta: float) -> void:
 	if cardBeingDragged:
@@ -59,9 +61,8 @@ func stop_drag():
 				random_degrees
 			)
 			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = true
-		elif cardEquipFound and (cardBeingDragged.tipo == 2): 
+		elif cardEquipFound and playerReference.admitirCarta(cardBeingDragged): 
 			playerHandReference.removeDaMao(cardBeingDragged)
-			#cardBeingDragged.position = cardEquipFound.position
 			cardBeingDragged.z_index = cardEquipFound.getNextStackIndex()
 			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = false
 			playerItemsHandReference.addMao(cardBeingDragged)
