@@ -1,6 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cw6mgdqymw4pd"]
+[gd_scene load_steps=12 format=3 uid="uid://cw6mgdqymw4pd"]
 
 [ext_resource type="Script" path="res://Scripts/cartas_da_mesa.gd" id="1_4h4px"]
+[ext_resource type="Script" path="res://Scripts/mesa.gd" id="1_jrflu"]
+[ext_resource type="Texture2D" uid="uid://cruul8wmy16rs" path="res://assets/imagens/sprite_batalha.png" id="2_vw6ao"]
 [ext_resource type="Texture2D" uid="uid://chxmn512uuukp" path="res://assets/imagens/mesa_sprite.png" id="3_qbhdc"]
 [ext_resource type="PackedScene" uid="uid://cfo24lfmidt7w" path="res://Scenes/MaoJogador.tscn" id="4_l4aqy"]
 [ext_resource type="PackedScene" uid="uid://csq8ckr67n081" path="res://Scenes/Card_slot.tscn" id="4_o3s88"]
@@ -8,8 +10,14 @@
 [ext_resource type="PackedScene" uid="uid://boqr4i7ccynr4" path="res://Scenes/MaoEquipados.tscn" id="5_twdfu"]
 [ext_resource type="PackedScene" uid="uid://d045xd5ex2g3" path="res://Scenes/Jogador.tscn" id="7_yad1l"]
 [ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="8_jl68w"]
+[ext_resource type="PackedScene" uid="uid://bylyqmpwpg14i" path="res://Scenes/Confirmation.tscn" id="11_o60c4"]
 
 [node name="Mesa" type="Node2D"]
+script = ExtResource("1_jrflu")
+
+[node name="sprite_batalha" type="Sprite2D" parent="."]
+position = Vector2(963, 542)
+texture = ExtResource("2_vw6ao")
 
 [node name="sprite_mesa" type="Sprite2D" parent="."]
 position = Vector2(600, 360)
@@ -89,3 +97,9 @@ theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
 text = "Força:"
 fit_content = true
+
+[node name="Confirmation" parent="." instance=ExtResource("11_o60c4")]
+offset_left = 596.0
+offset_top = 119.0
+offset_right = 596.0
+offset_bottom = 119.0
