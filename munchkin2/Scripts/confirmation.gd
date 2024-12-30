@@ -43,7 +43,7 @@ func close(isConfirmed: bool = false):
 	else:
 		onCancel()
 
-func customize(header: String, msg: String, confirmText: String = "Sim", cancelText: String = "Não"):
+func customize(header: String, msg: String, confirmText: String = "Confirmar", cancelText: String = "Cancelar"):
 	header_ref.text = header
 	message_ref.text = msg
 	confirmed_ref.text = confirmText

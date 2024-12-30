@@ -3,7 +3,7 @@ extends Node2D
 
 @export var jogador: String = "Rafael"
 @export var nivel: int = 1
-@export var força: int = 1
+@export var forca: int = 1
 var classe: int = 1
 var raca: int = 1 #começa como humano
 var maoCartas
@@ -19,15 +19,15 @@ const classeDict = {
 	1: "Ladrão",
 	2: "Clérigo"
 }
+@onready var player_box: PlayerBox = $"../PlayerBox"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	maoCartas = $"../MaoJogador"
 	maoCartasEquipadas = $"../MaoEquipados"
-	$"../VBoxContainer/NomeJogador".text = "Jogador: " + jogador
 
 func setForca(novo_valor: int) -> void:
-	força = novo_valor
+	forca = novo_valor
 	
 func aumentarNivel(qtd_niveis: int) -> void:
 	nivel += qtd_niveis
@@ -75,10 +75,6 @@ func admitirCarta(carta: CartaClass) -> bool:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	$"../VBoxContainer/HSplitContainer/NivelText".text = "Nível: " + str(nivel)
-	$"../VBoxContainer/HSplitContainer/ForçaText".text = "Força: " + str(força)
-	
-	$"../VBoxContainer/HSplitContainer2/Raça".text = "Raça: " + racaDict[raca]
-	$"../VBoxContainer/HSplitContainer2/Classe".text = "Classe: " + classeDict[classe]
+	player_box.customize(jogador, classeDict[classe], nivel, forca, racaDict[raca])
 	
 	
