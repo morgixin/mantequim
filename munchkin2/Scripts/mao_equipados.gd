@@ -7,6 +7,7 @@ var cartasEquipadas = []
 var end_screen_x 
 
 func _ready() -> void:
+	get_tree().get_root().size_changed.connect(resize)
 	end_screen_x = get_viewport().size.x
 
 func addMao(card):
@@ -54,3 +55,7 @@ func removeDaMao(card):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func resize() -> void:
+	end_screen_x = get_viewport().size.x
+	updatePosicoes()

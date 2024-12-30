@@ -42,10 +42,6 @@ func stop_drag():
 		cardBeingDragged.scale = Vector2(1.05, 1.05)
 		var cardSlotFound = raycast_check_for_card_slot()
 		var cardEquipFound = raycast_check_for_card_equip()
-		print(cardSlotFound)
-		print("EquipSlot Found:")
-		print(cardEquipFound)
-		
 		
 		if cardSlotFound:
 			playerHandReference.removeDaMao(cardBeingDragged)
@@ -73,12 +69,10 @@ func stop_drag():
 		cardBeingDragged = null
 
 func connect_card_signals(card):
-	print("connect")
 	card.connect("hovered", hovered_on_card)
 	card.connect("hoveredOff", hovered_off_card)
 	
 func hovered_on_card(card):
-	print("hover")
 	if !isHoveringOnCard:
 		isHoveringOnCard = true
 		highlight_card(card, true)
@@ -87,14 +81,12 @@ func hovered_off_card(card):
 	if !cardBeingDragged:
 		highlight_card(card,false)
 		var newCardHovered = raycast_check_for_card()
-		print(newCardHovered)
 		if newCardHovered:
 			highlight_card(newCardHovered, true)
 		else:
 			isHoveringOnCard = false
 	
 func highlight_card(card, hovered):
-	print("highlight")
 	if playerHandReference.maoJogador.has(card):
 		if hovered:
 			card.scale = Vector2(1.05, 1.05)

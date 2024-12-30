@@ -54,12 +54,19 @@ func sortearCartaMonstro() -> CartaMonstro:
 	newCard.raça_especifica = selectedCard.raça_especifica
 	
 	return newCard
-	
-func _ready() -> void:
-	carregarCartasTesouro()
-	carregarCartasMonstro()
+
+func resize() -> void:
 	center_screen_x = get_viewport().size.x / 2
 	MAO_Y = get_viewport().size.y - 100
+	updatePosicoes()
+
+func _ready() -> void:
+	get_tree().get_root().size_changed.connect(resize)
+	center_screen_x = get_viewport().size.x / 2
+	MAO_Y = get_viewport().size.y - 100
+	carregarCartasTesouro()
+	carregarCartasMonstro()
+
 
 	for i in range(HAND_COUNT_TREASURE):		
 		var cartaTesouro = sortearCartaTesouro()

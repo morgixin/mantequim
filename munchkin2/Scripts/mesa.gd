@@ -1,6 +1,7 @@
 class_name Mesa extends Control
 const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
 var cartas_monstro = []
+var jogadores = []
 var momentoDoJogo = 0
 var jogadorAtual = 0
 var cartaSorteadaTurno: CartaClass

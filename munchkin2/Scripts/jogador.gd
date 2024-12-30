@@ -65,10 +65,8 @@ func admitirCarta(carta: CartaClass) -> bool:
 		return false
 	if carta.raca_restrita != -1 and raca == carta.raca_restrita:
 		return false
-	print(carta.tipo_equipamento)
 	if carta.tipo_equipamento == -1:
 		return false
-	print(verificaEquipadas(carta))
 	if !verificaEquipadas(carta):
 		return false
 	return true

@@ -50,7 +50,7 @@ func customizarBox(carta: CartaMonstro, titulo: String = "", mostrarApenasUmBota
 	btn_acao_2_ref.text = btn2Label
 	
 	var frame_carta = carta.frame
-	print(frame_carta)
+
 	var x_atlas = 146*(frame_carta%6)
 	var linha_atlas_y: int = (frame_carta/6)
 	var y_atlas:int = 225*linha_atlas_y
