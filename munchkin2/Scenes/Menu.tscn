@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://vlr6he2fwspg"]
+[gd_scene load_steps=7 format=3 uid="uid://vlr6he2fwspg"]
 
+[ext_resource type="Texture2D" uid="uid://b3wa2gukroggf" path="res://assets/imagens/Menu/background.png" id="1_5c7gq"]
 [ext_resource type="FontFile" uid="uid://cmk05c25d4mm3" path="res://assets/fonts/Pixeled.ttf" id="1_llpjc"]
+[ext_resource type="Texture2D" uid="uid://jhurflg8708j" path="res://assets/imagens/Menu/title.png" id="2_m1ywh"]
 [ext_resource type="Texture2D" uid="uid://b4rtj0vytj22y" path="res://icon.svg" id="2_wg2el"]
+[ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="5_wr4il"]
 
 [sub_resource type="GDScript" id="GDScript_ol461"]
 script/source = "extends Node
@@ -9,7 +12,7 @@ script/source = "extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$\"../Node/RichTextLabel\".text=\"claudinha123\"
+	#$\"../Node/RichTextLabel\".text=\"claudinha123\"
 	pass # Replace with function body.
 
 
@@ -22,32 +25,28 @@ func _process(delta: float) -> void:
 
 ### menu btns hover interaction
 func _on_new_game_btn_mouse_entered() -> void:
-	print(\"new game????\")
-	$NewGameBtn/RichTextLabel.text = \"[wave]\"+$NewGameBtn/RichTextLabel.text
+	$NewGameBtn/RichTextLabel.text = \"[wave][center]\"+$NewGameBtn/RichTextLabel.text
 	
 func _on_new_game_btn_mouse_exited() -> void:
-	$NewGameBtn/RichTextLabel.text = \"Criar novo jogo\"
+	$NewGameBtn/RichTextLabel.text = \"[center]Criar novo jogo\"
 
 func _on_enter_game_btn_mouse_entered() -> void:
-	print(\"entrar no game????\")
-	$EnterGameBtn/RichTextLabel.text = \"[wave]\"+$EnterGameBtn/RichTextLabel.text
+	$EnterGameBtn/RichTextLabel.text = \"[wave][center]\"+$EnterGameBtn/RichTextLabel.text
 
 func _on_enter_game_btn_mouse_exited() -> void:
-	$EnterGameBtn/RichTextLabel.text = \"Entrar em um jogo\"
+	$EnterGameBtn/RichTextLabel.text = \"[center]Entrar em um jogo\"
 	
 func _on_config_btn_mouse_entered() -> void:
-	print(\"config???\")
-	$ConfigBtn/RichTextLabel.text = \"[wave]\"+$ConfigBtn/RichTextLabel.text
+	$ConfigBtn/RichTextLabel.text = \"[wave][center]\"+$ConfigBtn/RichTextLabel.text
 	
 func _on_config_btn_mouse_exited() -> void:
-	$ConfigBtn/RichTextLabel.text = \"Configurações\"
+	$ConfigBtn/RichTextLabel.text = \"[center]Configurações\"
 
 func _on_exit_btn_mouse_entered() -> void:
-	print(\"sair????\")
-	$ExitBtn/RichTextLabel.text = \"[wave]\"+$ExitBtn/RichTextLabel.text
+	$ExitBtn/RichTextLabel.text = \"[wave][center]\"+$ExitBtn/RichTextLabel.text
 	
 func _on_exit_btn_mouse_exited() -> void:
-	$ExitBtn/RichTextLabel.text = \"Sair\"
+	$ExitBtn/RichTextLabel.text = \"[center]Sair\"
 
 
 # ON CLICK
@@ -66,9 +65,29 @@ func _on_new_game_btn_pressed() -> void:
 	get_tree().change_scene_to_file(\"res://Scenes/Mesa.tscn\")
 "
 
-[node name="Menu" type="Node2D"]
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5c7gq")
+expand_mode = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 0
 offset_left = 307.0
 offset_top = 93.0
 offset_right = 853.0
@@ -86,52 +105,48 @@ text = "[rainbow]MANTEQUIM   O   JOGO"
 fit_content = true
 scroll_active = false
 
-[node name="BtnOptions" type="Node" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -219.0
+offset_right = 219.0
+offset_bottom = 453.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_m1ywh")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Botões" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
 script = SubResource("GDScript_ol461")
 
-[node name="NewGameBtn" type="Button" parent="BtnOptions"]
-offset_left = 456.0
-offset_top = 240.0
-offset_right = 696.0
-offset_bottom = 320.0
+[node name="NewGameBtn" type="Button" parent="MarginContainer/VBoxContainer/Botões"]
+custom_minimum_size = Vector2(0, 53)
+layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/NewGameBtn"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Botões/NewGameBtn"]
+clip_contents = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 14
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -80.5
-offset_top = -17.5
-offset_right = 80.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_fonts/normal_font = ExtResource("1_llpjc")
-theme_override_font_sizes/normal_font_size = 12
-bbcode_enabled = true
-text = "Criar novo jogo"
-fit_content = true
-
-[node name="EnterGameBtn" type="Button" parent="BtnOptions"]
-offset_left = 456.0
-offset_top = 336.0
-offset_right = 696.0
-offset_bottom = 416.0
-scale = Vector2(1, 0.973363)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/EnterGameBtn"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -92.5
 offset_top = -20.0
-offset_right = 92.5
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -139,25 +154,21 @@ mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("1_llpjc")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "Entrar em um jogo"
+text = "[center]Criar novo jogo"
 fit_content = true
+autowrap_mode = 0
 
-[node name="ConfigBtn" type="Button" parent="BtnOptions"]
-offset_left = 456.0
-offset_top = 432.0
-offset_right = 696.0
-offset_bottom = 512.0
+[node name="EnterGameBtn" type="Button" parent="MarginContainer/VBoxContainer/Botões"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/ConfigBtn"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Botões/EnterGameBtn"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 14
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -72.5
 offset_top = -17.5
-offset_right = 72.5
 offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -165,25 +176,20 @@ mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("1_llpjc")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "Configurações"
+text = "[center]Entrar em um jogo"
 fit_content = true
 
-[node name="ExitBtn" type="Button" parent="BtnOptions"]
-offset_left = 456.0
-offset_top = 528.0
-offset_right = 696.0
-offset_bottom = 608.0
+[node name="ConfigBtn" type="Button" parent="MarginContainer/VBoxContainer/Botões"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="BtnOptions/ExitBtn"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Botões/ConfigBtn"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 14
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -21.0
 offset_top = -17.5
-offset_right = 21.0
 offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -191,17 +197,40 @@ mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("1_llpjc")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "Sair"
+text = "[center]Configurações"
+fit_content = true
+
+[node name="ExitBtn" type="Button" parent="MarginContainer/VBoxContainer/Botões"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Botões/ExitBtn"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("1_llpjc")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Sair"
 fit_content = true
 
 [node name="Node" type="Node" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Node"]
+visible = false
 position = Vector2(952.6, 59.6)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_wg2el")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Node"]
+visible = false
 offset_left = 985.6
 offset_top = 36.6
 offset_right = 1128.6
@@ -209,14 +238,46 @@ offset_bottom = 80.6
 theme_override_fonts/normal_font = ExtResource("1_llpjc")
 theme_override_font_sizes/normal_font_size = 14
 
-[connection signal="mouse_entered" from="BtnOptions/NewGameBtn" to="BtnOptions" method="_on_new_game_btn_mouse_entered"]
-[connection signal="mouse_exited" from="BtnOptions/NewGameBtn" to="BtnOptions" method="_on_new_game_btn_mouse_exited"]
-[connection signal="pressed" from="BtnOptions/NewGameBtn" to="BtnOptions" method="_on_new_game_btn_pressed"]
-[connection signal="mouse_entered" from="BtnOptions/EnterGameBtn" to="BtnOptions" method="_on_enter_game_btn_mouse_entered"]
-[connection signal="mouse_exited" from="BtnOptions/EnterGameBtn" to="BtnOptions" method="_on_enter_game_btn_mouse_exited"]
-[connection signal="mouse_entered" from="BtnOptions/ConfigBtn" to="BtnOptions" method="_on_config_btn_mouse_entered"]
-[connection signal="mouse_exited" from="BtnOptions/ConfigBtn" to="BtnOptions" method="_on_config_btn_mouse_exited"]
-[connection signal="pressed" from="BtnOptions/ConfigBtn" to="BtnOptions" method="_on_config_btn_pressed"]
-[connection signal="mouse_entered" from="BtnOptions/ExitBtn" to="BtnOptions" method="_on_exit_btn_mouse_entered"]
-[connection signal="mouse_exited" from="BtnOptions/ExitBtn" to="BtnOptions" method="_on_exit_btn_mouse_exited"]
-[connection signal="pressed" from="BtnOptions/ExitBtn" to="BtnOptions" method="_on_exit_btn_pressed"]
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -164.0
+offset_top = -153.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.552941)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_wr4il")
+theme_override_font_sizes/font_size = 20
+text = "Ana Beatriz Ferreira
+João Gabriel Marinho
+Júlia Spezani
+Matheus Lima
+Rafael Amparo
+Thales Abranches"
+horizontal_alignment = 2
+
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Botões/NewGameBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_new_game_btn_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Botões/NewGameBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_new_game_btn_mouse_exited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Botões/NewGameBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_new_game_btn_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Botões/EnterGameBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_enter_game_btn_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Botões/EnterGameBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_enter_game_btn_mouse_exited"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Botões/ConfigBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_config_btn_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Botões/ConfigBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_config_btn_mouse_exited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Botões/ConfigBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_config_btn_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_exited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_pressed"]

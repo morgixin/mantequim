@@ -1,10 +1,10 @@
 class_name PlayerBox extends Control
 
-@onready var jogador_ref = $PanelContainer/MarginContainer/PlayerContainer/NomeJogador
-@onready var raca_ref = $PanelContainer/MarginContainer/PlayerContainer/HBoxContainer2/Raça
-@onready var classe_ref = $PanelContainer/MarginContainer/PlayerContainer/HBoxContainer2/Classe
-@onready var nivel_ref = $PanelContainer/MarginContainer/PlayerContainer/HBoxContainer/NivelText
-@onready var forca_ref = $PanelContainer/MarginContainer/PlayerContainer/HBoxContainer/ForçaText
+@onready var jogador_ref = $MarginContainer/PanelContainer/MarginContainer/PlayerContainer/NomeJogador
+@onready var raca_ref = $MarginContainer/PanelContainer/MarginContainer/PlayerContainer/HBoxContainer2/Raça
+@onready var classe_ref = $MarginContainer/PanelContainer/MarginContainer/PlayerContainer/HBoxContainer2/Classe
+@onready var nivel_ref = $MarginContainer/PanelContainer/MarginContainer/PlayerContainer/HBoxContainer/NivelText
+@onready var forca_ref = $MarginContainer/PanelContainer/MarginContainer/PlayerContainer/HBoxContainer/ForçaText
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
