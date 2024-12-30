@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cw6mgdqymw4pd"]
+[gd_scene load_steps=13 format=3 uid="uid://cw6mgdqymw4pd"]
 
 [ext_resource type="Script" path="res://Scripts/cartas_da_mesa.gd" id="1_4h4px"]
 [ext_resource type="Script" path="res://Scripts/mesa.gd" id="1_jrflu"]
@@ -11,12 +11,14 @@
 [ext_resource type="PackedScene" uid="uid://d045xd5ex2g3" path="res://Scenes/Jogador.tscn" id="7_yad1l"]
 [ext_resource type="PackedScene" uid="uid://ficxtf4vno84" path="res://Scenes/PlayerBox.tscn" id="10_yeufm"]
 [ext_resource type="PackedScene" uid="uid://bylyqmpwpg14i" path="res://Scenes/Confirmation.tscn" id="11_o60c4"]
+[ext_resource type="PackedScene" uid="uid://cnohsigqke0yg" path="res://Scenes/PromptBatalha/MonsterBox.tscn" id="12_0ogba"]
 
 [node name="Mesa" type="Node2D"]
 script = ExtResource("1_jrflu")
 
 [node name="sprite_batalha" type="Sprite2D" parent="."]
-position = Vector2(963, 542)
+position = Vector2(643.889, 359.5)
+scale = Vector2(0.667593, 0.667593)
 texture = ExtResource("2_vw6ao")
 
 [node name="sprite_mesa" type="Sprite2D" parent="."]
@@ -28,6 +30,7 @@ texture = ExtResource("3_qbhdc")
 script = ExtResource("1_4h4px")
 
 [node name="cardSlot" parent="." instance=ExtResource("4_o3s88")]
+visible = false
 position = Vector2(607, 335)
 
 [node name="EquipSlot" parent="." instance=ExtResource("5_hsnkd")]
@@ -40,13 +43,19 @@ position = Vector2(1075, 571)
 [node name="Jogador" parent="." instance=ExtResource("7_yad1l")]
 
 [node name="PlayerBox" parent="." instance=ExtResource("10_yeufm")]
-offset_left = 82.0
-offset_top = 26.0
-offset_right = 448.0
-offset_bottom = 26.0
+offset_left = 18.0
+offset_top = 14.0
+offset_right = 18.0
+offset_bottom = 14.0
 
 [node name="Confirmation" parent="." instance=ExtResource("11_o60c4")]
-offset_left = 610.0
-offset_top = 333.0
-offset_right = 610.0
-offset_bottom = 333.0
+offset_left = 607.0
+offset_top = 338.0
+offset_right = 607.0
+offset_bottom = 338.0
+
+[node name="MonsterBox" parent="." instance=ExtResource("12_0ogba")]
+offset_left = 611.0
+offset_top = 326.0
+offset_right = 611.0
+offset_bottom = 326.0

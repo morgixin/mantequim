@@ -1,0 +1,127 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnohsigqke0yg"]
+
+[ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="1_t2a8q"]
+[ext_resource type="Texture2D" uid="uid://dqodqei1v5vi7" path="res://assets/imagens/cartasDoorUI.png" id="2_ls2pa"]
+
+[sub_resource type="Theme" id="Theme_5sb2y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3khfa"]
+atlas = ExtResource("2_ls2pa")
+region = Rect2(0, 225, 146, 227.8)
+
+[node name="MonsterBox" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Panel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -116.0
+offset_right = 250.0
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_5sb2y")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ContainerMonstro" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Texto do Momento" type="RichTextLabel" parent="Panel/MarginContainer/ContainerMonstro"]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/normal_font = ExtResource("1_t2a8q")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[wave][center]MONSTRO SORTEADO"
+fit_content = true
+scroll_active = false
+
+[node name="Informações Monstro" type="HBoxContainer" parent="Panel/MarginContainer/ContainerMonstro"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro"]
+layout_mode = 2
+ratio = 0.1779
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro/AspectRatioContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_3khfa")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro"]
+visible = false
+
+[node name="Opções" type="VBoxContainer" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Propriedades Monstro" type="VBoxContainer" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro/Opções"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Nome Monstro" type="Label" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro/Opções/Propriedades Monstro"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_t2a8q")
+theme_override_font_sizes/font_size = 18
+text = "NOME:"
+
+[node name="Descrição Monstro" type="Label" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro/Opções/Propriedades Monstro"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_t2a8q")
+theme_override_font_sizes/font_size = 18
+text = "DESCRIÇÃO:"
+
+[node name="Força Monstro" type="Label" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro/Opções/Propriedades Monstro"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_t2a8q")
+theme_override_font_sizes/font_size = 18
+text = "FORÇA:"
+
+[node name="Tesouro" type="Label" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro/Opções/Propriedades Monstro"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_t2a8q")
+theme_override_font_sizes/font_size = 18
+text = "TESOURO:"
+
+[node name="Botões" type="HBoxContainer" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro/Opções"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Acao1" type="Button" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro/Opções/Botões"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_t2a8q")
+theme_override_font_sizes/font_size = 20
+text = "IR PARA O COMBATE"
+
+[node name="Acao2" type="Button" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro/Opções/Botões"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_t2a8q")
+theme_override_font_sizes/font_size = 20
+text = "FUGIR DO COMBATE"

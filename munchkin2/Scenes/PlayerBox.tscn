@@ -6,16 +6,17 @@
 [node name="PlayerBox" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_top = 88.0
-offset_right = 366.0
-offset_bottom = 88.0
+offset_left = 1.0
+offset_right = 1.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
 script = ExtResource("1_6j8cv")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 256.0
+offset_bottom = 108.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2

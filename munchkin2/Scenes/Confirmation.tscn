@@ -5,12 +5,15 @@
 
 [node name="Confirmation" type="Control"]
 process_mode = 3
+z_index = 4096
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 script = ExtResource("1_pri83")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -24,7 +27,7 @@ offset_right = 1.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.160784, 0, 0.309804, 0.0745098)
+color = Color(0.160784, 0, 0.309804, 0.156863)
 
 [node name="Modal" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(256, 128)
