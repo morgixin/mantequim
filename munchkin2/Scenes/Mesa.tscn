@@ -22,6 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 script = ExtResource("1_jrflu")
 
 [node name="sprite_batalha" type="TextureRect" parent="."]
@@ -35,6 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 2
 size_flags_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_vw6ao")
 expand_mode = 3
 metadata/_edit_use_anchors_ = true
@@ -48,6 +50,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 2
 size_flags_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_qbhdc")
 expand_mode = 3
 metadata/_edit_use_anchors_ = true
@@ -68,12 +71,13 @@ position = Vector2(607, 315)
 [node name="Jogador" parent="." instance=ExtResource("7_yad1l")]
 
 [node name="PlayerBox" parent="." instance=ExtResource("10_yeufm")]
-layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 
 [node name="Confirmation" parent="." instance=ExtResource("11_o60c4")]
-layout_mode = 2
-anchors_preset = 0
+layout_mode = 1
+mouse_filter = 2
 
 [node name="MonsterBox" parent="." instance=ExtResource("12_0ogba")]
 layout_mode = 1
+mouse_filter = 2
