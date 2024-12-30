@@ -5,7 +5,7 @@ const HAND_COUNT_DOOR = 4
 const CARD_ITEM_PATH = "res://Scenes/Cartas/CartaItem.tscn"
 const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
 const CARD_WIDTH = 120
-const MAO_Y = 633
+var MAO_Y: int
 
 var maoJogador = []
 var center_screen_x 
@@ -59,6 +59,7 @@ func _ready() -> void:
 	carregarCartasTesouro()
 	carregarCartasMonstro()
 	center_screen_x = get_viewport().size.x / 2
+	MAO_Y = get_viewport().size.y - 100
 
 	for i in range(HAND_COUNT_TREASURE):		
 		var cartaTesouro = sortearCartaTesouro()
@@ -83,6 +84,8 @@ func addMao(card):
 		
 	
 func updatePosicoes():
+	center_screen_x = get_viewport().size.x / 2
+	MAO_Y = get_viewport().size.y - 100
 	for i in range(maoJogador.size()):
 		maoJogador[i].z_index = maoJogador.size() - i
 		var newPosition = Vector2(calculaPosicao(i), MAO_Y + randi_range(0, 25))

@@ -72,11 +72,8 @@ layout_mode = 2
 size_flags_vertical = 8
 
 [node name="Confirmation" parent="." instance=ExtResource("11_o60c4")]
-visible = false
 layout_mode = 2
 anchors_preset = 0
 
 [node name="MonsterBox" parent="." instance=ExtResource("12_0ogba")]
-visible = false
-layout_mode = 2
-anchors_preset = 0
+layout_mode = 1

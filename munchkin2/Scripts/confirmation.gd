@@ -44,12 +44,6 @@ func onConfirm():
 	
 func onCancel():
 	close_modal(false)
-	
-func close(isConfirmed: bool = false):
-	if isConfirmed:
-		onConfirm()
-	else:
-		onCancel()
 
 func customize(header: String, msg: String, confirmText: String = "Confirmar", cancelText: String = "Cancelar", oneButton: bool = false, beOnLeft: bool = false):
 	header_ref.text = header
