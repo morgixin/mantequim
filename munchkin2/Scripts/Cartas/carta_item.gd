@@ -1,7 +1,4 @@
-
-class_name CartaItem
-extends CartaClass
-
+class_name CartaItem extends CartaClass
 @export var tipo_equipamento: int = -1
 @export var isBig: bool = false
 @export var forca: int = 0
@@ -10,6 +7,7 @@ extends CartaClass
 @export var classe_restrita = -1
 @export var raca_restrita = -1
 @export var tipo = -1
+@export var acao = -1
 
 func _ready() -> void:
 	get_parent().connect_card_signals(self)

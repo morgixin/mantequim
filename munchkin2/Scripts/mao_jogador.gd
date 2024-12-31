@@ -12,6 +12,7 @@ var center_screen_x
 var cartas_tesouro = []
 var cartas_monstro = []
 var isBot: bool = false
+var playerReference
 
 func carregarCartasTesouro():
 	var json_file = FileAccess.open("res://data/cartas_tesouro.json", FileAccess.READ)
@@ -38,6 +39,8 @@ func sortearCartaTesouro() -> CartaItem:
 	newCard.isBig = selectedCard.isbig
 	newCard.forca = selectedCard.força
 	newCard.tipo_equipamento = selectedCard.equip_tipo
+	newCard.acao = selectedCard.acao
+	newCard.donoDaCarta = playerReference
 	return newCard
 	
 func sortearCartaMonstro() -> CartaMonstro:	
@@ -53,6 +56,7 @@ func sortearCartaMonstro() -> CartaMonstro:
 	newCard.força_especifica = selectedCard.força_especifica
 	newCard.classe_especifica = selectedCard.classe_especifica
 	newCard.raça_especifica = selectedCard.raça_especifica
+	newCard.donoDaCarta = playerReference
 	
 	return newCard
 
@@ -63,6 +67,7 @@ func resize() -> void:
 		updatePosicoes()
 
 func _ready() -> void:
+	playerReference = $"../Jogador"
 	get_tree().get_root().size_changed.connect(resize)
 	center_screen_x = get_viewport().size.x / 2
 	MAO_Y = get_viewport().size.y - 100

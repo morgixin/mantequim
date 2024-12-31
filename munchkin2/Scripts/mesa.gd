@@ -7,6 +7,7 @@ var jogadores = []
 var momentoDoJogo = 0
 var jogadorAtual = 0
 var cartaSorteadaTurno: CartaClass
+var cartasInterferenciaTurno = []
 
 @onready var btn = $Confirmation
 @onready var sprite_mesa: TextureRect = $sprite_mesa
@@ -49,6 +50,7 @@ func instanciarBots():
 		novoBot.maoCartas = maoJogadorBot
 		novoBot.maoCartasEquipadas = maoEquipadosBot
 		novoBot.jogador = "Bot " + str(i)
+		maoJogadorBot.playerReference = novoBot
 		var botPlayerBox = preload("res://Scenes/PlayerBox.tscn").instantiate()
 		novoBot.player_box = botPlayerBox
 		jogadores.append(novoBot)
@@ -92,10 +94,28 @@ func mudarParaBatalha() -> void:
 	monster_box.customizarBox(cartaSorteadaTurno, "Aguardando Interferência de Outros Jogadores", true, "Aguarde", "", true)
 	monster_box.setTimerToClose(8)
 	var jogadorContinou = await monster_box.prompt()
+	escolherCartasInterferenciaBots()
+	for carta in cartasInterferenciaTurno:
+		var nomeDono = carta.donoDaCarta.jogador
+		monster_box.customizarBox(carta, nomeDono + " interferiu no seu jogo", true, "Continuar")
+		var proximaCarta = await monster_box.prompt()
 	
 	
+func escolherCartasInterferenciaBots():
+	cartasInterferenciaTurno = []
+	for jogador in jogadores:
+		var cartasAtual = jogador.maoCartas.maoJogador
+		var cartasValidas = []
+		for carta in cartasAtual:
+			if carta.tipo == 2 and carta.acao == 2:
+				cartasValidas.append(carta)
+		for cartaValida in cartasValidas:
+			var chance = randi_range(1, 10)
+			if chance > 7:
+				cartasInterferenciaTurno.append(cartaValida)
+				jogador.maoCartas.removeDaMao(cartaValida)
+			 
 	
-
 func carregarCartasMonstro():
 	var json_file = FileAccess.open("res://data/cartas_monstro.json", FileAccess.READ)
 	cartas_monstro = JSON.parse_string(json_file.get_as_text())

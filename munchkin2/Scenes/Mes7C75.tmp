@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://cw6mgdqymw4pd"]
+
+[ext_resource type="Script" path="res://Scripts/cartas_da_mesa.gd" id="1_4h4px"]
+[ext_resource type="Script" path="res://Scripts/mesa.gd" id="1_jrflu"]
+[ext_resource type="Texture2D" uid="uid://cruul8wmy16rs" path="res://assets/imagens/sprite_batalha.png" id="2_vw6ao"]
+[ext_resource type="Texture2D" uid="uid://chxmn512uuukp" path="res://assets/imagens/mesa_sprite.png" id="3_qbhdc"]
+[ext_resource type="PackedScene" uid="uid://cfo24lfmidt7w" path="res://Scenes/MaoJogador.tscn" id="4_l4aqy"]
+[ext_resource type="PackedScene" uid="uid://csq8ckr67n081" path="res://Scenes/Card_slot.tscn" id="4_o3s88"]
+[ext_resource type="PackedScene" uid="uid://p8okoxmgg5qm" path="res://Scenes/Slots/EquipSlot.tscn" id="5_hsnkd"]
+[ext_resource type="PackedScene" uid="uid://boqr4i7ccynr4" path="res://Scenes/MaoEquipados.tscn" id="5_twdfu"]
+[ext_resource type="PackedScene" uid="uid://d045xd5ex2g3" path="res://Scenes/Jogador.tscn" id="7_yad1l"]
+[ext_resource type="PackedScene" uid="uid://ficxtf4vno84" path="res://Scenes/PlayerBox.tscn" id="10_yeufm"]
+[ext_resource type="PackedScene" uid="uid://bylyqmpwpg14i" path="res://Scenes/Confirmation.tscn" id="11_o60c4"]
+[ext_resource type="PackedScene" uid="uid://cnohsigqke0yg" path="res://Scenes/PromptBatalha/MonsterBox.tscn" id="12_0ogba"]
+
+[node name="Mesa" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("1_jrflu")
+
+[node name="sprite_batalha" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_vw6ao")
+expand_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="sprite_mesa" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_qbhdc")
+expand_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="cartasDaMesa" type="Node2D" parent="."]
+script = ExtResource("1_4h4px")
+
+[node name="cardSlot" parent="." instance=ExtResource("4_o3s88")]
+position = Vector2(-206, 177)
+
+[node name="EquipSlot" parent="." instance=ExtResource("5_hsnkd")]
+position = Vector2(607, 315)
+
+[node name="MaoEquipados" parent="." instance=ExtResource("5_twdfu")]
+
+[node name="MaoJogador" parent="." instance=ExtResource("4_l4aqy")]
+
+[node name="Jogador" parent="." instance=ExtResource("7_yad1l")]
+
+[node name="Confirmation" parent="." instance=ExtResource("11_o60c4")]
+layout_mode = 1
+mouse_filter = 2
+
+[node name="MonsterBox" parent="." instance=ExtResource("12_0ogba")]
+layout_mode = 1
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+theme_override_constants/separation = 20
+
+[node name="PlayerBox" parent="HBoxContainer" instance=ExtResource("10_yeufm")]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2

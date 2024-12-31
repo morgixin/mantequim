@@ -12,6 +12,7 @@ const CARD_PATH = "res://Scenes/Cartas/Carta.tscn"
 var isTreasure: bool
 var isMonster: bool = false
 var cardScene = preload(CARD_PATH)
+var donoDaCarta: Jogador
 
 
 func create_card_instance(nome: String, frame: int, descricao_new: String) -> Node2D:
