@@ -15,6 +15,10 @@ func _ready() -> void:
 	playerHandReference = $"../MaoJogador"
 	playerItemsHandReference = $"../MaoEquipados"
 	playerReference = $"../Jogador"
+	get_tree().get_root().size_changed.connect(resize)
+	
+func resize() -> void:
+	screenSize = get_viewport_rect().size
 
 func _process(delta: float) -> void:
 	if cardBeingDragged:

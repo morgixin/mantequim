@@ -14,6 +14,7 @@ var screen
 
 func _ready() -> void:
 	set_process_unhandled_key_input(false) #Desativa o reconhecimento de input
+	get_tree().get_root().size_changed.connect(resize)
 	screen = get_viewport().size
 	posInicial = Vector2(screen.x/2 - $Modal.size[0]/2, screen.y/2 - $Modal.size[1]/2 - 30)
 	$Modal.position = posInicial
@@ -26,6 +27,17 @@ func _ready() -> void:
 	if cancel_ref:
 		cancel_ref.pressed.connect(onCancel) # Quando o botão for pressionado, chama a função onCancel
 	hide() # Apaga o prompt de confirmação
+
+func resize() -> void:
+	screen = get_viewport().size
+	posInicial = Vector2(screen.x/2 - $Modal.size[0]/2, screen.y/2 - $Modal.size[1]/2 - 30)
+	
+	if startOnLeft:
+		var posLado = Vector2(screen.x - $Modal.size[0] - 30,screen.y/2 - $Modal.size[1]/2 - 30)
+		$Modal.position = posLado
+	else:
+		$Modal.position = posInicial
+			
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
