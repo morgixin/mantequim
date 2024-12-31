@@ -68,17 +68,9 @@ func prompt(pause: bool = false) -> bool:
 	if startOnLeft:
 		var posLado = Vector2(screen.x - $Modal.size[0] - 30,screen.y/2 - $Modal.size[1]/2 - 30)
 		$Modal.position = posLado
-		#var tween = get_tree().create_tween()
-		#tween.tween_property($Modal, "position", posLado, 0.4)
-		#tween.play()
 	else:
 		print("tween meio")
 		var posMeio =Vector2(screen.x/2 - $Modal.size[0]/2, screen.y/2 - $Modal.size[1]/2 - 30)
-		#print(modal.position)
-		#print(posMeio)
-		#var tween = get_tree().create_tween()
-		#tween.tween_property(modal, "position", posMeio, 0.4)
-		#tween.play()
 	isOpen = true
 	set_process_unhandled_key_input(true) #Ativa o reconhecimento de input
 	var isConfirmed = await confirmed # Aguareda o sinal que só é enviado na função close

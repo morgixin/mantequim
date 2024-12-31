@@ -1,5 +1,7 @@
 class_name Mesa extends Control
 const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
+const BOT_PLAYER_PATH = "res://Scenes/JogadorBot.tscn"
+const BOTS_COUNT = 2
 var cartas_monstro = []
 var jogadores = []
 var momentoDoJogo = 0
@@ -23,6 +25,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	instanciarBots()
 	carregarCartasMonstro()
 	if jogadorAtual == 0 and momentoDoJogo == 0:
 		btn.customize("É o seu Turno!", "Está pronto para chutar a porta? Você pode se equipar antes", "Chutar a porta!", "Me equipar", true, true)
@@ -35,6 +38,27 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 	
+func instanciarBots():
+	for i in range(BOTS_COUNT):
+		var novoBot = JogadorBot.new()
+		var maoEquipadosBot = MaoEquipados.new()
+		var maoJogadorBot = MaoJogador.new()
+		maoEquipadosBot.jogadorReference = novoBot
+		maoEquipadosBot.isBot = true
+		maoJogadorBot.isBot = true
+		novoBot.maoCartas = maoJogadorBot
+		novoBot.maoCartasEquipadas = maoEquipadosBot
+		novoBot.jogador = "Bot " + str(i)
+		var botPlayerBox = preload("res://Scenes/PlayerBox.tscn").instantiate()
+		novoBot.player_box = botPlayerBox
+		jogadores.append(novoBot)
+		add_child(novoBot)
+		add_child(maoJogadorBot)
+		add_child(maoEquipadosBot)
+		$HBoxContainer.add_child(botPlayerBox)
+	
+		
+
 func sortearCartaPorta():	#Melhorar Depois
 	cartaSorteadaTurno = sortearCartaMonstro()
 	monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado", true, "Continuar")
@@ -64,16 +88,10 @@ func mudarParaBatalha() -> void:
 	sprite_mesa.hide()
 	sprite_batalha.show()
 	remove_child(equip_slot)
-	
-	
 	await get_tree().create_timer(0.7).timeout
-	
 	monster_box.customizarBox(cartaSorteadaTurno, "Aguardando Interferência de Outros Jogadores", true, "Aguarde")
 	var jogadorContinou = await monster_box.prompt()
-	
-	
-	
-	
+
 func carregarCartasMonstro():
 	var json_file = FileAccess.open("res://data/cartas_monstro.json", FileAccess.READ)
 	cartas_monstro = JSON.parse_string(json_file.get_as_text())

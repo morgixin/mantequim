@@ -3,39 +3,33 @@
 [ext_resource type="Script" path="res://Scripts/player_box.gd" id="1_6j8cv"]
 [ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="1_hsvhv"]
 
-[node name="PlayerBox" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="PlayerBox" type="MarginContainer"]
 offset_left = 1.0
-offset_right = 1.0
+offset_right = 289.0
+offset_bottom = 140.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
-script = ExtResource("1_6j8cv")
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
+script = ExtResource("1_6j8cv")
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 12
 
-[node name="PlayerContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+[node name="PlayerContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="NomeJogador" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/PlayerContainer"]
+[node name="NomeJogador" type="RichTextLabel" parent="PanelContainer/MarginContainer/PlayerContainer"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_hsvhv")
 theme_override_font_sizes/normal_font_size = 20
@@ -43,11 +37,11 @@ bbcode_enabled = true
 text = "Jogador: "
 fit_content = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/PlayerContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/PlayerContainer"]
 layout_direction = 2
 layout_mode = 2
 
-[node name="Raça" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/PlayerContainer/HBoxContainer2"]
+[node name="Raça" type="RichTextLabel" parent="PanelContainer/MarginContainer/PlayerContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/normal_font = ExtResource("1_hsvhv")
@@ -57,7 +51,7 @@ text = "Raça:
 "
 fit_content = true
 
-[node name="Classe" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/PlayerContainer/HBoxContainer2"]
+[node name="Classe" type="RichTextLabel" parent="PanelContainer/MarginContainer/PlayerContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/normal_font = ExtResource("1_hsvhv")
@@ -66,11 +60,11 @@ bbcode_enabled = true
 text = "Classe:"
 fit_content = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/PlayerContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/PlayerContainer"]
 layout_direction = 2
 layout_mode = 2
 
-[node name="NivelText" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/PlayerContainer/HBoxContainer"]
+[node name="NivelText" type="RichTextLabel" parent="PanelContainer/MarginContainer/PlayerContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/normal_font = ExtResource("1_hsvhv")
@@ -79,7 +73,7 @@ bbcode_enabled = true
 text = "Nível:"
 fit_content = true
 
-[node name="ForçaText" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/PlayerContainer/HBoxContainer"]
+[node name="ForçaText" type="RichTextLabel" parent="PanelContainer/MarginContainer/PlayerContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/normal_font = ExtResource("1_hsvhv")

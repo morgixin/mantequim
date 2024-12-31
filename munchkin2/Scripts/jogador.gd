@@ -4,7 +4,7 @@ extends Node2D
 @export var jogador: String = "Rafael"
 @export var nivel: int = 1
 @export var forca: int = 1
-var classe: int = 1
+var classe: int = -1
 var raca: int = 1 #começa como humano
 var maoCartas
 var maoCartasEquipadas
@@ -19,19 +19,19 @@ const classeDict = {
 	1: "Ladrão",
 	2: "Clérigo"
 }
-@onready var player_box: PlayerBox = $"../PlayerBox"
+var player_box: PlayerBox
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	maoCartas = $"../MaoJogador"
 	maoCartasEquipadas = $"../MaoEquipados"
+	player_box = $"../HBoxContainer/PlayerBox"
 
 func setForca(novo_valor: int) -> void:
 	forca = novo_valor
 	
 func aumentarNivel(qtd_niveis: int) -> void:
 	nivel += qtd_niveis
-
 
 	
 func verificaEquipadas(carta: CartaItem):
@@ -71,7 +71,6 @@ func admitirCarta(carta: CartaClass) -> bool:
 		return false
 	return true
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	player_box.customize(jogador, classeDict[classe], nivel, forca, racaDict[raca])
 	

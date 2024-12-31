@@ -1,4 +1,4 @@
-extends Node2D
+class_name MaoJogador extends Node2D
 
 const HAND_COUNT_TREASURE = 4
 const HAND_COUNT_DOOR = 4
@@ -11,6 +11,7 @@ var maoJogador = []
 var center_screen_x 
 var cartas_tesouro = []
 var cartas_monstro = []
+var isBot: bool = false
 
 func carregarCartasTesouro():
 	var json_file = FileAccess.open("res://data/cartas_tesouro.json", FileAccess.READ)
@@ -56,9 +57,10 @@ func sortearCartaMonstro() -> CartaMonstro:
 	return newCard
 
 func resize() -> void:
-	center_screen_x = get_viewport().size.x / 2
-	MAO_Y = get_viewport().size.y - 100
-	updatePosicoes()
+	if !isBot:
+		center_screen_x = get_viewport().size.x / 2
+		MAO_Y = get_viewport().size.y - 100
+		updatePosicoes()
 
 func _ready() -> void:
 	get_tree().get_root().size_changed.connect(resize)
@@ -66,11 +68,10 @@ func _ready() -> void:
 	MAO_Y = get_viewport().size.y - 100
 	carregarCartasTesouro()
 	carregarCartasMonstro()
-
-
 	for i in range(HAND_COUNT_TREASURE):		
 		var cartaTesouro = sortearCartaTesouro()
-		$"../cartasDaMesa".add_child(cartaTesouro)
+		if !isBot:
+			$"../cartasDaMesa".add_child(cartaTesouro)
 		addMao(cartaTesouro)
 	for i in range(HAND_COUNT_DOOR):		
 		var dicCartasDoor = {
@@ -79,16 +80,17 @@ func _ready() -> void:
 			#2: sortearCartaRaca()
 		}
 		var cartaDoor = dicCartasDoor[randi_range(0,0)]
-		$"../cartasDaMesa".add_child(cartaDoor)
+		if !isBot:
+			$"../cartasDaMesa".add_child(cartaDoor)
 		addMao(cartaDoor)
 
 func addMao(card):
 	if card not in maoJogador:
 		maoJogador.insert(0, card)
-		updatePosicoes()
-	else:
+		if !isBot:
+			updatePosicoes()
+	elif !isBot:
 		animateCardToPosition(card, card.posInicial)
-		
 	
 func updatePosicoes():
 	center_screen_x = get_viewport().size.x / 2
@@ -114,7 +116,8 @@ func calculaPosicao(index):
 func removeDaMao(card):
 	if card in maoJogador:
 		maoJogador.erase(card)
-		updatePosicoes()
+		if !isBot:
+			updatePosicoes()
 		
 func _process(delta: float) -> void:
 	pass

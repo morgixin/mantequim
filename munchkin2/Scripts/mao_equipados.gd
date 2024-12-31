@@ -1,10 +1,12 @@
-extends Node2D
+class_name MaoEquipados extends Node2D
 
 const CARD_WIDTH = 120*0.7
 const MAO_Y = 80
 
 var cartasEquipadas = []
 var end_screen_x 
+var isBot: bool = false
+@onready var jogadorReference = $"../Jogador"
 
 func _ready() -> void:
 	get_tree().get_root().size_changed.connect(resize)
@@ -13,13 +15,15 @@ func _ready() -> void:
 func addMao(card):
 	if card not in cartasEquipadas:
 		cartasEquipadas.insert(0, card)
-		updatePosicoes()
-	else:
+		if !isBot:
+			updatePosicoes()
+		else:
+			calcularForca()
+	elif !isBot:
 		animateCardToPosition(card, card.posInicial)
 		
 	
 func calcularForca():
-	var jogadorReference = $"../Jogador"
 	var forcaAtual = jogadorReference.nivel
 	for i in range(cartasEquipadas.size()):
 		forcaAtual += cartasEquipadas[i].forca
@@ -50,12 +54,16 @@ func calculaPosicao(index):
 func removeDaMao(card):
 	if card in cartasEquipadas:
 		cartasEquipadas.erase(card)
-		updatePosicoes()
+		if !isBot:
+			updatePosicoes()
+		else:
+			calcularForca()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
 func resize() -> void:
-	end_screen_x = get_viewport().size.x
-	updatePosicoes()
+	if !isBot:
+		end_screen_x = get_viewport().size.x
+		updatePosicoes()

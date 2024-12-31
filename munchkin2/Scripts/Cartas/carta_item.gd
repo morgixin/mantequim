@@ -11,14 +11,12 @@ extends CartaClass
 @export var raca_restrita = -1
 @export var tipo = -1
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	get_parent().connect_card_signals(self)
 	definirFrame()
 	self.isTreasure = true
-	pass # Replace with function body.
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 

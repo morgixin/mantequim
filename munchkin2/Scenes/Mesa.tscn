@@ -70,14 +70,19 @@ position = Vector2(607, 315)
 
 [node name="Jogador" parent="." instance=ExtResource("7_yad1l")]
 
-[node name="PlayerBox" parent="." instance=ExtResource("10_yeufm")]
-size_flags_vertical = 8
-mouse_filter = 2
-
 [node name="Confirmation" parent="." instance=ExtResource("11_o60c4")]
 layout_mode = 1
 mouse_filter = 2
 
 [node name="MonsterBox" parent="." instance=ExtResource("12_0ogba")]
 layout_mode = 1
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+theme_override_constants/separation = 20
+
+[node name="PlayerBox" parent="HBoxContainer" instance=ExtResource("10_yeufm")]
+layout_mode = 2
+size_flags_vertical = 8
 mouse_filter = 2
