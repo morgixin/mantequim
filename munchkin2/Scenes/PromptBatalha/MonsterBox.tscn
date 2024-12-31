@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnohsigqke0yg"]
+[gd_scene load_steps=7 format=3 uid="uid://cnohsigqke0yg"]
 
 [ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="1_t2a8q"]
 [ext_resource type="Script" path="res://Scenes/PromptBatalha/monster_box.gd" id="1_yomly"]
 [ext_resource type="Texture2D" uid="uid://dqodqei1v5vi7" path="res://assets/imagens/cartasDoorUI.png" id="2_ls2pa"]
+[ext_resource type="Texture2D" uid="uid://cb58w3ixgt4eo" path="res://assets/imagens/cartasTesouroUI.png" id="4_ihe0b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3khfa"]
 atlas = ExtResource("2_ls2pa")
+region = Rect2(730, 1125, 146, 227.8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52wf7"]
+atlas = ExtResource("4_ihe0b")
 region = Rect2(730, 1125, 146, 227.8)
 
 [node name="MonsterBox" type="Control"]
@@ -65,10 +70,14 @@ scroll_active = false
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro"]
+[node name="TextureDoor" type="TextureRect" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_3khfa")
 expand_mode = 3
+
+[node name="TextureTesouro" type="TextureRect" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_52wf7")
 
 [node name="Opções" type="VBoxContainer" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro"]
 layout_mode = 2

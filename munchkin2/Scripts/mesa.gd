@@ -89,8 +89,12 @@ func mudarParaBatalha() -> void:
 	sprite_batalha.show()
 	remove_child(equip_slot)
 	await get_tree().create_timer(0.7).timeout
-	monster_box.customizarBox(cartaSorteadaTurno, "Aguardando Interferência de Outros Jogadores", true, "Aguarde")
+	monster_box.customizarBox(cartaSorteadaTurno, "Aguardando Interferência de Outros Jogadores", true, "Aguarde", "", true)
+	monster_box.setTimerToClose(8)
 	var jogadorContinou = await monster_box.prompt()
+	
+	
+	
 
 func carregarCartasMonstro():
 	var json_file = FileAccess.open("res://data/cartas_monstro.json", FileAccess.READ)

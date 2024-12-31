@@ -13,8 +13,13 @@ var posInicial
 @onready var forca_monstro_label: Label = $"Panel/MarginContainer/ContainerMonstro/Informações Monstro/Opções/Propriedades Monstro/Força Monstro"
 @onready var tesouro_label: Label = $"Panel/MarginContainer/ContainerMonstro/Informações Monstro/Opções/Propriedades Monstro/Tesouro"
 
-@onready var texture_rect: TextureRect = $"Panel/MarginContainer/ContainerMonstro/Informações Monstro/TextureRect"
+@onready var framesDoor = $"Panel/MarginContainer/ContainerMonstro/Informações Monstro/TextureDoor"
+@onready var framesTesouro = $"Panel/MarginContainer/ContainerMonstro/Informações Monstro/TextureTesouro"
+
+@onready var texture_rect: TextureRect = framesDoor
 @onready var panel: PanelContainer = $Panel
+
+var timer: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,14 +45,33 @@ func fecharBox(acaoEscolhida: bool):
 	apertarUmBotao.emit(acaoEscolhida)
 	hide()
 	
-func customizarBox(carta: CartaMonstro, titulo: String = "", mostrarApenasUmBotao: bool = true, btn1Label: String = "Continuar", btn2Label: String = ""):
+func customizarBox(carta: CartaClass, titulo: String = "", mostrarApenasUmBotao: bool = true, btn1Label: String = "Continuar", btn2Label: String = "", desativarbtn1: bool = false, desativarbtn2: bool = false):
+	timer = 0
 	nome_monstro_label.text = "NOME: " + carta.nome
 	descricao_monstro_label.text = "DESCRIÇÃO: " + carta.descricao
-	forca_monstro_label.text = "FORÇA: " + str(carta.forca) #Adicionar força específica
-	tesouro_label.text = "TESOURO: " + str(carta.tesouro)
 	texto_do_momento.text = "[wave][center]"+titulo
 	btn_acao_1_ref.text = btn1Label
 	btn_acao_2_ref.text = btn2Label
+	
+	if (carta.tipo == 3):
+		forca_monstro_label.text = "FORÇA: " + str(carta.forca) #Adicionar força específica
+		tesouro_label.text = "TESOURO: " + str(carta.tesouro)
+		forca_monstro_label.show()
+		tesouro_label.show()
+		texture_rect = framesDoor
+		framesTesouro.hide()
+		framesDoor.show()
+	else:
+		forca_monstro_label.hide()
+		tesouro_label.hide()
+	
+	if (carta.tipo == 1 or carta.tipo == 2):
+		texture_rect = framesTesouro
+		framesTesouro.show()
+		framesDoor.hide()
+	
+	btn_acao_1_ref.disabled = desativarbtn1
+	btn_acao_2_ref.disabled = desativarbtn2
 	
 	var frame_carta = carta.frame
 
@@ -62,11 +86,20 @@ func customizarBox(carta: CartaMonstro, titulo: String = "", mostrarApenasUmBota
 	else:
 		btn_acao_2_ref.show()
 	
+func setTimerToClose(tempo: int) -> void:
+	timer = tempo
+	
 func prompt():
 	show()
 	set_process_unhandled_key_input(true) #Ativa o reconhecimento de input
-	var botaoEscolhido = await apertarUmBotao # Aguareda o sinal que só é enviado na função close
-	return botaoEscolhido
+	# IMPLEMENTAR https://github.com/ava-cassiopeia/gdscript-signals NO FUTURO PARA ESPERAR QUALQUER UM
+	if (timer != 0):
+		await get_tree().create_timer(timer).timeout
+		fecharBox(true)
+		return true
+	else:
+		var botaoEscolhido = await apertarUmBotao # Aguareda o sinal que só é enviado na função close
+		return botaoEscolhido
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
