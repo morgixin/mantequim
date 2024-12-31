@@ -6,9 +6,10 @@ const MAO_Y = 80
 var cartasEquipadas = []
 var end_screen_x 
 var isBot: bool = false
-@onready var jogadorReference = $"../Jogador"
+var jogadorReference
 
 func _ready() -> void:
+	jogadorReference = $"../Jogador"
 	get_tree().get_root().size_changed.connect(resize)
 	end_screen_x = get_viewport().size.x
 

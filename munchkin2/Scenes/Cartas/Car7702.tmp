@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://jvtuamjq0x3h"]
+
+[ext_resource type="Script" path="res://Scripts/Cartas/carta.gd" id="1_y10vc"]
+[ext_resource type="Texture2D" uid="uid://c7wc2oumchmdq" path="res://assets/imagens/backgroundCard.png" id="2_ylgb0"]
+[ext_resource type="Texture2D" uid="uid://r0a53i7plh3x" path="res://assets/imagens/CartasTesouro.png" id="3_iahxs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_llui5"]
+size = Vector2(130, 210)
+
+[node name="Carta" type="Node2D"]
+script = ExtResource("1_y10vc")
+
+[node name="BackgroundCard" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.603922)
+scale = Vector2(0.25, 0.235)
+texture = ExtResource("2_ylgb0")
+
+[node name="carta_sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("3_iahxs")
+hframes = 6
+vframes = 13
+frame = 23
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_llui5")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

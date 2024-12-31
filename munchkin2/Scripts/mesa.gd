@@ -4,6 +4,7 @@ const BOT_PLAYER_PATH = "res://Scenes/JogadorBot.tscn"
 const BOTS_COUNT = 2
 var cartas_monstro = []
 var jogadores = []
+var jogadores_bot = []
 var momentoDoJogo = 0
 var jogadorAtual = 0
 var cartaSorteadaTurno: CartaClass
@@ -26,6 +27,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	jogadores.append($Jogador)
 	instanciarBots()
 	carregarCartasMonstro()
 	if jogadorAtual == 0 and momentoDoJogo == 0:
@@ -43,17 +45,16 @@ func instanciarBots():
 	for i in range(BOTS_COUNT):
 		var novoBot = JogadorBot.new()
 		var maoEquipadosBot = MaoEquipados.new()
-		var maoJogadorBot = MaoJogador.new()
-		maoEquipadosBot.jogadorReference = novoBot
+		var maoJogadorBot = MaoJogador.create(novoBot)
 		maoEquipadosBot.isBot = true
 		maoJogadorBot.isBot = true
 		novoBot.maoCartas = maoJogadorBot
 		novoBot.maoCartasEquipadas = maoEquipadosBot
 		novoBot.jogador = "Bot " + str(i)
-		maoJogadorBot.playerReference = novoBot
 		var botPlayerBox = preload("res://Scenes/PlayerBox.tscn").instantiate()
 		novoBot.player_box = botPlayerBox
 		jogadores.append(novoBot)
+		jogadores_bot.append(novoBot)
 		add_child(novoBot)
 		add_child(maoJogadorBot)
 		add_child(maoEquipadosBot)
@@ -94,26 +95,31 @@ func mudarParaBatalha() -> void:
 	monster_box.customizarBox(cartaSorteadaTurno, "Aguardando Interferência de Outros Jogadores", true, "Aguarde", "", true)
 	monster_box.setTimerToClose(8)
 	var jogadorContinou = await monster_box.prompt()
+	print("Escolhendo cartas")
 	escolherCartasInterferenciaBots()
+	print(cartasInterferenciaTurno)
 	for carta in cartasInterferenciaTurno:
 		var nomeDono = carta.donoDaCarta.jogador
 		monster_box.customizarBox(carta, nomeDono + " interferiu no seu jogo", true, "Continuar")
 		var proximaCarta = await monster_box.prompt()
-	
+		await get_tree().create_timer(0.2).timeout #esperar antes de mostrar a próxima caixa
 	
 func escolherCartasInterferenciaBots():
 	cartasInterferenciaTurno = []
-	for jogador in jogadores:
-		var cartasAtual = jogador.maoCartas.maoJogador
+	print(jogadores_bot)
+	for bot in jogadores_bot:
+		print(bot.jogador)
+		var cartasAtual = bot.maoCartas.maoJogador
 		var cartasValidas = []
 		for carta in cartasAtual:
-			if carta.tipo == 2 and carta.acao == 2:
+			if carta.tipo == 1:
 				cartasValidas.append(carta)
+		print(cartasValidas)
 		for cartaValida in cartasValidas:
-			var chance = randi_range(1, 10)
-			if chance > 7:
-				cartasInterferenciaTurno.append(cartaValida)
-				jogador.maoCartas.removeDaMao(cartaValida)
+			#var chance = randi_range(1, 10)
+			#if chance >= 1:
+			cartasInterferenciaTurno.append(cartaValida)
+			bot.maoCartas.removeDaMao(cartaValida)
 			 
 	
 func carregarCartasMonstro():
