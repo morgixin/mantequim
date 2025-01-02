@@ -9,8 +9,12 @@ var momentoDoJogo = 0
 var jogadorAtual = 0
 var cartaSorteadaTurno: CartaClass
 var cartasInterferenciaTurno = []
+var cartasSlotDeAjuda = []
 
+
+var useCardSlot = null
 @onready var btn = $Confirmation
+@onready var use_card_slot_prompt = $useCardSlotPrompt
 @onready var sprite_mesa: TextureRect = $sprite_mesa
 @onready var sprite_batalha: TextureRect = $sprite_batalha
 @onready var monster_box: MonsterBoxUI = $MonsterBox
@@ -60,8 +64,6 @@ func instanciarBots():
 		add_child(maoEquipadosBot)
 		$HBoxContainer.add_child(botPlayerBox)
 	
-		
-
 func sortearCartaPorta():	#Melhorar Depois
 	cartaSorteadaTurno = sortearCartaMonstro()
 	monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado", true, "Continuar")
@@ -90,6 +92,7 @@ func sortearCartaMonstro() -> CartaMonstro:
 	return newCard	
 	
 func mudarParaBatalha() -> void:
+	momentoDoJogo = 1
 	sprite_mesa.hide()
 	sprite_batalha.show()
 	remove_child(equip_slot)
@@ -105,9 +108,43 @@ func mudarParaBatalha() -> void:
 		monster_box.customizarBox(carta, nomeDono + " interferiu no seu jogo", true, "Continuar")
 		var proximaCarta = await monster_box.prompt()
 		await get_tree().create_timer(0.2).timeout #esperar antes de mostrar a próxima caixa
-	btn.customize("Deseja usar algum one-shot item antes da batalha? Lembre-se: você não pode mais colocar equipamentos!", "aaaaaaaaaaa", "Sim", "Não", false, false)
+	btn.customize("Deseja usar algum one-shot item antes da batalha?", "Lembre-se: você não pode mais colocar equipamentos!", "Sim", "Não", false, false)
 	var isConfirmed = await btn.prompt(true)
-	
+	await get_tree().create_timer(0.2).timeout
+	if (isConfirmed):
+		momentoInterferencia()
+	else:
+		mostrarResumoDaBatalha()
+		
+		
+func momentoInterferencia() -> void:
+	momentoDoJogo = 2
+	var useCardSlotScene = preload("res://Scenes/Slots/UseSlot.tscn") 
+	var newUseCardSlot = useCardSlotScene.instantiate()
+	var screen = get_viewport_rect().size
+	newUseCardSlot.position = Vector2(screen.x/2, screen.y/2 - 80)
+	add_child(newUseCardSlot)
+	useCardSlot = newUseCardSlot
+	newUseCardSlot.btn = btn
+	newUseCardSlot.use_card_confirmation = use_card_slot_prompt
+	if (jogadorAtual == 0):
+		newUseCardSlot.slotDeAjudaNaBatalha = true
+	btn.customize("Pronto para continuar?", "Você pode jogar mais de uma carta", "Sim", "", true, true)
+	var isConfirmed = await btn.prompt(false)
+	if (isConfirmed and jogadorAtual == 0):
+		cartasSlotDeAjuda = newUseCardSlot.cartasUsadas
+	if (isConfirmed):
+		await newUseCardSlot.desativarCartas()
+		remove_child(newUseCardSlot)
+		mostrarResumoDaBatalha()
+
+func mostrarResumoDaBatalha() -> void:
+	monster_box.customizarBox(cartaSorteadaTurno, "Resumo da Batalha de " + jogadores[jogadorAtual].jogador, false, "Atacar Monstro", "Fugir", false)
+	var jogadorContinou = await monster_box.prompt()
+		
+func aplicarEfeitos() -> void:
+	pass
+
 func escolherCartasInterferenciaBots():
 	cartasInterferenciaTurno = []
 	print(jogadores_bot)
@@ -128,9 +165,7 @@ func escolherCartasInterferenciaBots():
 				cartasInterferenciaTurno.append(cartaValida)
 				bot.maoCartas.removeDaMao(cartaValida)
 				contadorInterf +=1
-				
-			 
-	
+					 
 func carregarCartasMonstro():
 	var json_file = FileAccess.open("res://data/cartas_monstro.json", FileAccess.READ)
 	cartas_monstro = JSON.parse_string(json_file.get_as_text())

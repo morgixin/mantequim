@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://p8okoxmgg5qm"]
 
-[ext_resource type="Script" path="res://Scripts/equip_slot.gd" id="1_ou0v0"]
+[ext_resource type="Script" path="res://Scripts/Slots/equip_slot.gd" id="1_ou0v0"]
 [ext_resource type="Texture2D" uid="uid://bqv78wgudco2o" path="res://assets/imagens/EquipSlot.png" id="2_idj2e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f3bjm"]

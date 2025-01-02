@@ -9,6 +9,7 @@ var playerReference
 const COLLISION_MASK = 1
 const COLLISION_MASK_SLOT = 2
 const COLLISION_MASK_EQUIP = 4
+const COLLISION_MASK_USE = 8
 
 func _ready() -> void:
 	screenSize = get_viewport_rect().size
@@ -46,6 +47,7 @@ func stop_drag():
 		cardBeingDragged.scale = Vector2(1.05, 1.05)
 		var cardSlotFound = raycast_check_for_card_slot()
 		var cardEquipFound = raycast_check_for_card_equip()
+		var cardUseFound = raycast_check_for_card_use()
 		
 		if cardSlotFound:
 			playerHandReference.removeDaMao(cardBeingDragged)
@@ -61,6 +63,18 @@ func stop_drag():
 				random_degrees
 			)
 			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = true
+		elif cardUseFound and cardUseFound.admiteCarta(cardBeingDragged):
+			playerHandReference.removeDaMao(cardBeingDragged)
+			playerItemsHandReference.removeDaMao(cardBeingDragged)
+			cardBeingDragged.z_index = cardUseFound.getNextStackIndex()
+			cardBeingDragged.position = cardUseFound.position
+			var random_degrees = randf_range(-10, 10)
+			cardBeingDragged.rotation = deg_to_rad(
+				random_degrees
+			)
+			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = false
+			cardUseFound.addCartaUsada(cardBeingDragged)
+			
 		elif cardEquipFound and playerReference.admitirCarta(cardBeingDragged): 
 			playerHandReference.removeDaMao(cardBeingDragged)
 			cardBeingDragged.z_index = cardEquipFound.getNextStackIndex()
@@ -69,6 +83,8 @@ func stop_drag():
 			
 		else:
 			playerItemsHandReference.removeDaMao(cardBeingDragged)
+			if $"..".useCardSlot:
+				$"..".useCardSlot.removerDaMao(cardBeingDragged)
 			playerHandReference.addMao(cardBeingDragged)
 		cardBeingDragged = null
 
@@ -135,6 +151,17 @@ func raycast_check_for_card_slot():
 		return result[0].collider.get_parent()
 	return null
 
+func raycast_check_for_card_use():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_USE
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return get_card_with_highest_z_index(result)
+	return null
+
 func raycast_check_for_card():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
@@ -145,4 +172,6 @@ func raycast_check_for_card():
 	if result.size() > 0:
 		return get_card_with_highest_z_index(result)
 	return null
+	
+
 	

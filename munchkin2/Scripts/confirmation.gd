@@ -39,9 +39,9 @@ func resize() -> void:
 		$Modal.position = posInicial
 			
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		onCancel() # Se o prompt aparecer e o usuário perder esc, vamos fechar o prompt
+#func _unhandled_key_input(event: InputEvent) -> void:
+	#if event.is_action_pressed("ui_cancel"):
+		#onCancel() # Se o prompt aparecer e o usuário perder esc, vamos fechar o prompt
 
 func close_modal(isConfirmed):
 	set_process_unhandled_key_input(false) #Desativa o reconhecimento de input
