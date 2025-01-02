@@ -113,7 +113,6 @@ func mudarParaBatalha() -> void:
 	else:
 		mostrarResumoDaBatalha()
 		
-		
 func momentoInterferencia() -> void:
 	momentoDoJogo = 2
 	var useCardSlotScene = preload("res://Scenes/Slots/UseSlot.tscn") 
@@ -167,19 +166,21 @@ func fugir() -> void:
 	await get_tree().create_timer(0.2).timeout
 	#TODO: implementar particularidades das classes e raças quanto ao 'fugir'
 	if dado >= 5: 
-		btn.customize("Você fugiu do combate", "Você não vai ganhar o tesouro, mas também não perderá níveis", "Continuar", "", true, true)
+		btn.customize("Você fugiu do combate", "Você não vai ganhar o tesouro, mas também não perderá níveis", "Continuar", "", true, false)
 		await btn.prompt(false)
 	else:
-		atacarMonstro()
+		await atacarMonstro()
 
 func mostrarResumoDaBatalha() -> void:
 	momentoDoJogo = 3
 	monster_box.customizarBox(cartaSorteadaTurno, "Resumo da Batalha de " + jogadores[jogadorAtual].jogador, false, "Atacar Monstro", "Fugir", false)
 	var jogadorAtacou = await monster_box.prompt()
 	if jogadorAtacou:
-		atacarMonstro()
+		await atacarMonstro()
 	else:
-		fugir()
+		await fugir()
+	await get_tree().create_timer(0.2).timeout
+	await momentoDescarte()
 	
 func aplicarEfeitos() -> void:
 	pass
@@ -210,4 +211,15 @@ func carregarCartasMonstro():
 	cartas_monstro = JSON.parse_string(json_file.get_as_text())
 	json_file.close()
 
+func momentoDescarte() -> void:
+	momentoDoJogo = 4
+	var useDiscardScene = preload("res://Scenes/Slots/DiscardSlot.tscn") 
+	var newDiscard = useDiscardScene.instantiate()
+	var screen = get_viewport_rect().size
+	newDiscard.position = Vector2(screen.x/2, screen.y/2 - 80)
+	add_child(newDiscard)
+	newDiscard.btn = btn
+	newDiscard.discard_confirmation = use_card_slot_prompt
+	btn.customize("Pronto para botar o lixo pra fora?", "Você pode descartar mais de uma carta", "Sim", "", true, true)
+	var isConfirmed = await btn.prompt(false)
 	

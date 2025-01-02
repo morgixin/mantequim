@@ -9,6 +9,7 @@ var playerReference
 const COLLISION_MASK = 1
 const COLLISION_MASK_SLOT = 2
 const COLLISION_MASK_EQUIP = 4
+const COLLISION_MASK_DISCARD = 16
 const COLLISION_MASK_USE = 8
 
 func _ready() -> void:
@@ -48,15 +49,12 @@ func stop_drag():
 		var cardSlotFound = raycast_check_for_card_slot()
 		var cardEquipFound = raycast_check_for_card_equip()
 		var cardUseFound = raycast_check_for_card_use()
-		
+		var discardFound = raycast_check_for_discard()
 		if cardSlotFound:
 			playerHandReference.removeDaMao(cardBeingDragged)
 			playerItemsHandReference.removeDaMao(cardBeingDragged)
-			
 			cardSlotFound.getNextStackIndex()
 			cardBeingDragged.z_index = cardSlotFound.stack_index
-			
-			
 			cardBeingDragged.position = cardSlotFound.position
 			var random_degrees = randf_range(-10, 10)
 			cardBeingDragged.rotation = deg_to_rad(
@@ -69,9 +67,7 @@ func stop_drag():
 			cardBeingDragged.z_index = cardUseFound.getNextStackIndex()
 			cardBeingDragged.position = cardUseFound.position
 			var random_degrees = randf_range(-10, 10)
-			cardBeingDragged.rotation = deg_to_rad(
-				random_degrees
-			)
+			cardBeingDragged.rotation = deg_to_rad(random_degrees)
 			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = false
 			cardUseFound.addCartaUsada(cardBeingDragged)
 			
@@ -80,7 +76,22 @@ func stop_drag():
 			cardBeingDragged.z_index = cardEquipFound.getNextStackIndex()
 			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = false
 			playerItemsHandReference.addMao(cardBeingDragged)
-			
+		elif discardFound:
+			var cartaParaDescarte = cardBeingDragged
+			playerHandReference.removeDaMao(cardBeingDragged)
+			cartaParaDescarte.get_node("Area2D/CollisionShape2D").disabled = true
+			var toDiscard =  await discardFound.confirmaDescarte()
+			playerItemsHandReference.removeDaMao(cartaParaDescarte)
+			if $"..".useCardSlot:
+				$"..".useCardSlot.removerDaMao(cartaParaDescarte)
+			if toDiscard:
+				var tween_hide = get_tree().create_tween()
+				tween_hide.tween_property(cardBeingDragged, "scale", Vector2(0,0), 0.35)
+				await tween_hide.finished
+				cardBeingDragged.hide()
+			else:
+				cartaParaDescarte.get_node("Area2D/CollisionShape2D").disabled = false
+				playerHandReference.addMao(cartaParaDescarte)
 		else:
 			playerItemsHandReference.removeDaMao(cardBeingDragged)
 			if $"..".useCardSlot:
@@ -168,6 +179,17 @@ func raycast_check_for_card():
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
 	parameters.collision_mask = COLLISION_MASK
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return get_card_with_highest_z_index(result)
+	return null
+	
+func raycast_check_for_discard():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_DISCARD
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return get_card_with_highest_z_index(result)
