@@ -73,7 +73,9 @@ func sortearCartaPorta():	#Melhorar Depois
 	
 func sortearCartaMonstro() -> CartaMonstro:	
 	var cardMonsterScene = preload(CARD_MONSTER_PATH)
-	var selectedCard = cartas_monstro[randi_range(0, cartas_monstro.size()-1)]
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var selectedCard = cartas_monstro[rng.randi_range(0, cartas_monstro.size()-1)]
 	var newCard = cardMonsterScene.instantiate()
 	
 	newCard.nome = selectedCard.nome_carta
@@ -103,6 +105,8 @@ func mudarParaBatalha() -> void:
 		monster_box.customizarBox(carta, nomeDono + " interferiu no seu jogo", true, "Continuar")
 		var proximaCarta = await monster_box.prompt()
 		await get_tree().create_timer(0.2).timeout #esperar antes de mostrar a próxima caixa
+	btn.customize("Deseja usar algum one-shot item antes da batalha?", "Lembre-se: você não pode mais colocar equipamentos!", "Sim", "Não", false, false)
+	var isConfirmed = await btn.prompt(true)
 	
 func escolherCartasInterferenciaBots():
 	cartasInterferenciaTurno = []
@@ -112,14 +116,19 @@ func escolherCartasInterferenciaBots():
 		var cartasAtual = bot.maoCartas.maoJogador
 		var cartasValidas = []
 		for carta in cartasAtual:
-			if carta.tipo == 1:
+			if carta.tipo == 1 and carta.acao == 1:
 				cartasValidas.append(carta)
 		print(cartasValidas)
+		var contadorInterf = 0
 		for cartaValida in cartasValidas:
-			#var chance = randi_range(1, 10)
-			#if chance >= 1:
-			cartasInterferenciaTurno.append(cartaValida)
-			bot.maoCartas.removeDaMao(cartaValida)
+			var num = RandomNumberGenerator.new()
+			num.randomize()
+			var chance = num.randi_range(1,4)
+			if chance == 4 and contadorInterf < 2:
+				cartasInterferenciaTurno.append(cartaValida)
+				bot.maoCartas.removeDaMao(cartaValida)
+				contadorInterf +=1
+				
 			 
 	
 func carregarCartasMonstro():

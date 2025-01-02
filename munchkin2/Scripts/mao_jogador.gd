@@ -91,9 +91,23 @@ func carregarCartasMonstro():
 	cartas_monstro = JSON.parse_string(json_file.get_as_text())
 	json_file.close()
 	
-func sortearCartaTesouro() -> CartaItem:
+
+func instanciarCartaMonstro(selectedCard):
+	var cardMonsterScene = preload(CARD_MONSTER_PATH)
+	var newCard = cardMonsterScene.instantiate()
+	newCard.nome = selectedCard.nome_carta
+	newCard.descricao = selectedCard.descricao_carta
+	newCard.frame = selectedCard.frame
+	newCard.tipo = selectedCard.tipo
+	newCard.forca = selectedCard.força
+	newCard.força_especifica = selectedCard.força_especifica
+	newCard.classe_especifica = selectedCard.classe_especifica
+	newCard.raça_especifica = selectedCard.raça_especifica
+	newCard.donoDaCarta = playerReference
+	return newCard
+	
+func instanciarCartaTesouro(selectedCard):
 	var cardItemScene = preload(CARD_ITEM_PATH)
-	var selectedCard = cartas_tesouro[randi_range(0, cartas_tesouro.size()-1)]
 	var newCard = cardItemScene.instantiate()
 	newCard.nome = selectedCard.nome_carta
 	newCard.descricao = selectedCard.descricao_carta
@@ -109,23 +123,27 @@ func sortearCartaTesouro() -> CartaItem:
 	newCard.acao = selectedCard.acao
 	newCard.donoDaCarta = playerReference
 	return newCard
+
+func sortearCartaTesouro() -> CartaItem:
+	var selectedCard = evitarRepeticao(cartas_tesouro)
+	var newCard = instanciarCartaTesouro(selectedCard)
+	return newCard
 	
 func sortearCartaMonstro() -> CartaMonstro:	
-	var cardMonsterScene = preload(CARD_MONSTER_PATH)
-	var selectedCard = cartas_monstro[randi_range(0, cartas_monstro.size()-1)]
-	var newCard = cardMonsterScene.instantiate()
-	
-	newCard.nome = selectedCard.nome_carta
-	newCard.descricao = selectedCard.descricao_carta
-	newCard.frame = selectedCard.frame
-	newCard.tipo = selectedCard.tipo
-	newCard.forca = selectedCard.força
-	newCard.força_especifica = selectedCard.força_especifica
-	newCard.classe_especifica = selectedCard.classe_especifica
-	newCard.raça_especifica = selectedCard.raça_especifica
-	newCard.donoDaCarta = playerReference
-	
+	var selectedCard = evitarRepeticao(cartas_monstro)
+	var newCard = instanciarCartaMonstro(selectedCard)
 	return newCard
+
+func evitarRepeticao(cartas_array):
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var selectedCard = cartas_array[rng.randi_range(0, cartas_monstro.size()-1)]
+	var cartaSelecionada = selectedCard
+	for carta in self.maoJogador:
+		if (carta.descricao == cartaSelecionada.descricao_carta) and (carta.nome == cartaSelecionada.nome_carta):
+			cartaSelecionada = evitarRepeticao(cartas_array)
+	return cartaSelecionada
+		
 
 func resize() -> void:
 	if !isBot:

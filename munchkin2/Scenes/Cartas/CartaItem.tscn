@@ -20,7 +20,7 @@ scale = Vector2(0.22, 0.22)
 texture = ExtResource("3_bbjy1")
 hframes = 6
 vframes = 13
-frame = 23
+frame = 70
 
 [node name="Area2D" type="Area2D" parent="."]
 
