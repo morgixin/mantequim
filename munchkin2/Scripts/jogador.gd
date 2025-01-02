@@ -32,6 +32,7 @@ func setForca(novo_valor: int) -> void:
 	
 func aumentarNivel(qtd_niveis: int) -> void:
 	nivel += qtd_niveis
+	maoCartasEquipadas.calcularForca()
 
 	
 func verificaEquipadas(carta: CartaItem):
@@ -73,5 +74,6 @@ func admitirCarta(carta: CartaClass) -> bool:
 
 func _process(_delta: float) -> void:
 	player_box.customize(jogador, classeDict[classe], nivel, forca, racaDict[raca])
+	
 	
 	

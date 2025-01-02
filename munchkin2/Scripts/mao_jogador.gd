@@ -103,6 +103,8 @@ func instanciarCartaMonstro(selectedCard):
 	newCard.força_especifica = selectedCard.força_especifica
 	newCard.classe_especifica = selectedCard.classe_especifica
 	newCard.raça_especifica = selectedCard.raça_especifica
+	newCard.lvl_reward = selectedCard.lvl_reward
+	newCard.tesouro = selectedCard.tesouro
 	newCard.donoDaCarta = playerReference
 	return newCard
 	

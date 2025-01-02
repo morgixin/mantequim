@@ -40,10 +40,6 @@ func _ready() -> void:
 		if jogadorChutouAPorta:
 			sortearCartaPorta()
 	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 func instanciarBots():
 	for i in range(BOTS_COUNT):
@@ -71,15 +67,14 @@ func sortearCartaPorta():	#Melhorar Depois
 	var jogadorContinuou = await monster_box.prompt()
 	if jogadorContinuou:
 		mudarParaBatalha()
-	
-	
+		
 func sortearCartaMonstro() -> CartaMonstro:	
 	var cardMonsterScene = preload(CARD_MONSTER_PATH)
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var selectedCard = cartas_monstro[rng.randi_range(0, cartas_monstro.size()-1)]
 	var newCard = cardMonsterScene.instantiate()
-	
+	newCard.tesouro = selectedCard.tesouro
 	newCard.nome = selectedCard.nome_carta
 	newCard.descricao = selectedCard.descricao_carta
 	newCard.frame = selectedCard.frame
@@ -88,7 +83,9 @@ func sortearCartaMonstro() -> CartaMonstro:
 	newCard.força_especifica = selectedCard.força_especifica
 	newCard.classe_especifica = selectedCard.classe_especifica
 	newCard.raça_especifica = selectedCard.raça_especifica
-	
+	newCard.lvl_reward = selectedCard.lvl_reward
+	newCard.acao = selectedCard.acao
+	newCard.acaoParametro = selectedCard.acao_parametro
 	return newCard	
 	
 func mudarParaBatalha() -> void:
@@ -112,7 +109,7 @@ func mudarParaBatalha() -> void:
 	var isConfirmed = await btn.prompt(true)
 	await get_tree().create_timer(0.2).timeout
 	if (isConfirmed):
-		momentoInterferencia()
+		momentoInterferencia() #equipar one shot items
 	else:
 		mostrarResumoDaBatalha()
 		
@@ -128,20 +125,62 @@ func momentoInterferencia() -> void:
 	newUseCardSlot.btn = btn
 	newUseCardSlot.use_card_confirmation = use_card_slot_prompt
 	if (jogadorAtual == 0):
-		newUseCardSlot.slotDeAjudaNaBatalha = true
+		newUseCardSlot.slotAjudaJogador = true
 	btn.customize("Pronto para continuar?", "Você pode jogar mais de uma carta", "Sim", "", true, true)
 	var isConfirmed = await btn.prompt(false)
 	if (isConfirmed and jogadorAtual == 0):
 		cartasSlotDeAjuda = newUseCardSlot.cartasUsadas
-	if (isConfirmed):
+	if (isConfirmed): #TODO: salvar cartas para aplicar na batalha do oponente
 		await newUseCardSlot.desativarCartas()
 		remove_child(newUseCardSlot)
 		mostrarResumoDaBatalha()
 
+func atacarMonstro():
+	if jogadores[jogadorAtual].forca > cartaSorteadaTurno.forca:
+			var lvl_gain = cartaSorteadaTurno.lvl_reward
+			var tesouro = cartaSorteadaTurno.tesouro
+			btn.customize("Você venceu o combate!", "Você subiu " + str(lvl_gain) + " nível(is)\n e ganhou " + str(tesouro) + " tesouros.", "Continuar", "", true)
+			await btn.prompt(false)
+			jogadores[jogadorAtual].aumentarNivel(lvl_gain)
+	else:
+		var vaiDiminuirNivel: bool = cartaSorteadaTurno.acao == 2
+		print(cartaSorteadaTurno)
+		if vaiDiminuirNivel:
+			if (jogadores[jogadorAtual].nivel - abs(cartaSorteadaTurno.acaoParametro) > 0):
+				btn.customize("Você perdeu o combate!", "Você perdeu " + str(abs(cartaSorteadaTurno.acaoParametro)) + " nível(is).", "Continuar", "", true)
+				await btn.prompt(false)
+				jogadores[jogadorAtual].aumentarNivel(cartaSorteadaTurno.acaoParametro)
+			else:
+				btn.customize("Você perdeu o combate!", "Você morreu", "Continuar", "", true)
+				await btn.prompt(false)
+				jogadores[jogadorAtual].aumentarNivel(cartaSorteadaTurno.acaoParametro)
+		else: 
+			btn.customize("Você perdeu o combate!", "", "Continuar", "", true)
+			await btn.prompt(false)
+
+func fugir() -> void:
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var dado = rng.randi_range(1,6)
+	btn.customize("Você rolou o dado...", "seu resultado foi: " + str(dado), "Continuar", "", true, false)
+	await btn.prompt(false)
+	await get_tree().create_timer(0.2).timeout
+	#TODO: implementar particularidades das classes e raças quanto ao 'fugir'
+	if dado >= 5: 
+		btn.customize("Você fugiu do combate", "Você não vai ganhar o tesouro, mas também não perderá níveis", "Continuar", "", true, true)
+		await btn.prompt(false)
+	else:
+		atacarMonstro()
+
 func mostrarResumoDaBatalha() -> void:
+	momentoDoJogo = 3
 	monster_box.customizarBox(cartaSorteadaTurno, "Resumo da Batalha de " + jogadores[jogadorAtual].jogador, false, "Atacar Monstro", "Fugir", false)
-	var jogadorContinou = await monster_box.prompt()
-		
+	var jogadorAtacou = await monster_box.prompt()
+	if jogadorAtacou:
+		atacarMonstro()
+	else:
+		fugir()
+	
 func aplicarEfeitos() -> void:
 	pass
 

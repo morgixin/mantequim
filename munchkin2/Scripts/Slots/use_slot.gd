@@ -1,7 +1,7 @@
 extends Node2D
 var stack_index: int = 2
 var cartasUsadas = []
-var slotDeAjudaNaBatalha = false #Determina se esse slot mostrará prompt para que o usuário escolha quem vai ajudar
+var slotAjudaJogador = false #Determina se esse slot mostrará prompt para que o usuário escolha quem vai ajudar
 var use_card_confirmation
 var btn
 
@@ -35,7 +35,7 @@ func removerDaMao(carta: CartaClass) -> void:
 	print(cartasUsadas)
 
 func addCartaUsada(carta: CartaClass) -> void:
-	if (!slotDeAjudaNaBatalha):
+	if (slotAjudaJogador == false):
 		if (btn):
 			btn.hide()
 		use_card_confirmation.customize("Quem deseja ajudar?", "Escolha entre o monstro ou o jogador", "Jogador", "Monstro", false, false)
