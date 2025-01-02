@@ -12,7 +12,8 @@
 	"acao": 3,
 	"acao_parametro": -1,
 	"tesouro": 1,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": 3
   }, 
 {
 	"tipo": 3,
@@ -27,7 +28,8 @@
 	"acao": 2,
 	"acao_parametro": -3,
 	"tesouro": 4,
-	"lvl_reward": 2	
+	"lvl_reward": 2	,
+	"target": -1
 	},
 {
 	"tipo": 3,
@@ -42,12 +44,13 @@
 	"acao": 2,
 	"acao_parametro": -3,
 	"tesouro": 3,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
   },
 {
 	"tipo": 3,
 	"nome_carta": "Coceira",
-	"descricao_carta": "Se perder, perca um item aleatório imediatamente - se não estiver equipado com nada, desça um nível. Não há como fugir da coceira!",
+	"descricao_carta": "Se perder, perca um item aqualquer imediatamente - se não estiver equipado com nada, desça um nível. Não há como fugir da coceira!",
 	"frame": 24,
 	"força": 1,
 	"min_level": 1,
@@ -57,7 +60,8 @@
 	"acao": 3,
 	"acao_parametro": -1,
 	"tesouro": 1,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": 1
 },
 {
 	"tipo": 3,
@@ -72,12 +76,13 @@
 	"acao": 2,
 	"acao_parametro": -3,
 	"tesouro": 3,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": 2
 },
 {
 	"tipo": 3,
 	"nome_carta": "Leprechaun",
-	"descricao_carta": "Se perder, perca dois itens aleatórios imediatamente - se não estiver equipado, desça um nível. +5 contra elfos.",
+	"descricao_carta": "Se perder, perca um item qualquer imediatamente - se não estiver equipado, desça um nível. +5 contra elfos.",
 	"frame": 32,
 	"força": 4,
 	"min_level": 1,
@@ -87,7 +92,8 @@
 	"acao": 3,
 	"acao_parametro": -1,
 	"tesouro": 2,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": 1
 },
 {
 	"tipo": 3,
@@ -102,7 +108,8 @@
 	"acao": 3,
 	"acao_parametro": -1,
 	"tesouro": 1,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -117,7 +124,8 @@
 	"acao": 2,
 	"acao_parametro": -2,
 	"tesouro": 1,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -132,7 +140,8 @@
 	"acao": 2,
 	"acao_parametro": -2,
 	"tesouro": 1,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -147,7 +156,8 @@
 	"acao": 3,
 	"acao_parametro": -2,
 	"tesouro": 1,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": 4
 },
 {
 	"tipo": 3,
@@ -162,7 +172,8 @@
 	"acao": 2,
 	"acao_parametro": 0,
 	"tesouro": 1,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -177,7 +188,8 @@
 	"acao": 2,
 	"acao_parametro": -1,
 	"tesouro": 1,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -192,7 +204,8 @@
 	"acao": 2,
 	"acao_parametro": -1,
 	"tesouro": 1,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -207,7 +220,8 @@
 	"acao": 2,
 	"acao_parametro": -11,
 	"tesouro": 5,
-	"lvl_reward": 2
+	"lvl_reward": 2,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -222,7 +236,8 @@
 	"acao": 3,
 	"acao_parametro": -1,
 	"tesouro": 2,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": 5
 },
 {
 	"tipo": 3,
@@ -237,7 +252,8 @@
 	"acao": 3,
 	"acao_parametro": -1,
 	"tesouro": 2,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": 6
 },
 {
 	"tipo": 3,
@@ -252,7 +268,8 @@
 	"acao": 2,
 	"acao_parametro": -2,
 	"tesouro": 2,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -267,7 +284,8 @@
 	"acao": 2,
 	"acao_parametro": -11,
 	"tesouro": 5,
-	"lvl_reward": 2
+	"lvl_reward": 2,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -282,12 +300,13 @@
 	"acao": 2,
 	"acao_parametro": -2,
 	"tesouro": 2,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
 	"nome_carta": "Usuário médio de Discord",
-	"descricao_carta": "+6 contra guerreiros. Se perder, perca sua raça e/ou classe. Se for só um humano comum, desça dois níveis.",
+	"descricao_carta": "+6 contra guerreiros. Se perder, perca sua classe. Se for só um humano comum (sem classe), desça dois níveis.",
 	"frame": 70,
 	"força": 6,
 	"min_level": 1,
@@ -297,7 +316,8 @@
 	"acao": 2,
 	"acao_parametro": -2,
 	"tesouro": 2,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -312,7 +332,8 @@
 	"acao": 2,
 	"acao_parametro": -3,
 	"tesouro": 3,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -327,7 +348,8 @@
 	"acao": 2,
 	"acao_parametro": -2,
 	"tesouro": 3,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -342,7 +364,8 @@
 	"acao": 2,
 	"acao_parametro": -2,
 	"tesouro": 1,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 {
 	"tipo": 3,
@@ -355,8 +378,9 @@
 	"classe_especifica": -1,
 	"raça_especifica": -1,
 	"acao": 5,
-	"acao_parametro": -1,
+	"acao_parametro": 99,
 	"tesouro": 2,
-	"lvl_reward": 1
+	"lvl_reward": 1,
+	"target": -1
 },
 ]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://byjd7043aw5k"]
+
+[ext_resource type="Script" path="res://Scripts/Cartas/carta_classe.gd" id="1_swusp"]
+
+[node name="CartaClasse" type="Node2D"]
+script = ExtResource("1_swusp")

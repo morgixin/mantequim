@@ -9,6 +9,7 @@ var força_especifica:int = -1
 var classe_especifica: int = -1
 var raça_especifica: int = -1
 var tesouro: int = 1
+var target: int = -1
 
 
 # Called when the node enters the scene tree for the first time.

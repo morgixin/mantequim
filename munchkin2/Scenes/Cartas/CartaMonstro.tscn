@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgmqxpitngjuo"]
+[gd_scene load_steps=5 format=3 uid="uid://2hfphofylgut"]
 
 [ext_resource type="Script" path="res://Scripts/Cartas/carta_monstro.gd" id="1_p3ab0"]
 [ext_resource type="Texture2D" uid="uid://c7wc2oumchmdq" path="res://assets/imagens/backgroundCard.png" id="2_by3wg"]
@@ -20,7 +20,7 @@ scale = Vector2(0.22, 0.22)
 texture = ExtResource("3_bao6v")
 hframes = 6
 vframes = 16
-frame = 23
+frame = 85
 
 [node name="Area2D" type="Area2D" parent="."]
 

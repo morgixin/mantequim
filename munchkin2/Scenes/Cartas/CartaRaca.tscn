@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://css1ciovuigtr"]
+
+[ext_resource type="Script" path="res://Scripts/Cartas/carta_raca.gd" id="1_moakn"]
+
+[node name="CartaRaca" type="Node2D"]
+script = ExtResource("1_moakn")

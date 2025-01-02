@@ -1,0 +1,142 @@
+[
+	{
+	"tipo": 6,
+	"nome_carta": "Maldição Muito Irritante",
+	"descricao_carta": "Perca seu item de maior bônus - se não possuir nenhum, perca dois níveis!",
+	"frame": 12,
+	"acao": 3,
+	"acao_parametro": 2,
+	"target": 99,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Perca Duas Cartas",
+	"descricao_carta": "Perca duas cartas!",
+	"frame": 16,
+	"acao": 5,
+	"acao_parametro": 2,
+	"target": -1,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Espelho da Morte",
+	"descricao_carta": "Encare sua morte: você não pode mais fugir de nenhum combate!",
+	"frame": 22,
+	"acao": 7,
+	"acao_parametro": -1,
+	"target": -1,
+	"permanente": true
+},
+{
+	"tipo": 6,
+	"nome_carta": "Raio na Cabeça",
+	"descricao_carta": "Se estiver equipado com algum item de cabeça, perca-o imediatamente - senão, perca um nível!",
+	"frame": 36,
+	"acao": 3,
+	"acao_parametro": -1,
+	"target": 6,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Sem Raça",
+	"descricao_carta": "Perca sua raça imediatamente e volte a ser humano! Se já for, perca um nível.",
+	"frame": 37,
+	"acao": 6,
+	"acao_parametro": -1,
+	"target": -1,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Perca o Sapato",
+	"descricao_carta": "Se estiver equipado com algum item de  pé, perca-o imediatamente - senão, perca um nível!",
+	"frame": 43,
+	"acao": 3,
+	"acao_parametro": -1,
+	"target": 3,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Desclassificado",
+	"descricao_carta": "Perca sua classe - se não tiver nenhuma, perca um nível.",
+	"frame": 44,
+	"acao": 4,
+	"acao_parametro": -1,
+	"target": -1,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Perca um item",
+	"descricao_carta": "Perca um small item aleatório - se não possuir nenhum, perca um nível",
+	"frame": 49,
+	"acao": 3,
+	"acao_parametro": -1,
+	"target": 1,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Perca um nível",
+	"descricao_carta": "Simples assim.",
+	"frame": 53,
+	"acao": 2,
+	"acao_parametro": -1,
+	"target": -1,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Perca um nível",
+	"descricao_carta": "Simples assim.",
+	"frame": 64,
+	"acao": 2,
+	"acao_parametro": -1,
+	"target": -1,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Perca um item",
+	"descricao_carta": "Perca um small item aleatório - se não possuir nenhum, perca um nível",
+	"frame": 63,
+	"acao": 3,
+	"acao_parametro": -1,
+	"target": 1,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Perca um Big item",
+	"descricao_carta": "Perca um Big item - se não possuir nenhum, perca um nível",
+	"frame": 62,
+	"acao": 3,
+	"acao_parametro": -1,
+	"target": 2,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Perca sua armadura",
+	"descricao_carta": "Perca sua armadura - se não estiver usando, perca um nível",
+	"frame": 67,
+	"acao": 3,
+	"acao_parametro": -1,
+	"target": 4,
+	"permanente": false
+},
+{
+	"tipo": 6,
+	"nome_carta": "Pato Amaldiçoado",
+	"descricao_carta": "Perca dois níveis!",
+	"frame": 85,
+	"acao": 2,
+	"acao_parametro": -2,
+	"target": -1,
+	"permanente": false
+},
+]

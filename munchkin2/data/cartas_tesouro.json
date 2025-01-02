@@ -598,5 +598,35 @@
 	"força": -1,
 	"acao": 2,
 	"acao_parametro": 1	
-}
+},
+{
+	"nome_carta": "Stepladder",
+	"tipo": 2,
+	"frame": 63,
+	"equip_tipo": 5,
+	"isbig": true,
+	"raça_exigida": 4,
+	"classe_exigida": -1,
+	"classe_restrita": -1,
+	"raça_restrita": -1,
+	"descricao_carta": "Big item que só pode ser usado por halflings. Adiciona +3 de força.",
+	"força": 3,
+	"acao": -1,
+	"acao_parametro": -1	
+},
+{
+	"nome_carta": "Stepladder",
+	"tipo": 2,
+	"frame": 66,
+	"equip_tipo": 5,
+	"isbig": true,
+	"raça_exigida": 4,
+	"classe_exigida": -1,
+	"classe_restrita": -1,
+	"raça_restrita": -1,
+	"descricao_carta": "Equipamento que só pode ser usado por halflings. Adiciona +3 de força.",
+	"força": 3,
+	"acao": -1,
+	"acao_parametro": -1	
+},
 ]
