@@ -59,11 +59,13 @@ theme_override_constants/separation = 20
 layout_mode = 2
 
 [node name="header" type="Label" parent="Modal/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_3eu5p")
 theme_override_font_sizes/font_size = 25
 text = "Título do Prompt"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="message" type="Label" parent="Modal/MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(400, 0)

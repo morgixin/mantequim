@@ -105,7 +105,7 @@ func mudarParaBatalha() -> void:
 		monster_box.customizarBox(carta, nomeDono + " interferiu no seu jogo", true, "Continuar")
 		var proximaCarta = await monster_box.prompt()
 		await get_tree().create_timer(0.2).timeout #esperar antes de mostrar a próxima caixa
-	btn.customize("Deseja usar algum one-shot item antes da batalha?", "Lembre-se: você não pode mais colocar equipamentos!", "Sim", "Não", false, false)
+	btn.customize("Deseja usar algum one-shot item antes da batalha? Lembre-se: você não pode mais colocar equipamentos!", "aaaaaaaaaaa", "Sim", "Não", false, false)
 	var isConfirmed = await btn.prompt(true)
 	
 func escolherCartasInterferenciaBots():
