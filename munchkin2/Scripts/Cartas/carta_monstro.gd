@@ -9,7 +9,7 @@ extends CartaClass
 var forca_total: int = forca
 var incremento_forca = []
 
-var força_especifica:int = -1
+var força_especifica: int = -1
 var classe_especifica: int = -1
 var raça_especifica: int = -1
 var tesouro: int = 1
@@ -29,7 +29,7 @@ func calcularForcaTotal() -> int:
 	forca_total = somaDasForcas
 	return forca_total
 	
-func adicioanarIncrementoForca(valor: int) -> void:
+func adicionarIncrementoForca(valor: int) -> void:
 	incremento_forca.append(valor)
 	calcularForcaTotal()
 

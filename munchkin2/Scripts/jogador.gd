@@ -35,6 +35,11 @@ func aumentarNivel(qtd_niveis: int) -> void:
 	nivel += qtd_niveis
 	maoCartasEquipadas.calcularForca()
 
+func setClasseJogador(classe: int) -> void:
+	self.classe = classe
+	
+func setRacaJogador(raca: int) -> void:
+	self.raca = raca
 	
 func verificaEquipadas(carta: CartaItem):
 	var tipo = carta.getTipoEquip()

@@ -4,18 +4,15 @@ const BOTS_COUNT = 2
 const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
 const BOT_PLAYER_PATH = "res://Scenes/JogadorBot.tscn"
 
-# CARTAS PARA SORTEIO
-var cartas_monstro = []
-
 # VARIÁVEIS DE JOGO
 var momentoDoJogo = 0
 var jogadores = []
 var jogadores_bot = []
-var jogadorAtual = 1
-
+var jogadorAtual = 0
 var cartaSorteadaTurno: CartaClass
 var cartasInterferenciaTurno = []
 var cartasSlotDeAjuda = []
+var gerCartas: GerenciadorCartasClass
 
 var useCardSlot = null
 @onready var prompt1 = $Confirmation
@@ -27,11 +24,10 @@ var useCardSlot = null
 func _ready() -> void:
 	jogadores.append($Jogador)
 	instanciarBots()
-	carregarCartasMonstro()
 	
 	# Iniciando primeiro momento do Jogo
 	momentoSeEquipar()
-	
+	gerCartas = GerenciadorCartasClass.new()
 # ---------------------------------------------------
 #! MOMENTO PARA O JOGADOR SE EQUIPAR
 func momentoSeEquipar() -> void:
@@ -47,7 +43,8 @@ func momentoSeEquipar() -> void:
 		prompt1.customize("É o seu Turno!", "Está pronto para chutar a porta? Você pode se equipar antes", "Chutar a porta!", "Me equipar", true, true)
 		var jogadorChutouAPorta = await prompt1.prompt(false)
 		if jogadorChutouAPorta:
-			sortearCartaPorta()
+			cartaSorteadaTurno = gerCartas.sortearCartaPorta()
+			print(cartaSorteadaTurno.nome)
 			monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado", true, "Continuar")
 			remove_child(equip_slot)
 			var jogadorContinuou = await monster_box.prompt()
@@ -79,7 +76,7 @@ func mudarParaBatalha() -> void:
 		var nomeDono = carta.donoDaCarta.jogador
 		monster_box.customizarBox(carta, nomeDono + " interferiu no seu jogo", true, "Continuar")
 		if (carta.acao == 1 and cartaSorteadaTurno.tipo == 3):
-			cartaSorteadaTurno.adicioanarIncrementoForca(carta.acao_parametro) # Método de carta monstro que adiciona força incremental
+			cartaSorteadaTurno.adicionarIncrementoForca(carta.acao_parametro) # Método de carta monstro que adiciona força incremental
 		var proximaCarta = await monster_box.prompt()
 		await get_tree().create_timer(0.2).timeout # Esperar antes de mostrar a próxima caixa
 	
@@ -93,7 +90,7 @@ func mudarParaBatalha() -> void:
 	else:
 		mostrarResumoDaBatalha()
 
-#! MOMENTO DO JOGADOR INTERFEIR NO SEU PRÓPRIO TURNO OU TURNO DE OUTROS JOGADORES
+#! MOMENTO DO JOGADOR INTERFERIR NO SEU PRÓPRIO TURNO OU TURNO DE OUTROS JOGADORES
 func momentoInterferencia() -> void:
 	momentoDoJogo = 2
 	
@@ -172,6 +169,7 @@ func atacarMonstro() -> void:
 		else: 
 			prompt1.customize("Você perdeu o combate!", "", "Continuar", "", true)
 			await prompt1.prompt(false)
+
 func fugirMonstro() -> void:
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -207,6 +205,7 @@ func escolherCartasInterferenciaBots():
 				cartasInterferenciaTurno.append(cartaValida)
 				bot.maoCartas.removeDaMao(cartaValida)
 				contadorInterf +=1
+
 func instanciarBots():
 	for i in range(BOTS_COUNT):
 		var novoBot = JogadorBot.new()
@@ -226,31 +225,4 @@ func instanciarBots():
 		add_child(maoEquipadosBot)
 		$HBoxContainer.add_child(botPlayerBox)
 	
-#! FUNÇÕES DE SORTEIO DE CARTAS
-func sortearCartaPorta():	#TODO: ADICIONAR MAIS TIPOS DE CARTA NO SORTEIO
-	cartaSorteadaTurno = sortearCartaMonstro()
-func sortearCartaMonstro() -> CartaMonstro:	
-	var cardMonsterScene = preload(CARD_MONSTER_PATH)
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	var selectedCard = cartas_monstro[rng.randi_range(0, cartas_monstro.size()-1)]
-	var newCard = cardMonsterScene.instantiate()
-	newCard.tesouro = selectedCard.tesouro
-	newCard.nome = selectedCard.nome_carta
-	newCard.descricao = selectedCard.descricao_carta
-	newCard.frame = selectedCard.frame
-	newCard.tipo = selectedCard.tipo
-	newCard.forca = selectedCard.força
-	newCard.forca_total = newCard.forca
-	newCard.força_especifica = selectedCard.força_especifica
-	newCard.classe_especifica = selectedCard.classe_especifica
-	newCard.raça_especifica = selectedCard.raça_especifica
-	newCard.lvl_reward = selectedCard.lvl_reward
-	newCard.acao = selectedCard.acao
-	newCard.acaoParametro = selectedCard.acao_parametro
-	return newCard	
-func carregarCartasMonstro():
-	var json_file = FileAccess.open("res://data/cartas_monstro.json", FileAccess.READ)
-	cartas_monstro = JSON.parse_string(json_file.get_as_text())
-	json_file.close()
 	
