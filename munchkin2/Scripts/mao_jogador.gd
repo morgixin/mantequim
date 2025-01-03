@@ -13,8 +13,7 @@ var cartas_tesouro = []
 var cartas_monstro = []
 var isBot: bool = false
 var playerReference
-
-
+var gerCartas: GerenciadorCartasClass
 
 static func create(donoDaMao = null) -> MaoJogador:
 	var newObject = MaoJogador.new()
@@ -22,22 +21,25 @@ static func create(donoDaMao = null) -> MaoJogador:
 	return newObject
 	
 func _ready() -> void:
+	gerCartas = GerenciadorCartasClass.new()
 	if (!playerReference):
 		playerReference = $"../Jogador"
 	
 	get_tree().get_root().size_changed.connect(resize)
 	center_screen_x = get_viewport().size.x / 2
 	MAO_Y = get_viewport().size.y - 100
-	carregarCartasTesouro()
-	carregarCartasMonstro()
+	cartas_tesouro = gerCartas.carregarCartasTesouro()
+	cartas_monstro = gerCartas.carregarCartasMonstro()
+	
 	for i in range(HAND_COUNT_TREASURE):		
-		var cartaTesouro = sortearCartaTesouro()
+		var cartaTesouro = gerCartas.sortearCartaTesouro(self.maoJogador, playerReference)
 		if !isBot:
 			$"../cartasDaMesa".add_child(cartaTesouro)
 		addMao(cartaTesouro)
+
 	for i in range(HAND_COUNT_DOOR):		
 		var dicCartasDoor = {
-			0: sortearCartaMonstro(),
+			0: gerCartas.sortearCartaMonstro(self.maoJogador, playerReference),
 			#1: sortearCartaMaldicao(),
 			#2: sortearCartaRaca()
 		}
@@ -81,73 +83,6 @@ func removeDaMao(card):
 		if !isBot:
 			updatePosicoes()
 		
-func carregarCartasTesouro():
-	var json_file = FileAccess.open("res://data/cartas_tesouro.json", FileAccess.READ)
-	cartas_tesouro = JSON.parse_string(json_file.get_as_text())
-	json_file.close()
-	
-func carregarCartasMonstro():
-	var json_file = FileAccess.open("res://data/cartas_monstro.json", FileAccess.READ)
-	cartas_monstro = JSON.parse_string(json_file.get_as_text())
-	json_file.close()
-	
-
-func instanciarCartaMonstro(selectedCard):
-	var cardMonsterScene = preload(CARD_MONSTER_PATH)
-	var newCard = cardMonsterScene.instantiate()
-	newCard.nome = selectedCard.nome_carta
-	newCard.descricao = selectedCard.descricao_carta
-	newCard.frame = selectedCard.frame
-	newCard.tipo = selectedCard.tipo
-	newCard.forca = selectedCard.força
-	newCard.força_especifica = selectedCard.força_especifica
-	newCard.classe_especifica = selectedCard.classe_especifica
-	newCard.raça_especifica = selectedCard.raça_especifica
-	newCard.lvl_reward = selectedCard.lvl_reward
-	newCard.tesouro = selectedCard.tesouro
-	newCard.donoDaCarta = playerReference
-	return newCard
-	
-func instanciarCartaTesouro(selectedCard):
-	var cardItemScene = preload(CARD_ITEM_PATH)
-	var newCard = cardItemScene.instantiate()
-	newCard.nome = selectedCard.nome_carta
-	newCard.descricao = selectedCard.descricao_carta
-	newCard.frame = selectedCard.frame
-	newCard.classe_exigida = selectedCard.classe_exigida
-	newCard.raca_exigida = selectedCard.raça_exigida
-	newCard.classe_restrita = selectedCard.classe_restrita
-	newCard.raca_restrita = selectedCard.raça_restrita
-	newCard.tipo = selectedCard.tipo
-	newCard.isBig = selectedCard.isbig
-	newCard.forca = selectedCard.força
-	newCard.tipo_equipamento = selectedCard.equip_tipo
-	newCard.acao = selectedCard.acao
-	newCard.acao_parametro = selectedCard.acao_parametro
-	newCard.donoDaCarta = playerReference
-	return newCard
-
-func sortearCartaTesouro() -> CartaItem:
-	var selectedCard = evitarRepeticao(cartas_tesouro)
-	var newCard = instanciarCartaTesouro(selectedCard)
-	return newCard
-	
-func sortearCartaMonstro() -> CartaMonstro:	
-	var selectedCard = evitarRepeticao(cartas_monstro)
-	var newCard = instanciarCartaMonstro(selectedCard)
-	return newCard
-
-func evitarRepeticao(cartas_array):
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	var selectedCard = cartas_array[rng.randi_range(0, cartas_monstro.size()-1)]
-	var cartaSelecionada = selectedCard
-	for carta in self.maoJogador:
-		if (carta.descricao == cartaSelecionada.descricao_carta) and (carta.nome == cartaSelecionada.nome_carta):
-			cartaSelecionada = evitarRepeticao(cartas_array)
-	return cartaSelecionada
-		
-
 func resize() -> void:
 	if !isBot:
 		center_screen_x = get_viewport().size.x / 2

@@ -1,6 +1,6 @@
 extends Node2D
 var stack_index: int = 2
-var cartasUsadas = []
+var cartasUsadas: Array[CartaClass] = []
 var slotAjudaJogador = false #Determina se esse slot mostrará prompt para que o usuário escolha quem vai ajudar
 var use_card_confirmation
 var btn

@@ -4,9 +4,6 @@ const BOTS_COUNT = 2
 const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
 const BOT_PLAYER_PATH = "res://Scenes/JogadorBot.tscn"
 
-# CARTAS PARA SORTEIO
-var cartas_monstro = []
-
 # VARIÁVEIS DE JOGO
 var momentoDoJogo = 0
 var jogadores: Array[Jogador] = []
@@ -17,6 +14,7 @@ var cartaSorteadaTurno: CartaClass
 var cartasInterferenciaTurno: Array[CartaClass] = []
 var cartasSlotDeAjuda: Array[CartaClass] = []
 
+var gerCartas: GerenciadorCartasClass
 var useCardSlot = null
 @onready var prompt1 = $Confirmation
 @onready var prompt2 = $useCardSlotPrompt
@@ -27,11 +25,10 @@ var useCardSlot = null
 func _ready() -> void:
 	jogadores.append($Jogador)
 	instanciarBots()
-	carregarCartasMonstro()
+	gerCartas = GerenciadorCartasClass.new()
 	
 	# Iniciando primeiro momento do Jogo
 	momentoSeEquipar()
-	
 # ---------------------------------------------------
 #! MOMENTO PARA O JOGADOR SE EQUIPAR
 func momentoSeEquipar() -> void:
@@ -53,7 +50,8 @@ func momentoSeEquipar() -> void:
 		prompt1.customize("É o seu Turno!", "Está pronto para chutar a porta? Você pode se equipar antes", "Chutar a porta!", "Me equipar", true, true)
 		var jogadorChutouAPorta = await prompt1.prompt(false)
 		if jogadorChutouAPorta:
-			sortearCartaPorta()
+			cartaSorteadaTurno = gerCartas.sortearCartaPorta()
+			print(cartaSorteadaTurno.nome)
 			monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado", true, "Continuar")
 			remove_child(equip_slot)
 			var jogadorContinuou = await monster_box.prompt()
@@ -62,7 +60,7 @@ func momentoSeEquipar() -> void:
 	else:
 		prompt1.customize("É o turno de "+nomeDoJogadorDoTurno+"!", "Equipe cartas de classe, raça e equipamentos antes de avançar", "Continuar", "", true, true)
 		await prompt1.prompt(false)
-		sortearCartaPorta()
+		cartaSorteadaTurno = gerCartas.sortearCartaPorta()
 		monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado (Turno de "+nomeDoJogadorDoTurno+")", true, "Aguardando " + nomeDoJogadorDoTurno + " continuar", "", true, true)
 		remove_child(equip_slot)
 		monster_box.setTimerToClose(5)
@@ -195,7 +193,7 @@ func momentoDescarte() -> void:
 	prompt1.customize("Descarte de Cartas", "Para avançar você deve ter no máximo cinco cartas na sua mão", "Continuar", "", true, true)
 	if (jogadores[0].maoCartas.maoJogador.size() > 5):
 		prompt1.mudarStatusBotao(0, true)
-	var isConfirmed = await prompt1.prompt(false)
+	await prompt1.prompt(false)
 	
 	jogadorAtual = (jogadorAtual+1)%(BOTS_COUNT+1)
 	remove_child(newDiscard)
@@ -227,6 +225,7 @@ func atacarMonstro() -> void:
 		else: 
 			prompt1.customize(nomeTratamento+" perdeu o combate!", "", "Continuar", "", true)
 			await prompt1.prompt(false)
+
 func fugirMonstro() -> void:
 	var nomeTratamento = "Você" if jogadores[jogadorAtual].isHost else jogadores[jogadorAtual].jogador
 	var rng = RandomNumberGenerator.new()
@@ -275,7 +274,6 @@ func escolherCartaAjudaBot():
 		if carta.tipo == 1 and (carta.acao == 1 or carta.acao == 2):
 			carta.alvoDoEfeito = 1
 			cartasValidas.append(carta)
-			var contadorInterf = 0
 	var contadorInterf = 0
 	for cartaValida in cartasValidas:
 		var num = RandomNumberGenerator.new()
@@ -317,35 +315,8 @@ func mostrarCartasDaLista(lista_cartas: Array[CartaClass]) -> void:
 			monster_box.customizarBox(carta, nomeDono + " interferiu no jogo de "+nomeDoJogadorDoTurno, true, "Continuar")
 		if (carta.acao == 1 and cartaSorteadaTurno.tipo == 3):
 			if (carta.alvoDoEfeito == 0):
-				cartaSorteadaTurno.adicioanarIncrementoForca(carta.acao_parametro) # Método de carta monstro que adiciona força incremental
+				cartaSorteadaTurno.adicionarIncrementoForca(carta.acao_parametro) # Método de carta monstro que adiciona força incremental
 		await monster_box.prompt()
 		await get_tree().create_timer(0.2).timeout # Esperar antes de mostrar a próxima caixa
 	
-#! FUNÇÕES DE SORTEIO DE CARTAS
-func sortearCartaPorta():	#TODO: ADICIONAR MAIS TIPOS DE CARTA NO SORTEIO
-	cartaSorteadaTurno = sortearCartaMonstro()
-func sortearCartaMonstro() -> CartaMonstro:	
-	var cardMonsterScene = preload(CARD_MONSTER_PATH)
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	var selectedCard = cartas_monstro[rng.randi_range(0, cartas_monstro.size()-1)]
-	var newCard = cardMonsterScene.instantiate()
-	newCard.tesouro = selectedCard.tesouro
-	newCard.nome = selectedCard.nome_carta
-	newCard.descricao = selectedCard.descricao_carta
-	newCard.frame = selectedCard.frame
-	newCard.tipo = selectedCard.tipo
-	newCard.forca = selectedCard.força
-	newCard.forca_total = newCard.forca
-	newCard.força_especifica = selectedCard.força_especifica
-	newCard.classe_especifica = selectedCard.classe_especifica
-	newCard.raça_especifica = selectedCard.raça_especifica
-	newCard.lvl_reward = selectedCard.lvl_reward
-	newCard.acao = selectedCard.acao
-	newCard.acaoParametro = selectedCard.acao_parametro
-	return newCard	
-func carregarCartasMonstro():
-	var json_file = FileAccess.open("res://data/cartas_monstro.json", FileAccess.READ)
-	cartas_monstro = JSON.parse_string(json_file.get_as_text())
-	json_file.close()
 	
