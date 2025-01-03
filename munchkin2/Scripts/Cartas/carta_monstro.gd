@@ -1,7 +1,6 @@
 class_name CartaMonstro
 extends CartaClass
 
-@export var tipo: int = -1
 @export var forca: int = 0
 @export var acao = -1
 @export var acaoParametro = -1

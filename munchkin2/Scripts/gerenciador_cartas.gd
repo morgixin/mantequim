@@ -1,6 +1,9 @@
 class_name GerenciadorCartasClass extends Node2D
 const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
 const CARD_ITEM_PATH = "res://Scenes/Cartas/CartaItem.tscn"
+const MALDITION_PATH = "res://Scenes/Cartas/CartaMaldicao.tscn"
+const RACE_PATH = "res://Scenes/Cartas/CartaRaca.tscn"
+const CLASS_PATH = "res://Scenes/Cartas/CartaClasse.tscn"
 
 func instanciarCartaMonstro(selectedCard, playerReference = null):
 	var cardMonsterScene = preload(CARD_MONSTER_PATH)
@@ -18,6 +21,19 @@ func instanciarCartaMonstro(selectedCard, playerReference = null):
 	newCard.lvl_reward = selectedCard.lvl_reward
 	newCard.acao = selectedCard.acao
 	newCard.acaoParametro = selectedCard.acao_parametro
+	newCard.donoDaCarta = playerReference
+	return newCard
+	
+func instanciarCartaMaldicao(selectedCard, playerReference = null):
+	var CardScene = preload(MALDITION_PATH)
+	var newCard = CardScene.instantiate()
+	newCard.nome = selectedCard.nome_carta
+	newCard.descricao = selectedCard.descricao_carta
+	newCard.frame = selectedCard.frame
+	newCard.tipo = selectedCard.tipo
+	newCard.acao = selectedCard.acao
+	newCard.acao_parametro = selectedCard.acao_parametro
+	newCard.target = selectedCard.target
 	newCard.donoDaCarta = playerReference
 	return newCard
 
@@ -40,11 +56,37 @@ func instanciarCartaTesouro(selectedCard, playerReference = null):
 	newCard.donoDaCarta = playerReference
 	return newCard
 	
+func instanciarCartaClasse(selectedCard, playerReference = null):
+	var CardScene = preload(CLASS_PATH)
+	var newCard = CardScene.instantiate()
+	newCard.nome = selectedCard.nome_carta
+	newCard.descricao = selectedCard.descricao_carta
+	newCard.frame = selectedCard.frame
+	newCard.tipo = selectedCard.tipo
+	newCard.classe_id = selectedCard.classe
+	return newCard
+
+func instanciarCartaRaca(selectedCard, playerReference = null):
+	var CardScene = preload(RACE_PATH)
+	var newCard = CardScene.instantiate()
+	newCard.nome = selectedCard.nome_carta
+	newCard.descricao = selectedCard.descricao_carta
+	newCard.frame = selectedCard.frame
+	newCard.tipo = selectedCard.tipo
+	newCard.raca_id = selectedCard.raca
+	return newCard
+
 func carregarCartasMonstro():
 	var json_file = FileAccess.open("res://data/cartas_monstro.json", FileAccess.READ)
 	var cartas_monstro = JSON.parse_string(json_file.get_as_text())
 	json_file.close()
 	return cartas_monstro
+	
+func carregarCartasMaldicao():
+	var json_file = FileAccess.open("res://data/cartas_maldicao.json", FileAccess.READ)
+	var cartas_maldicao = JSON.parse_string(json_file.get_as_text())
+	json_file.close()
+	return cartas_maldicao
 
 func carregarCartasTesouro():
 	var json_file = FileAccess.open("res://data/cartas_tesouro.json", FileAccess.READ)
@@ -52,6 +94,18 @@ func carregarCartasTesouro():
 	json_file.close()
 	return cartas_tesouro
 	
+func carregarCartasRaca():
+	var json_file = FileAccess.open("res://data/cartas_raca.json", FileAccess.READ)
+	var cartas_raca = JSON.parse_string(json_file.get_as_text())
+	json_file.close()
+	return cartas_raca
+	
+func carregarCartasClasse():
+	var json_file = FileAccess.open("res://data/cartas_classe.json", FileAccess.READ)
+	var cartas_classe = JSON.parse_string(json_file.get_as_text())
+	json_file.close()
+	return cartas_classe
+
 func gerarRandom(cartas_array):
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -62,6 +116,30 @@ func sortearCartaMonstroMesa() -> CartaMonstro:
 	var cartas_monstro = carregarCartasMonstro()
 	var selectedCard = gerarRandom(cartas_monstro)
 	var newCard = instanciarCartaMonstro(selectedCard)
+	return newCard
+	
+func sortearCartaMaldicaoMesa() -> CartaMaldicao:	
+	var cartas_maldicao = carregarCartasMaldicao()
+	var selectedCard = gerarRandom(cartas_maldicao)
+	var newCard = instanciarCartaMaldicao(selectedCard)
+	return newCard
+
+func sortearCartaRacaMesa() -> CartaRaca:	
+	var cartas_raca = carregarCartasRaca()
+	var selectedCard = gerarRandom(cartas_raca)
+	var newCard = instanciarCartaRaca(selectedCard)
+	return newCard
+	
+func sortearCartaClasseMesa() -> CartaDeClasse:	
+	var cartas_classe = carregarCartasClasse()
+	var selectedCard = gerarRandom(cartas_classe)
+	var newCard = instanciarCartaClasse(selectedCard)
+	return newCard
+
+func sortearCartaMaldicao(mao, playerReference) -> CartaMaldicao:	
+	var cartas_maldicao = carregarCartasMaldicao()
+	var selectedCard = evitarRepeticao(cartas_maldicao, mao)
+	var newCard = instanciarCartaMaldicao(selectedCard)
 	return newCard
 	
 func sortearCartaTesouro(mao, playerReference):
@@ -76,6 +154,18 @@ func sortearCartaMonstro(mao, playerReference) -> CartaMonstro:
 	var newCard = instanciarCartaMonstro(selectedCard, playerReference)
 	return newCard
 	
+func sortearCartaRaca(mao, playerReference) -> CartaRaca:	
+		var cartas_raca = carregarCartasRaca()
+		var selectedCard = evitarRepeticao(cartas_raca, mao)
+		var newCard = instanciarCartaRaca(selectedCard, playerReference)
+		return newCard
+		
+func sortearCartaClasse(mao, playerReference) -> CartaDeClasse:
+		var cartas_classe = carregarCartasClasse()
+		var selectedCard = evitarRepeticao(cartas_classe, mao)
+		var newCard = instanciarCartaClasse(selectedCard, playerReference)
+		return newCard
+	
 func evitarRepeticao(cartas_array, mao):
 	var cartaSelecionada = gerarRandom(cartas_array)
 	for carta in mao:
@@ -83,11 +173,11 @@ func evitarRepeticao(cartas_array, mao):
 			cartaSelecionada = evitarRepeticao(cartas_array, mao)
 	return cartaSelecionada
 
-func sortearCartaPorta():	#TODO: ADICIONAR MAIS TIPOS DE CARTA NO SORTEIO
+func sortearCartaPorta() -> CartaClass:	#TODO: ADICIONAR MAIS TIPOS DE CARTA NO SORTEIO
 	var dicCartasDoor = {
 			0: sortearCartaMonstroMesa(),
-			#1: sortearCartaMaldicao(),
-			#2: sortearCartaRaca()
+			1: sortearCartaMaldicaoMesa(),
+			2: sortearCartaRacaMesa()
 		}
 	var cartaSorteada = dicCartasDoor[randi_range(0,0)]
 	return cartaSorteada

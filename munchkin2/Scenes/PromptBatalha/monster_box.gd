@@ -72,7 +72,10 @@ func customizarBox(carta: CartaClass, titulo: String = "", mostrarApenasUmBotao:
 		texture_rect = framesTesouro
 		framesTesouro.show()
 		framesDoor.hide()
-	
+	else:
+		framesTesouro.hide()
+		framesDoor.show()
+		
 	btn_acao_1_ref.disabled = desativarbtn1
 	btn_acao_2_ref.disabled = desativarbtn2
 	

@@ -30,23 +30,8 @@ func _ready() -> void:
 	MAO_Y = get_viewport().size.y - 100
 	cartas_tesouro = gerCartas.carregarCartasTesouro()
 	cartas_monstro = gerCartas.carregarCartasMonstro()
-	
-	for i in range(HAND_COUNT_TREASURE):		
-		var cartaTesouro = gerCartas.sortearCartaTesouro(self.maoJogador, playerReference)
-		if !isBot:
-			$"../cartasDaMesa".add_child(cartaTesouro)
-		addMao(cartaTesouro)
-
-	for i in range(HAND_COUNT_DOOR):		
-		var dicCartasDoor = {
-			0: gerCartas.sortearCartaMonstro(self.maoJogador, playerReference),
-			#1: sortearCartaMaldicao(),
-			#2: sortearCartaRaca()
-		}
-		var cartaDoor = dicCartasDoor[randi_range(0,0)]
-		if !isBot:
-			$"../cartasDaMesa".add_child(cartaDoor)
-		addMao(cartaDoor)
+	gerarCartasTesouro(HAND_COUNT_TREASURE)
+	gerarCartasPorta(HAND_COUNT_DOOR)
 
 func addMao(card):
 	if card not in maoJogador:
@@ -83,6 +68,26 @@ func removeDaMao(card):
 		if !isBot:
 			updatePosicoes()
 		
+func gerarCartasTesouro(qtd: int):
+	for i in range(qtd):		
+		var cartaTesouro = gerCartas.sortearCartaTesouro(self.maoJogador, playerReference)
+		if !isBot:
+			$"../cartasDaMesa".add_child(cartaTesouro)
+		addMao(cartaTesouro)
+
+func gerarCartasPorta(qtd: int):
+	for i in range(qtd):		
+		var dicCartasDoor = {
+			0: gerCartas.sortearCartaMonstro(self.maoJogador, playerReference),
+			1: gerCartas.sortearCartaMaldicao(self.maoJogador, playerReference),
+			2: gerCartas.sortearCartaRaca(self.maoJogador, playerReference),
+			3: gerCartas.sortearCartaClasse(self.maoJogador, playerReference)
+		}
+		var cartaDoor = dicCartasDoor[randi_range(0,3)]
+		if !isBot:
+			$"../cartasDaMesa".add_child(cartaDoor)
+		addMao(cartaDoor)
+
 func resize() -> void:
 	if !isBot:
 		center_screen_x = get_viewport().size.x / 2
