@@ -16,6 +16,8 @@ func _ready() -> void:
 func addMao(card):
 	if card not in cartasEquipadas:
 		cartasEquipadas.insert(0, card)
+		print(cartasEquipadas.size())
+		print("123")
 		if !isBot:
 			updatePosicoes()
 		else:
@@ -23,13 +25,16 @@ func addMao(card):
 	elif !isBot:
 		animateCardToPosition(card, card.posInicial)
 		
-	
 func calcularForca():
 	var forcaAtual = jogadorReference.nivel
+	print(cartasEquipadas.size())
 	for i in range(cartasEquipadas.size()):
 		if cartasEquipadas[i].tipo == 2:
+			print("rs")
 			forcaAtual += cartasEquipadas[i].forca
+			print(cartasEquipadas[i].forca)
 	jogadorReference.setForca(forcaAtual)
+	print("jk")
 	
 func updatePosicoes():
 	jogadorReference.calcularForcaTurno()
@@ -56,6 +61,7 @@ func calculaPosicao(index):
 func removeDaMao(card):
 	if card in cartasEquipadas:
 		cartasEquipadas.erase(card)
+		print("removeu")
 		if !isBot:
 			updatePosicoes()
 		else:
