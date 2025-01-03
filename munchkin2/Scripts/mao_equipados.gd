@@ -19,7 +19,7 @@ func addMao(card):
 		if !isBot:
 			updatePosicoes()
 		else:
-			calcularForca()
+			jogadorReference.calcularForcaTurno()
 	elif !isBot:
 		animateCardToPosition(card, card.posInicial)
 		
@@ -27,11 +27,12 @@ func addMao(card):
 func calcularForca():
 	var forcaAtual = jogadorReference.nivel
 	for i in range(cartasEquipadas.size()):
-		forcaAtual += cartasEquipadas[i].forca
+		if cartasEquipadas[i].tipo == 2:
+			forcaAtual += cartasEquipadas[i].forca
 	jogadorReference.setForca(forcaAtual)
 	
 func updatePosicoes():
-	calcularForca()
+	jogadorReference.calcularForcaTurno()
 	for i in range(cartasEquipadas.size()):
 		cartasEquipadas[i].z_index = cartasEquipadas.size() - i
 		var newPosition = Vector2(calculaPosicao(i), MAO_Y - randi_range(0,15))
@@ -58,7 +59,7 @@ func removeDaMao(card):
 		if !isBot:
 			updatePosicoes()
 		else:
-			calcularForca()
+			jogadorReference.calcularForcaTurno()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

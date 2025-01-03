@@ -475,9 +475,9 @@
 	"classe_restrita": -1,
 	"raça_restrita": -1,
 	"descricao_carta": "One shot item que adiciona +3 de força ao jogador ou monstro durante o combate.",
-	"força": 3,
-	"acao": -1,
-	"acao_parametro": -1	
+	"força": -1,
+	"acao": 1,
+	"acao_parametro": 3	
 },
 {
 	"nome_carta": "Short wide armor",

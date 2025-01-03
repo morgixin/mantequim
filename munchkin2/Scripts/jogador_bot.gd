@@ -8,4 +8,4 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#print(maoCartas.maoJogador)
-	player_box.customize(jogador, classeDict[classe], nivel, forca, racaDict[raca])
+	player_box.customize(jogador, classeDict[classe], nivel, forca_turno, racaDict[raca])

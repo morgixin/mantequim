@@ -34,9 +34,22 @@ func _ready() -> void:
 func setForca(novo_valor: int) -> void:
 	forca = novo_valor
 	
+func calcularForcaTurno() -> void:
+	maoCartasEquipadas.calcularForca()
+	self.forca_turno = forca
+	for forcaNova in incrementos_forca:
+		self.forca_turno += forcaNova
+	
 func aumentarNivel(qtd_niveis: int) -> void:
 	nivel += qtd_niveis
-	maoCartasEquipadas.calcularForca()
+	calcularForcaTurno()
+
+func addIncremento(valorIncremento: int):
+	self.incrementos_forca.append(valorIncremento)
+	
+func removeIncremento(valorIncremento: int):
+	if valorIncremento in incrementos_forca:
+		self.incrementos_forca.erase(valorIncremento)
 
 func setClasseJogador(classe: int) -> void:
 	self.classe = classe

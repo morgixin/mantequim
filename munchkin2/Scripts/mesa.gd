@@ -140,6 +140,11 @@ func momentoInterferencia(irParaResumo: bool = true) -> void:
 	await prompt1.prompt(false)
 	if (jogadorAtual == 0 and jogadores[jogadorAtual].isHost):
 		cartasSlotDeAjuda = newUseCardSlot.cartasUsadas
+		for carta in cartasSlotDeAjuda:
+			jogadores[jogadorAtual].addIncremento(carta.acao_parametro)
+		jogadores[jogadorAtual].calcularForcaTurno()
+		
+		
 	if (jogadorAtual != 0):
 		for carta in newUseCardSlot.cartasUsadas:
 			cartasInterferenciaTurno.append(carta) 
@@ -182,6 +187,8 @@ func mostrarResumoDaBatalha() -> void:
 #! MOMENTO DE DESCARTAR CARTAS
 func momentoDescarte() -> void:
 	momentoDoJogo = 4
+	jogadores[jogadorAtual].incrementos_forca = []
+	jogadores[jogadorAtual].calcularForcaTurno()
 	var useDiscardScene = preload("res://Scenes/Slots/DiscardSlot.tscn") 
 	var newDiscard = useDiscardScene.instantiate()
 	var screen = get_viewport_rect().size
@@ -204,7 +211,7 @@ func momentoDescarte() -> void:
 #! FUNÇÕES DE ESCOLHAS DO JOGADOR
 func atacarMonstro() -> void:
 	var nomeTratamento = "Você" if jogadores[jogadorAtual].isHost else jogadores[jogadorAtual].jogador
-	if jogadores[jogadorAtual].forca > cartaSorteadaTurno.forca_total:
+	if jogadores[jogadorAtual].forca_turno > cartaSorteadaTurno.forca_total:
 			var lvl_gain = cartaSorteadaTurno.lvl_reward
 			var tesouro = cartaSorteadaTurno.tesouro
 			prompt1.customize(nomeTratamento+" venceu o combate!", "Você subiu " + str(lvl_gain) + " nível(is)\n e ganhou " + str(tesouro) + " tesouros.", "Continuar", "", true)
@@ -321,6 +328,9 @@ func mostrarCartasDaLista(lista_cartas: Array[CartaClass]) -> void:
 		if (carta.acao == 1 and cartaSorteadaTurno.tipo == 3):
 			if (carta.alvoDoEfeito == 0):
 				cartaSorteadaTurno.adicionarIncrementoForca(carta.acao_parametro) # Método de carta monstro que adiciona força incremental
+			elif(carta.alvoDoEfeito == 1):
+				jogadores[jogadorAtual].addIncremento(carta.acao_parametro)
+				jogadores[jogadorAtual].calcularForcaTurno()
 		await monster_box.prompt()
 		await get_tree().create_timer(0.2).timeout # Esperar antes de mostrar a próxima caixa
 	
