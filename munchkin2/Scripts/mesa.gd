@@ -43,7 +43,7 @@ func momentoSeEquipar() -> void:
 	add_child(equip_slot)
 	
 	var nomeDoJogadorDoTurno = jogadores[jogadorAtual].jogador
-	if jogadorAtual == 0:
+	if jogadorAtual == 0 and jogadores[jogadorAtual].isHost:
 		prompt1.customize("É o seu Turno!", "Está pronto para chutar a porta? Você pode se equipar antes", "Chutar a porta!", "Me equipar", true, true)
 		var jogadorChutouAPorta = await prompt1.prompt(false)
 		if jogadorChutouAPorta:
@@ -55,11 +55,19 @@ func momentoSeEquipar() -> void:
 				mudarParaBatalha()
 	else:
 		prompt1.customize("É o turno de "+nomeDoJogadorDoTurno+"!", "Equipe cartas de classe, raça e equipamentos antes de avançar", "Continuar", "", true, true)
-		var jogadorChutouAPorta = await prompt1.prompt(false)
+		await prompt1.prompt(false)
+		sortearCartaPorta()
+		monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado (Turno de "+nomeDoJogadorDoTurno+")", true, "Aguardando " + nomeDoJogadorDoTurno + " continuar", "", true, true)
+		remove_child(equip_slot)
+		monster_box.setTimerToClose(5)
+		await monster_box.prompt()
+		mudarParaBatalha()
 
-# MOMENTO EM QUE O JOGADOR ENTRA NO FLUXO DE BATALHA
+
+#! MOMENTO EM QUE O JOGADOR ENTRA NO FLUXO DE BATALHA
 func mudarParaBatalha() -> void:
 	momentoDoJogo = 1
+	cartasInterferenciaTurno = []
 	
 	# MUDANDO O BACKGROUND DA CENA PRINCIPAL
 	sprite_mesa.hide()
@@ -67,20 +75,32 @@ func mudarParaBatalha() -> void:
 	
 	# TIMER
 	await get_tree().create_timer(0.7).timeout
-	
-	# MOSTRAR CAIXA DAS CARTAS
-	monster_box.customizarBox(cartaSorteadaTurno, "Aguardando Interferência de Outros Jogadores", true, "Aguarde", "", true)
-	monster_box.setTimerToClose(8)
-	var jogadorContinou = await monster_box.prompt()
+	var nomeDoJogadorDoTurno = jogadores[jogadorAtual].jogador
+
+	if (jogadorAtual == 0 and jogadores[jogadorAtual].isHost):
+		# MOSTRAR CAIXA DAS CARTAS
+		monster_box.customizarBox(cartaSorteadaTurno, "Aguardando Interferência de Outros Jogadores", true, "Aguarde", "", true)
+		monster_box.setTimerToClose(8)
+		await monster_box.prompt()
+	else:
+		# INICIAR MOMENTO DE INTERFERÊNCIA DO HOST NO JOGO
+		prompt1.customize("Deseja interferir no jogo de "+nomeDoJogadorDoTurno+"?", "Você pode jogar cartas de one-shot ou maldições", "Sim", "Não", false, false)
+		await prompt1.prompt(false)
+		await get_tree().create_timer(0.2).timeout
+		await momentoInterferencia(false)
 
 	# ESCOLHER E MOSTRAR AS CARTAS DOS BOTS
 	escolherCartasInterferenciaBots()
 	for carta in cartasInterferenciaTurno:
 		var nomeDono = carta.donoDaCarta.jogador
-		monster_box.customizarBox(carta, nomeDono + " interferiu no seu jogo", true, "Continuar")
+		if (jogadorAtual == 0 and jogadores[jogadorAtual].isHost):
+			monster_box.customizarBox(carta, nomeDono + " interferiu no seu jogo", true, "Continuar")
+		else:
+			monster_box.customizarBox(carta, nomeDono + " interferiu no jogo de "+nomeDoJogadorDoTurno, true, "Continuar")
 		if (carta.acao == 1 and cartaSorteadaTurno.tipo == 3):
-			cartaSorteadaTurno.adicioanarIncrementoForca(carta.acao_parametro) # Método de carta monstro que adiciona força incremental
-		var proximaCarta = await monster_box.prompt()
+			if (carta.alvoDoEfeito == 0):
+				cartaSorteadaTurno.adicioanarIncrementoForca(carta.acao_parametro) # Método de carta monstro que adiciona força incremental
+		await monster_box.prompt()
 		await get_tree().create_timer(0.2).timeout # Esperar antes de mostrar a próxima caixa
 	
 	# PERGUNTAR AO JOGADOR SE ELE QUER USAR ALGUM ITEM PARA SE DEFENDER
@@ -93,8 +113,8 @@ func mudarParaBatalha() -> void:
 	else:
 		mostrarResumoDaBatalha()
 
-#! MOMENTO DO JOGADOR INTERFEIR NO SEU PRÓPRIO TURNO OU TURNO DE OUTROS JOGADORES
-func momentoInterferencia() -> void:
+#! MOMENTO DO JOGADOR INTERFERIR NO SEU PRÓPRIO TURNO OU TURNO DE OUTROS JOGADORES
+func momentoInterferencia(irParaResumo: bool = true) -> void:
 	momentoDoJogo = 2
 	
 	# INSTANCIANDO USECARDSLOT
@@ -107,17 +127,23 @@ func momentoInterferencia() -> void:
 	newUseCardSlot.btn = prompt1
 	newUseCardSlot.use_card_confirmation = prompt2
 	
-	if (jogadorAtual == 0):
+	if (jogadorAtual == 0 and jogadores[jogadorAtual].isHost):
 		newUseCardSlot.slotAjudaJogador = true
 	prompt1.customize("Pronto para continuar?", "Você pode jogar mais de uma carta", "Sim", "", true, true)
-	var isConfirmed = await prompt1.prompt(false)
-	if (isConfirmed and jogadorAtual == 0):
+	await prompt1.prompt(false)
+	if (jogadorAtual == 0 and jogadores[jogadorAtual].isHost):
 		cartasSlotDeAjuda = newUseCardSlot.cartasUsadas
-	if (isConfirmed): 
-		#TODO: SALVAR NO ARRAY DE cartasInterferenciaTurno
-		await newUseCardSlot.desativarCartas()
-		remove_child(newUseCardSlot)
+	if (jogadorAtual != 0):
+		for carta in newUseCardSlot.cartasUsadas:
+			cartasInterferenciaTurno.append(carta) 
+
+	await newUseCardSlot.desativarCartas()
+	remove_child(newUseCardSlot)
+	
+	if (irParaResumo):
 		mostrarResumoDaBatalha()
+	else:
+		return
 
 #! MOMENTO DE MOSTRAR RESUMO DA BATALHA
 #TODO: VERIFICAR CLASSES E RAÇAS PARA A FORÇA ESPECÍFICA DO MONSTRO
@@ -188,7 +214,6 @@ func fugirMonstro() -> void:
 
 #! FUNÇÕES DE BOTS
 func escolherCartasInterferenciaBots():
-	cartasInterferenciaTurno = []
 	print(jogadores_bot)
 	for bot in jogadores_bot:
 		print(bot.jogador)
@@ -196,6 +221,7 @@ func escolherCartasInterferenciaBots():
 		var cartasValidas = []
 		for carta in cartasAtual:
 			if carta.tipo == 1 and carta.acao == 1:
+				carta.alvoDoEfeito = 0
 				cartasValidas.append(carta)
 		print(cartasValidas)
 		var contadorInterf = 0
