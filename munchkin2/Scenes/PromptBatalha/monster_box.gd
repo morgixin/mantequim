@@ -54,7 +54,10 @@ func customizarBox(carta: CartaClass, titulo: String = "", mostrarApenasUmBotao:
 	btn_acao_2_ref.text = btn2Label
 	
 	if (carta.tipo == 3):
-		forca_monstro_label.text = "FORÇA: " + str(carta.forca) #Adicionar força específica
+		if (carta.forca_total-carta.forca == 0):
+			forca_monstro_label.text = "FORÇA: " + str(carta.forca_total)
+		else:
+			forca_monstro_label.text = "FORÇA: " + str(carta.forca_total) + " ("+str(carta.forca)+" + "+str(carta.forca_total-carta.forca)+")" #Adicionar força específica
 		tesouro_label.text = "TESOURO: " + str(carta.tesouro)
 		forca_monstro_label.show()
 		tesouro_label.show()

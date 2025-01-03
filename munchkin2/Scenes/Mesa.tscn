@@ -1,12 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cw6mgdqymw4pd"]
+[gd_scene load_steps=11 format=3 uid="uid://cw6mgdqymw4pd"]
 
 [ext_resource type="Script" path="res://Scripts/cartas_da_mesa.gd" id="1_4h4px"]
 [ext_resource type="Script" path="res://Scripts/mesa.gd" id="1_jrflu"]
 [ext_resource type="Texture2D" uid="uid://cruul8wmy16rs" path="res://assets/imagens/sprite_batalha.png" id="2_vw6ao"]
 [ext_resource type="Texture2D" uid="uid://chxmn512uuukp" path="res://assets/imagens/mesa_sprite.png" id="3_qbhdc"]
 [ext_resource type="PackedScene" uid="uid://cfo24lfmidt7w" path="res://Scenes/MaoJogador.tscn" id="4_l4aqy"]
-[ext_resource type="PackedScene" uid="uid://csq8ckr67n081" path="res://Scenes/Card_slot.tscn" id="4_o3s88"]
-[ext_resource type="PackedScene" uid="uid://p8okoxmgg5qm" path="res://Scenes/Slots/EquipSlot.tscn" id="5_hsnkd"]
 [ext_resource type="PackedScene" uid="uid://boqr4i7ccynr4" path="res://Scenes/MaoEquipados.tscn" id="5_twdfu"]
 [ext_resource type="PackedScene" uid="uid://d045xd5ex2g3" path="res://Scenes/Jogador.tscn" id="7_yad1l"]
 [ext_resource type="PackedScene" uid="uid://ficxtf4vno84" path="res://Scenes/PlayerBox.tscn" id="10_yeufm"]
@@ -57,12 +55,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="cartasDaMesa" type="Node2D" parent="."]
 script = ExtResource("1_4h4px")
-
-[node name="cardSlot" parent="." instance=ExtResource("4_o3s88")]
-position = Vector2(-206, 177)
-
-[node name="EquipSlot" parent="." instance=ExtResource("5_hsnkd")]
-position = Vector2(607, 315)
 
 [node name="MaoEquipados" parent="." instance=ExtResource("5_twdfu")]
 

@@ -56,6 +56,12 @@ func onConfirm():
 	
 func onCancel():
 	close_modal(false)
+	
+func mudarStatusBotao(btn_index: int, value: bool) -> void:
+	if btn_index == 0:
+		confirmed_ref.disabled = value
+	elif btn_index == 1:
+		cancel_ref.disabled = value
 
 func customize(header: String, msg: String, confirmText: String = "Confirmar", cancelText: String = "Cancelar", oneButton: bool = false, beOnLeft: bool = false):
 	header_ref.text = header
@@ -67,7 +73,7 @@ func customize(header: String, msg: String, confirmText: String = "Confirmar", c
 		cancel_ref.hide()
 	else:
 		cancel_ref.show()
-	modal.size= Vector2(0,0)
+	modal.size = Vector2(0,0)
 	return self
 	
 func prompt(pause: bool = false) -> bool:
@@ -81,7 +87,6 @@ func prompt(pause: bool = false) -> bool:
 		var posLado = Vector2(screen.x - $Modal.size[0] - 30,screen.y/2 - $Modal.size[1]/2 - 30)
 		$Modal.position = posLado
 	else:
-		print("tween meio")
 		var posMeio =Vector2(screen.x/2 - $Modal.size[0]/2, screen.y/2 - $Modal.size[1]/2 - 30)
 	isOpen = true
 	set_process_unhandled_key_input(true) #Ativa o reconhecimento de input

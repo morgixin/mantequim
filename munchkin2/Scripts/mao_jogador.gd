@@ -123,6 +123,7 @@ func instanciarCartaTesouro(selectedCard):
 	newCard.forca = selectedCard.força
 	newCard.tipo_equipamento = selectedCard.equip_tipo
 	newCard.acao = selectedCard.acao
+	newCard.acao_parametro = selectedCard.acao_parametro
 	newCard.donoDaCarta = playerReference
 	return newCard
 

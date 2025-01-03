@@ -8,6 +8,7 @@ var classe: int = -1
 var raca: int = 1 #começa como humano
 var maoCartas
 var maoCartasEquipadas
+var isHost = true
 
 const racaDict = {
 	-1: "Nenhum",

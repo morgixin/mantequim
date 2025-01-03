@@ -8,6 +8,7 @@ class_name CartaItem extends CartaClass
 @export var raca_restrita = -1
 @export var tipo = -1
 @export var acao = -1
+@export var acao_parametro = -1
 var alvoDoEfeito = -1 # -1: Não definido; 0: Monstro; 1: Jogador 
 
 func _ready() -> void:

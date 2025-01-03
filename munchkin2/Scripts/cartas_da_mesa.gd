@@ -86,6 +86,7 @@ func stop_drag():
 				$"..".useCardSlot.removerDaMao(cartaParaDescarte)
 			if toDiscard:
 				var tween_hide = get_tree().create_tween()
+				
 				tween_hide.tween_property(cardBeingDragged, "scale", Vector2(0,0), 0.35)
 				await tween_hide.finished
 				cardBeingDragged.hide()
