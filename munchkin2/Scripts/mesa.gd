@@ -304,6 +304,10 @@ func instanciarBots():
 		$HBoxContainer.add_child(botPlayerBox)
 
 #! FUNÇOES AUXILIARES
+func aplicarEfeitoJogador(carta: CartaItem):
+	var jogadorAlvo = jogadores[jogadorAtual]
+	
+	
 func mostrarCartasDaLista(lista_cartas: Array[CartaClass]) -> void:
 	var nomeDoJogadorDoTurno = jogadores[jogadorAtual].jogador
 	for carta in lista_cartas:

@@ -4,6 +4,9 @@ extends Node2D
 @export var jogador: String = "Rafael"
 @export var nivel: int = 1
 @export var forca: int = 1
+@export var forca_turno: int = 1
+var incrementos_forca: Array[int] = []
+
 var classe: int = -1
 var raca: int = 1 #começa como humano
 var maoCartas
@@ -79,7 +82,7 @@ func admitirCarta(carta: CartaClass) -> bool:
 	return true
 
 func _process(_delta: float) -> void:
-	player_box.customize(jogador, classeDict[classe], nivel, forca, racaDict[raca])
+	player_box.customize(jogador, classeDict[classe], nivel, forca_turno, racaDict[raca])
 	
 	
 	
