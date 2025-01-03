@@ -210,6 +210,7 @@ func atacarMonstro() -> void:
 			prompt1.customize(nomeTratamento+" venceu o combate!", "Você subiu " + str(lvl_gain) + " nível(is)\n e ganhou " + str(tesouro) + " tesouros.", "Continuar", "", true)
 			await prompt1.prompt(false)
 			jogadores[jogadorAtual].aumentarNivel(lvl_gain)
+			jogadores[jogadorAtual].maoCartas.gerarCartasTesouro(tesouro)
 	else:
 		var vaiDiminuirNivel: bool = cartaSorteadaTurno.acao == 2
 		print(cartaSorteadaTurno)
@@ -259,7 +260,7 @@ func escolherCartasInterferenciaBots():
 			var num = RandomNumberGenerator.new()
 			num.randomize()
 			var chance = num.randi_range(1,4)
-			if contadorInterf < 2:
+			if contadorInterf < 2 and chance > 2:
 				cartasInterferenciaTurno.append(cartaValida)
 				bot.maoCartas.removeDaMao(cartaValida)
 				contadorInterf +=1
