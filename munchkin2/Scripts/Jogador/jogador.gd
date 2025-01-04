@@ -13,6 +13,7 @@ var maoCartas: MaoJogador
 var maoCartasEquipadas: MaoEquipados
 var isHost = true
 var estaMorto = false
+var podeFugir = true
 
 const racaDict = {
 	-1: "Nenhum",
@@ -37,7 +38,6 @@ const equipDict = {
 	6: "Footgear"
 }
 var player_box: PlayerBox
-
 
 func _ready() -> void:
 	maoCartas = $"../MaoJogador"
@@ -70,6 +70,12 @@ func setClasseJogador(classe: int) -> void:
 func setRacaJogador(raca: int) -> void:
 	self.raca = raca
 	
+func getRacaJogador() -> int:
+	return self.raca
+
+func getClasseJogador() -> int:
+	return self.classe
+
 func verificaEquipadas(carta: CartaItem):
 	var tipo = carta.getTipoEquip()
 	var arrayEquip = maoCartasEquipadas.cartasEquipadas
@@ -125,6 +131,9 @@ func admitirCarta(carta: CartaClass) -> bool:
 		if !verificarClasseRaca(carta):
 			return false		
 	return true
+
+func setFuga(value: bool):
+	self.podeFugir = value
 
 func _process(_delta: float) -> void:
 	player_box.customize(jogador, classeDict[classe], nivel, forca_turno, racaDict[raca])
