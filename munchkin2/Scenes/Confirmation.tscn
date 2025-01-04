@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bylyqmpwpg14i"]
 
-[ext_resource type="Script" path="res://Scripts/confirmation.gd" id="1_pri83"]
+[ext_resource type="Script" path="res://Scripts/prompt.gd" id="1_pri83"]
 [ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="2_3eu5p"]
 
 [node name="Confirmation" type="Control"]
