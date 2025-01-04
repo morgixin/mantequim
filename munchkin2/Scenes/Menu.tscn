@@ -9,6 +9,7 @@
 [sub_resource type="GDScript" id="GDScript_ol461"]
 script/source = "extends Node
 
+@onready var LoginSigninText = $\"../../../MarginContainer2/VBoxContainer/LoginSignin/RichTextLabel\"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -47,6 +48,13 @@ func _on_exit_btn_mouse_entered() -> void:
 	
 func _on_exit_btn_mouse_exited() -> void:
 	$ExitBtn/RichTextLabel.text = \"[center]Sair\"
+	
+
+func _on_login_signin_mouse_entered() -> void:
+	LoginSigninText.text = \"[wave][center]\"+LoginSigninText.text
+func _on_login_signin_mouse_exited() -> void:
+	LoginSigninText.text = \"[wave][center]\"+LoginSigninText.text
+
 
 
 # ON CLICK
@@ -63,6 +71,10 @@ func _on_exit_btn_pressed() -> void:
 
 func _on_new_game_btn_pressed() -> void:
 	get_tree().change_scene_to_file(\"res://Scenes/Mesa.tscn\")
+
+
+func _on_login_signin_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/Login.tscn\")
 "
 
 [node name="Menu" type="Control"]
@@ -107,14 +119,17 @@ scroll_active = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -312.0
-offset_top = 90.0
-offset_right = 312.0
-offset_bottom = 543.0
+anchor_bottom = 0.5
+offset_left = -580.0
+offset_top = -226.5
+offset_right = 580.0
+offset_bottom = 226.5
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_top = 60
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
@@ -241,15 +256,12 @@ offset_bottom = 80.6
 theme_override_fonts/normal_font = ExtResource("1_llpjc")
 theme_override_font_sizes/normal_font_size = 14
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -164.0
-offset_top = -153.0
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_left = 947.0
+offset_top = 507.0
+offset_right = 1184.0
+offset_bottom = 704.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/margin_left = 16
@@ -257,10 +269,10 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer3/VBoxContainer"]
 modulate = Color(1, 1, 1, 0.552941)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_wr4il")
@@ -273,6 +285,46 @@ Rafael Amparo
 Thales Abranches"
 horizontal_alignment = 2
 
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -237.0
+offset_bottom = 197.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="LoginSignin" type="Button" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 53)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/LoginSignin"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("1_llpjc")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Entrar em conta"
+fit_content = true
+autowrap_mode = 0
+
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Botões/NewGameBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_new_game_btn_mouse_entered"]
 [connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Botões/NewGameBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_new_game_btn_mouse_exited"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Botões/NewGameBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_new_game_btn_pressed"]
@@ -284,3 +336,6 @@ horizontal_alignment = 2
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_entered"]
 [connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_exited"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_pressed"]
+[connection signal="mouse_entered" from="MarginContainer2/VBoxContainer/LoginSignin" to="MarginContainer/VBoxContainer/Botões" method="_on_login_signin_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer2/VBoxContainer/LoginSignin" to="MarginContainer/VBoxContainer/Botões" method="_on_login_signin_mouse_exited"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/LoginSignin" to="MarginContainer/VBoxContainer/Botões" method="_on_login_signin_pressed"]
