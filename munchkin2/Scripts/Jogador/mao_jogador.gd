@@ -32,8 +32,8 @@ func _ready() -> void:
 	get_tree().get_root().size_changed.connect(resize)
 	center_screen_x = get_viewport().size.x / 2
 	MAO_Y = get_viewport().size.y - 100
-	cartas_tesouro = gerCartas.carregarCartas(DATA_ITEM)
-	cartas_monstro = gerCartas.carregarCartas(DATA_MONSTER)
+	cartas_tesouro = gerCartas.carregarCartas(VariaveisGlobais.DATA_ITEM)
+	cartas_monstro = gerCartas.carregarCartas(VariaveisGlobais.DATA_MONSTER)
 	gerarCartasTesouro(HAND_COUNT_TREASURE)
 	gerarCartasPorta(HAND_COUNT_DOOR)
 
@@ -74,7 +74,7 @@ func removeDaMao(card):
 		
 func gerarCartasTesouro(qtd: int):
 	for i in range(qtd):		
-		var cartaTesouro = gerCartas.sortearCarta(DATA_ITEM, 4, 2, self.maoJogador, playerReference)
+		var cartaTesouro = gerCartas.sortearCarta(VariaveisGlobais.DATA_ITEM, 4, 2, self.maoJogador, playerReference)
 		if !isBot:
 			$"../cartasDaMesa".add_child(cartaTesouro)
 		addMao(cartaTesouro)
@@ -82,10 +82,10 @@ func gerarCartasTesouro(qtd: int):
 func gerarCartasPorta(qtd: int):
 	for i in range(qtd):		
 		var dicCartasDoor = {
-			0: gerCartas.sortearCarta(DATA_MONSTER, 0, 2, self.maoJogador, playerReference),
-			1: gerCartas.sortearCarta(DATA_MALDITION, 1, 2, self.maoJogador, playerReference),
-			2: gerCartas.sortearCarta(DATA_CLASS, 2, 2, self.maoJogador, playerReference),
-			3: gerCartas.sortearCarta(DATA_RACA, 3, 2, self.maoJogador, playerReference)
+			0: gerCartas.sortearCarta(VariaveisGlobais.DATA_MONSTER, 0, 2, self.maoJogador, playerReference),
+			1: gerCartas.sortearCarta(VariaveisGlobais.DATA_MALDITION, 1, 2, self.maoJogador, playerReference),
+			2: gerCartas.sortearCarta(VariaveisGlobais.DATA_CLASS, 2, 2, self.maoJogador, playerReference),
+			3: gerCartas.sortearCarta(VariaveisGlobais.DATA_RACA, 3, 2, self.maoJogador, playerReference)
 		}
 		var cartaDoor = dicCartasDoor[randi_range(0,3)]
 		if !isBot:
