@@ -110,9 +110,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -219.0
-offset_right = 219.0
-offset_bottom = 453.0
+offset_left = -312.0
+offset_top = 90.0
+offset_right = 312.0
+offset_bottom = 543.0
 grow_horizontal = 2
 theme_override_constants/margin_top = 60
 
@@ -159,10 +160,12 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="EnterGameBtn" type="Button" parent="MarginContainer/VBoxContainer/Botões"]
+visible = false
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Botões/EnterGameBtn"]
+visible = false
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
