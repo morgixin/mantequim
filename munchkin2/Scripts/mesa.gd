@@ -89,7 +89,6 @@ func momentoSeEquipar() -> void:
 		await monster_box.prompt()
 		mudarParaBatalha()
 
-
 #! MOMENTO EM QUE O JOGADOR ENTRA NO FLUXO DE BATALHA
 func mudarParaBatalha() -> void:
 	momentoDoJogo = 1
@@ -165,7 +164,6 @@ func momentoInterferencia(irParaResumo: bool = true) -> void:
 		for carta in cartasSlotDeAjuda:
 			jogadores[jogadorAtual].addIncremento(carta.acao_parametro)
 		jogadores[jogadorAtual].calcularForcaTurno()
-		
 		
 	if (jogadorAtual != 0):
 		for carta in newUseCardSlot.cartasUsadas:
@@ -243,8 +241,8 @@ func atacarMonstro() -> void:
 			jogadores[jogadorAtual].aumentarNivel(lvl_gain)
 			jogadores[jogadorAtual].maoCartas.gerarCartasTesouro(tesouro)
 	else:
+		# FUNÇÃO DE BADSTUFF QUE RETORNA O TEXTO PARA ADICIONAR NO PROMPT
 		var vaiDiminuirNivel: bool = cartaSorteadaTurno.acao == 2
-		print(cartaSorteadaTurno)
 		if vaiDiminuirNivel:
 			if (jogadores[jogadorAtual].nivel - abs(cartaSorteadaTurno.acaoParametro) > 0):
 				prompt1.customize(nomeTratamento+" perdeu o combate!", nomeTratamento+" perdeu " + str(abs(cartaSorteadaTurno.acaoParametro)) + " nível(is).", "Continuar", "", true)
@@ -337,7 +335,6 @@ func instanciarBots():
 #! FUNÇOES AUXILIARES
 func aplicarEfeitoJogador(carta: CartaItem):
 	var jogadorAlvo = jogadores[jogadorAtual]
-	
 	
 func mostrarCartasDaLista(lista_cartas: Array[CartaClass]) -> void:
 	var nomeDoJogadorDoTurno = jogadores[jogadorAtual].jogador
