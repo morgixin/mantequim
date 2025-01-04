@@ -6,12 +6,37 @@ const RACE_PATH = "res://Scenes/Cartas/CartaRaca.tscn"
 const CLASS_PATH = "res://Scenes/Cartas/CartaClasse.tscn"
 
 static var instancia = null
+static var cartasMonstro = null
+static var cartasMaldicao = null
+static var cartasTesouro = null
+static var cartasRaca = null
+static var cartasClasse = null
+
+static func _gerenciadorCartasClass() -> GerenciadorCartasClass:
+	instancia = GerenciadorCartasClass.new()
+	cartasMonstro = instancia.carregarCartas(VariaveisGlobais.DATA_MONSTER)
+	cartasTesouro = instancia.carregarCartas(VariaveisGlobais.DATA_ITEM)
+	cartasMaldicao = instancia.carregarCartas(VariaveisGlobais.DATA_MALDITION)
+	cartasRaca = instancia.carregarCartas(VariaveisGlobais.DATA_RACA)
+	cartasClasse = instancia.carregarCartas(VariaveisGlobais.DATA_CLASS)
+	return instancia
+	
 static func getInstancia():
 	if instancia == null:
-		instancia = GerenciadorCartasClass.new()
+		instancia = _gerenciadorCartasClass()
 	return instancia
 
-func carregarCartas(path):
+static func carregarCartas(path):
+	var pathDict = {
+		VariaveisGlobais.DATA_MONSTER: cartasMonstro,
+		VariaveisGlobais.DATA_ITEM: cartasTesouro,
+		VariaveisGlobais.DATA_CLASS: cartasClasse,
+		VariaveisGlobais.DATA_RACA: cartasRaca,
+		VariaveisGlobais.DATA_MALDITION: cartasMaldicao
+	}
+	var jsonIsReady = pathDict[path] != null
+	if jsonIsReady:
+		return pathDict[path]
 	var json_file = FileAccess.open(path, FileAccess.READ)
 	var cartas_array = JSON.parse_string(json_file.get_as_text())
 	json_file.close()
