@@ -43,13 +43,10 @@ func setForca(novo_valor: int) -> void:
 	forca = novo_valor
 	
 func calcularForcaTurno() -> void:
-	#print("----------------------------------------------")
-	#print("Calculando forca_Turno do jogador "+self.jogador)
 	maoCartasEquipadas.calcularForca()
 	self.forca_turno = forca
 	for forcaNova in incrementos_forca:
 		self.forca_turno += forcaNova
-	#print("A força turno é: "+str(forca_turno))
 	
 func aumentarNivel(qtd_niveis: int) -> void:
 	nivel += qtd_niveis

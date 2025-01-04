@@ -1,15 +1,9 @@
 class_name JogadorBot extends Jogador
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	isHost = false
 
 func aplicarEquipamentos() -> void:
-	print("CARTAS EQUIPADAS DE "+self.jogador+":")
-	print(maoCartasEquipadas.cartasEquipadas)
-	print("CARTAS DA MAO DE "+self.jogador+":")
-	print(maoCartas.maoJogador)
-	print("-----------------------")
 	var array_cartas = self.maoCartas.maoJogador
 	var array_equipados = self.maoCartasEquipadas.cartasEquipadas
 	var appendDict = {1: [], 2: [], 3: [], 4: [], 5: [], 6: []}
@@ -41,22 +35,11 @@ func aplicarEquipamentos() -> void:
 	for chave in appendDict:
 		var nome = admitirCarta(appendDict[chave][0]) if appendDict[chave].size() > 0 else null
 		if appendDict[chave].size() > 0 and admitirCarta(appendDict[chave][0]):
-			#print("--------------- CARTA DE "+self.jogador+" --------------- ")
-			#print("nome: "+(appendDict[chave][0]).nome)
-			#print("força: "+str(appendDict[chave][0].forca))
-			#print("Tipo: "+equipDict[appendDict[chave][0].tipo_equipamento])
 			self.maoCartas.removeDaMao(appendDict[chave][0])
 			self.maoCartasEquipadas.addMao(appendDict[chave][0])
 			appendDict[chave].erase(appendDict[chave][0])
-	
-	print("CARTAS EQUIPADAS DE "+self.jogador+":")		
-	print(maoCartasEquipadas.cartasEquipadas)
-	print("CARTAS DA MAO DE "+self.jogador+":")
-	print(maoCartas.maoJogador)
-	print("-----------------------")
 func custom_array_sort(a, b):
 	return a.forca > b.forca
 
 func _process(delta: float) -> void:
-	#print(maoCartas.maoJogador)
 	player_box.customize(jogador, classeDict[classe], nivel, forca_turno, racaDict[raca])

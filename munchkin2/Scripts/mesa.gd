@@ -32,6 +32,9 @@ func _ready() -> void:
 # ---------------------------------------------------
 #! MOMENTO PARA O JOGADOR SE EQUIPAR
 func momentoSeEquipar() -> void:
+	#Permitindo uso do deck de equipamentos
+	for jogador in jogadores:
+		jogador.maoCartasEquipadas.mudarBloqueioDeck(false)
 		
 	# MUDANDO O BACKGROUND DA CENA PRINCIPAL
 	sprite_mesa.show()
@@ -49,6 +52,11 @@ func momentoSeEquipar() -> void:
 	if jogadorAtual == 0 and jogadores[jogadorAtual].isHost:
 		prompt1.customize("É o seu Turno!", "Está pronto para chutar a porta? Você pode se equipar antes", "Chutar a porta!", "Me equipar", true, true)
 		var jogadorChutouAPorta = await prompt1.prompt(false)
+		
+		#Bloqueando uso do deck de equipamentos
+		for jogador in jogadores:
+			jogador.maoCartasEquipadas.mudarBloqueioDeck(true)
+		
 		for bot in jogadores_bot:
 			bot.aplicarEquipamentos()
 		if jogadorChutouAPorta:
@@ -61,6 +69,11 @@ func momentoSeEquipar() -> void:
 	else:
 		prompt1.customize("É o turno de "+nomeDoJogadorDoTurno+"!", "Equipe cartas de classe, raça e equipamentos antes de avançar", "Continuar", "", true, true)
 		await prompt1.prompt(false)
+		
+		#Bloqueando uso do deck de equipamentos
+		for jogador in jogadores:
+			jogador.maoCartasEquipadas.mudarBloqueioDeck(true)
+		
 		for bot in jogadores_bot:
 			bot.aplicarEquipamentos()
 		cartaSorteadaTurno = gerCartas.sortearCartaPorta()

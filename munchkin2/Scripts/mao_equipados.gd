@@ -66,10 +66,12 @@ func removeDaMao(card):
 		else:
 			jogadorReference.calcularForcaTurno()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
+func mudarBloqueioDeck(valor: bool) -> void:
+	if !jogadorReference.isHost:
+		return
+	for carta in cartasEquipadas:
+		carta.get_node("Area2D/CollisionShape2D").disabled = valor
+	
 func resize() -> void:
 	if !isBot:
 		end_screen_x = get_viewport().size.x
