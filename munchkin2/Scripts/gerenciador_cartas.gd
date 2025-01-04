@@ -5,106 +5,11 @@ const MALDITION_PATH = "res://Scenes/Cartas/CartaMaldicao.tscn"
 const RACE_PATH = "res://Scenes/Cartas/CartaRaca.tscn"
 const CLASS_PATH = "res://Scenes/Cartas/CartaClasse.tscn"
 
-func instanciarCartaMonstro(selectedCard, playerReference = null):
-	var cardMonsterScene = preload(CARD_MONSTER_PATH)
-	var newCard = cardMonsterScene.instantiate()
-	newCard.tesouro = selectedCard.tesouro
-	newCard.nome = selectedCard.nome_carta
-	newCard.descricao = selectedCard.descricao_carta
-	newCard.frame = selectedCard.frame
-	newCard.tipo = selectedCard.tipo
-	newCard.forca = selectedCard.força
-	newCard.forca_total = newCard.forca
-	newCard.força_especifica = selectedCard.força_especifica
-	newCard.classe_especifica = selectedCard.classe_especifica
-	newCard.raça_especifica = selectedCard.raça_especifica
-	newCard.lvl_reward = selectedCard.lvl_reward
-	newCard.acao = selectedCard.acao
-	newCard.acaoParametro = selectedCard.acao_parametro
-	newCard.donoDaCarta = playerReference
-	return newCard
-	
-func instanciarCartaMaldicao(selectedCard, playerReference = null):
-	var CardScene = preload(MALDITION_PATH)
-	var newCard = CardScene.instantiate()
-	newCard.nome = selectedCard.nome_carta
-	newCard.descricao = selectedCard.descricao_carta
-	newCard.frame = selectedCard.frame
-	newCard.tipo = selectedCard.tipo
-	newCard.acao = selectedCard.acao
-	newCard.acao_parametro = selectedCard.acao_parametro
-	newCard.target = selectedCard.target
-	newCard.donoDaCarta = playerReference
-	return newCard
-
-func instanciarCartaTesouro(selectedCard, playerReference = null):
-	var CardSceneItem = preload(CARD_ITEM_PATH)
-	var newCard = CardSceneItem.instantiate()
-	newCard.nome = selectedCard.nome_carta
-	newCard.descricao = selectedCard.descricao_carta
-	newCard.frame = selectedCard.frame
-	newCard.classe_exigida = selectedCard.classe_exigida
-	newCard.raca_exigida = selectedCard.raça_exigida
-	newCard.classe_restrita = selectedCard.classe_restrita
-	newCard.raca_restrita = selectedCard.raça_restrita
-	newCard.tipo = selectedCard.tipo
-	newCard.isBig = selectedCard.isbig
-	newCard.forca = selectedCard.força
-	newCard.tipo_equipamento = selectedCard.equip_tipo
-	newCard.acao = selectedCard.acao
-	newCard.acao_parametro = selectedCard.acao_parametro
-	newCard.donoDaCarta = playerReference
-	return newCard
-	
-func instanciarCartaClasse(selectedCard, playerReference = null):
-	var CardScene = preload(CLASS_PATH)
-	var newCard = CardScene.instantiate()
-	newCard.nome = selectedCard.nome_carta
-	newCard.descricao = selectedCard.descricao_carta
-	newCard.frame = selectedCard.frame
-	newCard.tipo = selectedCard.tipo
-	newCard.classe_id = selectedCard.classe
-	return newCard
-
-func instanciarCartaRaca(selectedCard, playerReference = null):
-	var CardScene = preload(RACE_PATH)
-	var newCard = CardScene.instantiate()
-	newCard.nome = selectedCard.nome_carta
-	newCard.descricao = selectedCard.descricao_carta
-	newCard.frame = selectedCard.frame
-	newCard.tipo = selectedCard.tipo
-	newCard.raca_id = selectedCard.raca
-	return newCard
-
-func carregarCartasMonstro():
-	var json_file = FileAccess.open("res://data/cartas_monstro.json", FileAccess.READ)
-	var cartas_monstro = JSON.parse_string(json_file.get_as_text())
+func carregarCartas(path):
+	var json_file = FileAccess.open(path, FileAccess.READ)
+	var cartas_array = JSON.parse_string(json_file.get_as_text())
 	json_file.close()
-	return cartas_monstro
-	
-func carregarCartasMaldicao():
-	var json_file = FileAccess.open("res://data/cartas_maldicao.json", FileAccess.READ)
-	var cartas_maldicao = JSON.parse_string(json_file.get_as_text())
-	json_file.close()
-	return cartas_maldicao
-
-func carregarCartasTesouro():
-	var json_file = FileAccess.open("res://data/cartas_tesouro.json", FileAccess.READ)
-	var cartas_tesouro = JSON.parse_string(json_file.get_as_text())
-	json_file.close()
-	return cartas_tesouro
-	
-func carregarCartasRaca():
-	var json_file = FileAccess.open("res://data/cartas_raca.json", FileAccess.READ)
-	var cartas_raca = JSON.parse_string(json_file.get_as_text())
-	json_file.close()
-	return cartas_raca
-	
-func carregarCartasClasse():
-	var json_file = FileAccess.open("res://data/cartas_classe.json", FileAccess.READ)
-	var cartas_classe = JSON.parse_string(json_file.get_as_text())
-	json_file.close()
-	return cartas_classe
+	return cartas_array
 
 func gerarRandom(cartas_array):
 	var rng = RandomNumberGenerator.new()
@@ -112,59 +17,22 @@ func gerarRandom(cartas_array):
 	var selectedCard = cartas_array[rng.randi_range(0, cartas_array.size()-1)]
 	return selectedCard
 
-func sortearCartaMonstroMesa() -> CartaMonstro:	
-	var cartas_monstro = carregarCartasMonstro()
-	var selectedCard = gerarRandom(cartas_monstro)
-	var newCard = instanciarCartaMonstro(selectedCard)
+func sortearCarta(path: String, tipo: int, cenario: int = 1, mao = null, playerReference = null) -> CartaClass:
+	var dictTipos = {
+		0: InstanciarMonstros,
+		1: InstanciarMaldicao,
+		2: InstanciarClasses,
+		3: InstanciarRaca,
+		4: InstanciarTesouro
+	}
+	var cartas_array = carregarCartas(path)
+	var selectedCard 
+	if cenario == 1: #sorteio para mesa
+		selectedCard = gerarRandom(cartas_array)
+	else: #sorteio para mão
+		selectedCard = evitarRepeticao(cartas_array, mao)
+	var newCard = dictTipos[tipo].instanciarCartas(selectedCard)
 	return newCard
-	
-func sortearCartaMaldicaoMesa() -> CartaMaldicao:	
-	var cartas_maldicao = carregarCartasMaldicao()
-	var selectedCard = gerarRandom(cartas_maldicao)
-	var newCard = instanciarCartaMaldicao(selectedCard)
-	return newCard
-
-func sortearCartaRacaMesa() -> CartaRaca:	
-	var cartas_raca = carregarCartasRaca()
-	var selectedCard = gerarRandom(cartas_raca)
-	var newCard = instanciarCartaRaca(selectedCard)
-	return newCard
-	
-func sortearCartaClasseMesa() -> CartaDeClasse:	
-	var cartas_classe = carregarCartasClasse()
-	var selectedCard = gerarRandom(cartas_classe)
-	var newCard = instanciarCartaClasse(selectedCard)
-	return newCard
-
-func sortearCartaMaldicao(mao, playerReference) -> CartaMaldicao:	
-	var cartas_maldicao = carregarCartasMaldicao()
-	var selectedCard = evitarRepeticao(cartas_maldicao, mao)
-	var newCard = instanciarCartaMaldicao(selectedCard)
-	return newCard
-	
-func sortearCartaTesouro(mao, playerReference):
-	var cartas_tesouro = carregarCartasTesouro()
-	var selectedCard = evitarRepeticao(cartas_tesouro, mao)
-	var newCard = instanciarCartaTesouro(selectedCard, playerReference)
-	return newCard
-
-func sortearCartaMonstro(mao, playerReference) -> CartaMonstro:	
-	var cartas_monstro = carregarCartasMonstro()
-	var selectedCard = evitarRepeticao(cartas_monstro, mao)
-	var newCard = instanciarCartaMonstro(selectedCard, playerReference)
-	return newCard
-	
-func sortearCartaRaca(mao, playerReference) -> CartaRaca:	
-		var cartas_raca = carregarCartasRaca()
-		var selectedCard = evitarRepeticao(cartas_raca, mao)
-		var newCard = instanciarCartaRaca(selectedCard, playerReference)
-		return newCard
-		
-func sortearCartaClasse(mao, playerReference) -> CartaDeClasse:
-		var cartas_classe = carregarCartasClasse()
-		var selectedCard = evitarRepeticao(cartas_classe, mao)
-		var newCard = instanciarCartaClasse(selectedCard, playerReference)
-		return newCard
 	
 func evitarRepeticao(cartas_array, mao):
 	var cartaSelecionada = gerarRandom(cartas_array)
@@ -173,11 +41,12 @@ func evitarRepeticao(cartas_array, mao):
 			cartaSelecionada = evitarRepeticao(cartas_array, mao)
 	return cartaSelecionada
 
-func sortearCartaPorta() -> CartaClass:	#TODO: ADICIONAR MAIS TIPOS DE CARTA NO SORTEIO
+func gerarCartaPorta(path) -> CartaClass:	#TODO: ADICIONAR MAIS TIPOS DE CARTA NO SORTEIO
 	var dicCartasDoor = {
-			0: sortearCartaMonstroMesa(),
-			1: sortearCartaMaldicaoMesa(),
-			2: sortearCartaRacaMesa()
+			0: sortearCarta(path, 0),
+			#1: sortearCarta(path, 1),
+			#2: sortearCarta(path, 2),
+			#3: sortearCarta(path, 3),
 		}
 	var cartaSorteada = dicCartasDoor[randi_range(0,0)]
 	return cartaSorteada
