@@ -3,7 +3,7 @@ class_name MaoEquipados extends Node2D
 const CARD_WIDTH = 120*0.7
 const MAO_Y = 80
 
-var cartasEquipadas = []
+var cartasEquipadas: Array[CartaClass] = []
 var end_screen_x 
 var isBot: bool = false
 var jogadorReference

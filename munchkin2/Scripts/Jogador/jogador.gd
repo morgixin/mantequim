@@ -12,6 +12,7 @@ var raca: int = 1 #começa como humano
 var maoCartas: MaoJogador
 var maoCartasEquipadas: MaoEquipados
 var isHost = true
+var estaMorto = false
 
 const racaDict = {
 	-1: "Nenhum",

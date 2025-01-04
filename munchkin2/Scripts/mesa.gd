@@ -44,7 +44,6 @@ func momentoSeEquipar() -> void:
 	sprite_mesa.show()
 	sprite_batalha.hide()
 	
-	
 	momentoDoJogo = 0
 	var equipSlotScene = preload("res://Scenes/Slots/EquipSlot.tscn")
 	var equip_slot = equipSlotScene.instantiate()
@@ -242,19 +241,17 @@ func atacarMonstro() -> void:
 			jogadores[jogadorAtual].maoCartas.gerarCartasTesouro(tesouro)
 	else:
 		# FUNÇÃO DE BADSTUFF QUE RETORNA O TEXTO PARA ADICIONAR NO PROMPT
-		var vaiDiminuirNivel: bool = cartaSorteadaTurno.acao == 2
-		if vaiDiminuirNivel:
-			if (jogadores[jogadorAtual].nivel - abs(cartaSorteadaTurno.acaoParametro) > 0):
-				prompt1.customize(nomeTratamento+" perdeu o combate!", nomeTratamento+" perdeu " + str(abs(cartaSorteadaTurno.acaoParametro)) + " nível(is).", "Continuar", "", true)
-				await prompt1.prompt(false)
-				jogadores[jogadorAtual].aumentarNivel(cartaSorteadaTurno.acaoParametro)
-			else:
-				prompt1.customize(nomeTratamento+" perdeu o combate!", nomeTratamento+" morreu", "Continuar", "", true)
-				await prompt1.prompt(false)
-				jogadores[jogadorAtual].aumentarNivel(cartaSorteadaTurno.acaoParametro)
-		else: 
-			prompt1.customize(nomeTratamento+" perdeu o combate!", "", "Continuar", "", true)
+		var efeitoBadStuff = Efeito.create(cartaSorteadaTurno.acao)
+		efeitoBadStuff.processarEfeito(1, jogadores[jogadorAtual], cartaSorteadaTurno.acaoParametro, cartaSorteadaTurno.target)
+
+		prompt1.customize(nomeTratamento+" perdeu o combate!", efeitoBadStuff.obterTextoResultado(), "Continuar", "", true)
+		await prompt1.prompt(false)
+
+		if (jogadores[jogadorAtual].estaMorto):
+			await get_tree().create_timer(0.2).timeout
+			prompt1.customize(nomeTratamento+" morreu!", "", "Ir para o Menu", "", true)
 			await prompt1.prompt(false)
+			get_tree().change_scene_to_file.bind("res://Scenes/Menu.tscn").call_deferred()
 
 func fugirMonstro() -> void:
 	var nomeTratamento = "Você" if jogadores[jogadorAtual].isHost else jogadores[jogadorAtual].jogador

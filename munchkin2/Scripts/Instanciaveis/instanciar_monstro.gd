@@ -16,6 +16,7 @@ static func instanciarCartas(selectedCard, playerReference = null):
 	newCard.lvl_reward = selectedCard.lvl_reward
 	newCard.acao = selectedCard.acao
 	newCard.acaoParametro = selectedCard.acao_parametro
+	newCard.target = selectedCard.target
 	newCard.donoDaCarta = playerReference
 	return newCard
 
