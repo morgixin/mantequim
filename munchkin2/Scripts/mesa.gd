@@ -3,6 +3,11 @@ class_name Mesa extends Control
 const BOTS_COUNT = 2
 const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
 const BOT_PLAYER_PATH = "res://Scenes/JogadorBot.tscn"
+const DATA_MONSTER = "res://data/cartas_monstro.json"
+const DATA_ITEM = "res://data/cartas_tesouro.json"
+const DATA_MALDITION = "res://data/cartas_maldicao.json"
+const DATA_CLASS = "res://data/cartas_classe.json"
+const DATA_RACA = "res://data/cartas_raca.json"
 
 # VARIÁVEIS DE JOGO
 var momentoDoJogo = 0
@@ -52,7 +57,7 @@ func momentoSeEquipar() -> void:
 		for bot in jogadores_bot:
 			bot.aplicarEquipamentos()
 		if jogadorChutouAPorta:
-			cartaSorteadaTurno = gerCartas.sortearCartaPorta()
+			cartaSorteadaTurno = gerCartas.gerarCartaPorta(DATA_MONSTER)
 			monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado", true, "Continuar")
 			remove_child(equip_slot)
 			var jogadorContinuou = await monster_box.prompt()
@@ -63,7 +68,7 @@ func momentoSeEquipar() -> void:
 		await prompt1.prompt(false)
 		for bot in jogadores_bot:
 			bot.aplicarEquipamentos()
-		cartaSorteadaTurno = gerCartas.sortearCartaPorta()
+		cartaSorteadaTurno = gerCartas.gerarCartaPorta(DATA_MONSTER)
 		monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado (Turno de "+nomeDoJogadorDoTurno+")", true, "Aguardando " + nomeDoJogadorDoTurno + " continuar", "", true, true)
 		remove_child(equip_slot)
 		monster_box.setTimerToClose(5)
