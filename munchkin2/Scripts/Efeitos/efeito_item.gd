@@ -15,24 +15,20 @@ func _aplicarEfeito() -> void:
 	
 	# Information expert
 	var targetDict = {
-		99: mao_equipadas_reference.encontraEquipamentoMaisForte(mao_de_cartas_equipadas),
-		1: mao_equipadas_reference.encontrarEquipamentoAleatorio(mao_de_cartas_equipadas),
-		2: mao_equipadas_reference.encontrarBigItemAleatorio(mao_de_cartas_equipadas),
-		3: mao_equipadas_reference.encontrarFootgearAleatorio(mao_de_cartas_equipadas),
-		4: mao_equipadas_reference.encontrarArmorAleatorio(mao_de_cartas_equipadas),
-		5: mao_equipadas_reference.todosOsEquipamentos(mao_de_cartas_equipadas),
-		6: mao_equipadas_reference.encontrarHeadgearAleatorio(mao_de_cartas_equipadas),
+		99: mao_equipadas_reference.encontraEquipamentoMaisForte(),
+		1: mao_equipadas_reference.encontrarEquipamento(),
+		2: mao_equipadas_reference.encontrarEquipamento(0, true),
+		3: mao_equipadas_reference.encontrarEquipamento(6),
+		4: mao_equipadas_reference.encontrarEquipamento(4),
+		5: mao_equipadas_reference.getEquipados(),
+		6: mao_equipadas_reference.encontrarEquipamento(3),
 	}
 		
 	cartasEncontradas = targetDict[target]
 
 	if (cartasEncontradas):
-		print(cartasEncontradas.nome)
 		for carta in cartasEncontradas:
 			self.alvoJogadorDoEfeito.maoCartasEquipadas.removeDaMao(carta)
-			#var tween = get_tree().create_tween()
-			#tween.tween_property(carta, "scale", Vector2(0,0), 0.3)
-			#await tween.finished
 			self.alvoJogadorDoEfeito.scale = Vector2(0,0)
 			carta.hide()
 			

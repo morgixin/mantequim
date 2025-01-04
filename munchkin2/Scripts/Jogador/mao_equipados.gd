@@ -89,11 +89,10 @@ func resize() -> void:
 		end_screen_x = get_viewport().size.x
 		updatePosicoes()
 
-
-func encontraEquipamentoMaisForte(mao_de_carta: Array[CartaClass]):
+func encontraEquipamentoMaisForte():
 	var equipamentoMaisForte = null
 	var forcaEquipamentoMaisForte = -1
-	for carta in mao_de_carta:
+	for carta in self.cartasEquipadas:
 		if (carta.tipo != 2):
 			continue
 		if (carta.forca > forcaEquipamentoMaisForte):
@@ -101,10 +100,10 @@ func encontraEquipamentoMaisForte(mao_de_carta: Array[CartaClass]):
 			forcaEquipamentoMaisForte = carta.forca
 	return [equipamentoMaisForte] if equipamentoMaisForte != null else null
 
-func encontrarEquipamentoAleatorio(mao_de_carta: Array[CartaClass]):
+func encontrarEquipamentoAleatorio (tipo_equip: int = 0):
 	var equipamentoAleatorio = null
 	var equipamentos = []
-	for carta in mao_de_carta:
+	for carta in self.cartasEquipadas:
 		if (carta.tipo != 2):
 			continue
 		if (carta.isBig):
@@ -114,10 +113,10 @@ func encontrarEquipamentoAleatorio(mao_de_carta: Array[CartaClass]):
 		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
 	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
 
-func encontrarBigItemAleatorio(mao_de_carta: Array[CartaClass]):
+func encontrarBigItemAleatorio():
 	var equipamentoAleatorio = null
 	var equipamentos = []
-	for carta in mao_de_carta:
+	for carta in self.cartasEquipadasa:
 		if (carta.tipo != 2):
 			continue
 		if (!carta.isBig):
@@ -127,10 +126,10 @@ func encontrarBigItemAleatorio(mao_de_carta: Array[CartaClass]):
 		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
 	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
 
-func encontrarFootgearAleatorio(mao_de_carta: Array[CartaClass]):
+func encontrarFootgearAleatorio():
 	var equipamentoAleatorio = null
 	var equipamentos = []
-	for carta in mao_de_carta:
+	for carta in self.cartasEquipadas:
 		if (carta.tipo != 2):
 			continue
 		if (carta.tipo_equipamento != 6):
@@ -140,10 +139,10 @@ func encontrarFootgearAleatorio(mao_de_carta: Array[CartaClass]):
 		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
 	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
 
-func encontrarArmorAleatorio(mao_de_carta: Array[CartaClass]):
+func encontrarArmorAleatorio():
 	var equipamentoAleatorio = null
 	var equipamentos = []
-	for carta in mao_de_carta:
+	for carta in self.cartasEquipadas:
 		if (carta.tipo != 2):
 			continue
 		if (carta.tipo_equipamento != 4):
@@ -153,22 +152,42 @@ func encontrarArmorAleatorio(mao_de_carta: Array[CartaClass]):
 		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
 	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
 
-func todosOsEquipamentos(mao_de_carta: Array[CartaClass]):
+func getEquipados():
 	var equipamentos = []
-	for carta in mao_de_carta:
+	for carta in self.cartasEquipadas:
 		if (carta.tipo != 2):
 			continue
 		equipamentos.append(carta)
 	return equipamentos
 
-func encontrarHeadgearAleatorio(mao_de_carta: Array[CartaClass]):
+func encontrarHeadgearAleatorio():
 	var equipamentoAleatorio = null
 	var equipamentos = []
-	for carta in mao_de_carta:
+	for carta in self.cartasEquipadas:
 		if (carta.tipo != 2):
 			continue
 		if (carta.tipo_equipamento != 3):
 			continue
+		equipamentos.append(carta)
+	if (equipamentos.size() > 0):
+		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
+	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
+
+func encontrarEquipamento(tipo_equip: int = 0, procurandoBig: bool = false):
+	var equipamentoAleatorio = null
+	var equipamentos = []
+	for carta in self.cartasEquipadas:
+		if (carta.tipo != 2):
+			continue
+		if (procurandoBig):
+			if (!carta.isBig):
+				continue
+		else:
+			if (carta.isBig) and tipo_equip == 0:
+				continue
+			if tipo_equip != 0:
+				if (carta.tipo_equipamento != tipo_equip):
+					continue
 		equipamentos.append(carta)
 	if (equipamentos.size() > 0):
 		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
