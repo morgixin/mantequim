@@ -19,7 +19,7 @@ var cartaSorteadaTurno: CartaClass
 var cartasInterferenciaTurno: Array[CartaClass] = []
 var cartasSlotDeAjuda: Array[CartaClass] = []
 
-var gerCartas: GerenciadorCartasClass
+var gerCartas = GerenciadorCartasClass.getInstancia()
 var useCardSlot = null
 @onready var prompt1 = $Confirmation
 @onready var prompt2 = $useCardSlotPrompt
@@ -30,7 +30,6 @@ var useCardSlot = null
 func _ready() -> void:
 	jogadores.append($Jogador)
 	instanciarBots()
-	gerCartas = GerenciadorCartasClass.new()
 	
 	# Iniciando primeiro momento do Jogo
 	momentoSeEquipar()

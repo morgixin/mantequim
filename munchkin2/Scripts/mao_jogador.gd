@@ -18,7 +18,7 @@ var cartas_tesouro = []
 var cartas_monstro = []
 var isBot: bool = false
 var playerReference
-var gerCartas: GerenciadorCartasClass
+var gerCartas = GerenciadorCartasClass.getInstancia()
 
 static func create(donoDaMao = null) -> MaoJogador:
 	var newObject = MaoJogador.new()
@@ -26,7 +26,6 @@ static func create(donoDaMao = null) -> MaoJogador:
 	return newObject
 	
 func _ready() -> void:
-	gerCartas = GerenciadorCartasClass.new()
 	if (!playerReference):
 		playerReference = $"../Jogador"
 	

@@ -5,6 +5,12 @@ const MALDITION_PATH = "res://Scenes/Cartas/CartaMaldicao.tscn"
 const RACE_PATH = "res://Scenes/Cartas/CartaRaca.tscn"
 const CLASS_PATH = "res://Scenes/Cartas/CartaClasse.tscn"
 
+static var instancia = null
+static func getInstancia():
+	if instancia == null:
+		instancia = GerenciadorCartasClass.new()
+	return instancia
+
 func carregarCartas(path):
 	var json_file = FileAccess.open(path, FileAccess.READ)
 	var cartas_array = JSON.parse_string(json_file.get_as_text())
@@ -52,4 +58,4 @@ func gerarCartaPorta(path) -> CartaClass:	#TODO: ADICIONAR MAIS TIPOS DE CARTA N
 	return cartaSorteada
 
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
