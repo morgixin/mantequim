@@ -39,7 +39,9 @@ func _on_exit_btn_pressed() -> void:
 	get_tree().change_scene_to_file(\"res://Scenes/Menu.tscn\")
 "
 
-[node name="Config" type="Node2D"]
+[node name="Config" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 
 [node name="Background" type="TextureRect" parent="."]
 offset_left = -40.0
@@ -68,6 +70,7 @@ fit_content = true
 scroll_active = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -136,6 +139,7 @@ theme_override_fonts/normal_font = ExtResource("1_4yo3e")
 theme_override_font_sizes/normal_font_size = 14
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
