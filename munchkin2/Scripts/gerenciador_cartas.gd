@@ -31,7 +31,7 @@ func sortearCarta(path: String, tipo: int, cenario: int = 1, mao = null, playerR
 		selectedCard = gerarRandom(cartas_array)
 	else: #sorteio para mão
 		selectedCard = evitarRepeticao(cartas_array, mao)
-	var newCard = dictTipos[tipo].instanciarCartas(selectedCard)
+	var newCard = dictTipos[tipo].instanciarCartas(selectedCard, playerReference)
 	return newCard
 	
 func evitarRepeticao(cartas_array, mao):
