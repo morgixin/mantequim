@@ -22,6 +22,12 @@ func _ready() -> void:
 func addMao(card):
 	if card not in cartasEquipadas:
 		cartasEquipadas.insert(0, card)
+		
+		if card.tipo == 4: 
+			jogadorReference.setClasseJogador(card.classe_id)
+		if card.tipo == 5:
+			jogadorReference.setRacaJogador(card.raca_id)
+		
 		if !isBot:
 			updatePosicoes()
 		else:
@@ -61,6 +67,12 @@ func calculaPosicao(index):
 func removeDaMao(card):
 	if card in cartasEquipadas:
 		cartasEquipadas.erase(card)
+		
+		if card.tipo == 4: 
+			jogadorReference.setClasseJogador(-1)
+		if card.tipo == 5:
+			jogadorReference.setRacaJogador(1)
+		
 		if !isBot:
 			updatePosicoes()
 		else:

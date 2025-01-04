@@ -3,6 +3,15 @@ class_name JogadorBot extends Jogador
 func _ready() -> void:
 	isHost = false
 
+func aplicarClassesRacas() -> void:
+	var array_cartas = self.maoCartas.maoJogador
+	for carta in array_cartas:
+		if carta.tipo != 4 and carta.tipo != 5:
+			continue
+		if admitirCarta(carta):
+			self.maoCartas.removeDaMao(carta)
+			self.maoCartasEquipadas.addMao(carta)
+	
 func aplicarEquipamentos() -> void:
 	var array_cartas = self.maoCartas.maoJogador
 	var array_equipados = self.maoCartasEquipadas.cartasEquipadas
@@ -33,7 +42,6 @@ func aplicarEquipamentos() -> void:
 					self.maoCartasEquipadas.addMao(carta)
 		
 	for chave in appendDict:
-		var nome = admitirCarta(appendDict[chave][0]) if appendDict[chave].size() > 0 else null
 		if appendDict[chave].size() > 0 and admitirCarta(appendDict[chave][0]):
 			self.maoCartas.removeDaMao(appendDict[chave][0])
 			self.maoCartasEquipadas.addMao(appendDict[chave][0])

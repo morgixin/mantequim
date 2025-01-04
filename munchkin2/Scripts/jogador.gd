@@ -16,12 +16,16 @@ var isHost = true
 const racaDict = {
 	-1: "Nenhum",
 	1: "Humano",
-	2: "Elfo"
+	2: "Elfo",
+	3: "Anão",
+	4: "Halfling"
 }
 const classeDict = {
 	-1: "Nenhum",
-	1: "Ladrão",
-	2: "Clérigo"
+	1: "Thief",
+	2: "Clérigo",
+	3: "Mago",
+	4: "Guerreiro"
 }
 const equipDict = {
 	1: "1 Hand",
@@ -70,7 +74,8 @@ func verificaEquipadas(carta: CartaItem):
 	var arrayEquip = maoCartasEquipadas.cartasEquipadas
 	var arrayTiposEquip = []
 	for i in range (arrayEquip.size()):
-		arrayTiposEquip.insert(i, arrayEquip[i].getTipoEquip())
+		if (arrayEquip[i].tipo == 2):
+			arrayTiposEquip.insert(i, arrayEquip[i].getTipoEquip())
 	if tipo == 1:
 		if arrayTiposEquip.count(1) == 2 or arrayTiposEquip.count(2) == 1:
 			return false
@@ -83,21 +88,40 @@ func verificaEquipadas(carta: CartaItem):
 		return false
 	return true
 
+func verificarClasseRaca(carta: CartaClass) -> bool:
+	var arrayCartasEquipadas = maoCartasEquipadas.cartasEquipadas
+	var cartasClassesEquipadas = []
+	var cartasRacasEquipadas = []
+	for cartaEquipada in arrayCartasEquipadas:
+		if cartaEquipada.tipo == 4:
+			cartasClassesEquipadas.append(cartaEquipada)
+		elif cartaEquipada.tipo == 5:
+			cartasRacasEquipadas.append(cartaEquipada)
+	if carta.tipo == 4 and cartasClassesEquipadas.size() > 0:
+		return false
+	if carta.tipo == 5 and cartasRacasEquipadas.size() > 0:
+		return false	
+	return true
+
 func admitirCarta(carta: CartaClass) -> bool:
-	if carta.tipo != 2:
+	if carta.tipo != 2 and carta.tipo != 4 and carta.tipo != 5:
 		return false
-	if carta.classe_exigida != -1 and classe != carta.classe_exigida:
-		return false
-	if carta.raca_exigida != -1 and raca != carta.raca_exigida:
-		return false
-	if carta.classe_restrita != -1 and classe == carta.classe_restrita:
-		return false
-	if carta.raca_restrita != -1 and raca == carta.raca_restrita:
-		return false
-	if carta.tipo_equipamento == -1:
-		return false
-	if !verificaEquipadas(carta):
-		return false
+	if carta.tipo == 2:
+		if carta.classe_exigida != -1 and classe != carta.classe_exigida:
+			return false
+		if carta.raca_exigida != -1 and raca != carta.raca_exigida:
+			return false
+		if carta.classe_restrita != -1 and classe == carta.classe_restrita:
+			return false
+		if carta.raca_restrita != -1 and raca == carta.raca_restrita:
+			return false
+		if carta.tipo_equipamento == -1:
+			return false
+		if !verificaEquipadas(carta):
+			return false
+	if carta.tipo == 4 or carta.tipo == 5:
+		if !verificarClasseRaca(carta):
+			return false		
 	return true
 
 func _process(_delta: float) -> void:
