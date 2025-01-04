@@ -7,7 +7,7 @@ const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
 const CARD_WIDTH = 120
 var MAO_Y: int
 
-var maoJogador = []
+var maoJogador: Array[CartaClass] = []
 var center_screen_x 
 var cartas_tesouro = []
 var cartas_monstro = []

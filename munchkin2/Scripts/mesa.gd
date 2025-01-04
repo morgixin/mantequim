@@ -49,9 +49,10 @@ func momentoSeEquipar() -> void:
 	if jogadorAtual == 0 and jogadores[jogadorAtual].isHost:
 		prompt1.customize("É o seu Turno!", "Está pronto para chutar a porta? Você pode se equipar antes", "Chutar a porta!", "Me equipar", true, true)
 		var jogadorChutouAPorta = await prompt1.prompt(false)
+		for bot in jogadores_bot:
+			bot.aplicarEquipamentos()
 		if jogadorChutouAPorta:
 			cartaSorteadaTurno = gerCartas.sortearCartaPorta()
-			print(cartaSorteadaTurno.nome)
 			monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado", true, "Continuar")
 			remove_child(equip_slot)
 			var jogadorContinuou = await monster_box.prompt()
@@ -60,6 +61,8 @@ func momentoSeEquipar() -> void:
 	else:
 		prompt1.customize("É o turno de "+nomeDoJogadorDoTurno+"!", "Equipe cartas de classe, raça e equipamentos antes de avançar", "Continuar", "", true, true)
 		await prompt1.prompt(false)
+		for bot in jogadores_bot:
+			bot.aplicarEquipamentos()
 		cartaSorteadaTurno = gerCartas.sortearCartaPorta()
 		monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado (Turno de "+nomeDoJogadorDoTurno+")", true, "Aguardando " + nomeDoJogadorDoTurno + " continuar", "", true, true)
 		remove_child(equip_slot)
@@ -294,7 +297,7 @@ func escolherCartaAjudaBot():
 func instanciarBots():
 	for i in range(BOTS_COUNT):
 		var novoBot = JogadorBot.new()
-		var maoEquipadosBot = MaoEquipados.new()
+		var maoEquipadosBot = MaoEquipados.create(novoBot)
 		var maoJogadorBot = MaoJogador.create(novoBot)
 		maoEquipadosBot.isBot = true
 		maoJogadorBot.isBot = true

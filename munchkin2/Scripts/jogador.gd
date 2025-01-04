@@ -9,8 +9,8 @@ var incrementos_forca: Array[int] = []
 
 var classe: int = -1
 var raca: int = 1 #começa como humano
-var maoCartas
-var maoCartasEquipadas
+var maoCartas: MaoJogador
+var maoCartasEquipadas: MaoEquipados
 var isHost = true
 
 const racaDict = {
@@ -23,9 +23,17 @@ const classeDict = {
 	1: "Ladrão",
 	2: "Clérigo"
 }
+const equipDict = {
+	1: "1 Hand",
+	2: "2 Hand",
+	3: "Headgear",
+	4: "Armor",
+	5: "Genérico",
+	6: "Footgear"
+}
 var player_box: PlayerBox
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	maoCartas = $"../MaoJogador"
 	maoCartasEquipadas = $"../MaoEquipados"
@@ -35,10 +43,13 @@ func setForca(novo_valor: int) -> void:
 	forca = novo_valor
 	
 func calcularForcaTurno() -> void:
+	#print("----------------------------------------------")
+	#print("Calculando forca_Turno do jogador "+self.jogador)
 	maoCartasEquipadas.calcularForca()
 	self.forca_turno = forca
 	for forcaNova in incrementos_forca:
 		self.forca_turno += forcaNova
+	#print("A força turno é: "+str(forca_turno))
 	
 func aumentarNivel(qtd_niveis: int) -> void:
 	nivel += qtd_niveis
@@ -76,8 +87,6 @@ func verificaEquipadas(carta: CartaItem):
 	return true
 
 func admitirCarta(carta: CartaClass) -> bool:
-	if !carta.isTreasure:
-		return false
 	if carta.tipo != 2:
 		return false
 	if carta.classe_exigida != -1 and classe != carta.classe_exigida:

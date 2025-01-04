@@ -8,8 +8,14 @@ var end_screen_x
 var isBot: bool = false
 var jogadorReference
 
+static func create(donoDaMao = null) -> MaoEquipados:
+	var newObject = MaoEquipados.new()
+	newObject.jogadorReference = donoDaMao
+	return newObject
+
 func _ready() -> void:
-	jogadorReference = $"../Jogador"
+	if (!jogadorReference):
+		jogadorReference = $"../Jogador"
 	get_tree().get_root().size_changed.connect(resize)
 	end_screen_x = get_viewport().size.x
 
@@ -23,7 +29,6 @@ func addMao(card):
 	elif !isBot:
 		animateCardToPosition(card, card.posInicial)
 		
-	
 func calcularForca():
 	var forcaAtual = jogadorReference.nivel
 	for i in range(cartasEquipadas.size()):
