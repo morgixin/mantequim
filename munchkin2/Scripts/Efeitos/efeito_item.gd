@@ -11,21 +11,23 @@ func _aplicarEfeito() -> void:
 		return
 		
 	var mao_de_cartas_equipadas = alvoJogadorDoEfeito.maoCartasEquipadas.cartasEquipadas
+	var mao_equipadas_reference = alvoJogadorDoEfeito.maoCartasEquipadas
 	
+	# Information expert
 	var targetDict = {
-		99: encontraEquipamentoMaisForte(mao_de_cartas_equipadas),
-		1: encontrarEquipamentoAleatorio(mao_de_cartas_equipadas),
-		2: encontrarBigItemAleatorio(mao_de_cartas_equipadas),
-		3: encontrarFootgearAleatorio(mao_de_cartas_equipadas),
-		4: encontrarArmorAleatorio(mao_de_cartas_equipadas),
-		5: todosOsEquipamentos(mao_de_cartas_equipadas),
-		6: encontrarHeadgearAleatorio(mao_de_cartas_equipadas),
+		99: mao_equipadas_reference.encontraEquipamentoMaisForte(mao_de_cartas_equipadas),
+		1: mao_equipadas_reference.encontrarEquipamentoAleatorio(mao_de_cartas_equipadas),
+		2: mao_equipadas_reference.encontrarBigItemAleatorio(mao_de_cartas_equipadas),
+		3: mao_equipadas_reference.encontrarFootgearAleatorio(mao_de_cartas_equipadas),
+		4: mao_equipadas_reference.encontrarArmorAleatorio(mao_de_cartas_equipadas),
+		5: mao_equipadas_reference.todosOsEquipamentos(mao_de_cartas_equipadas),
+		6: mao_equipadas_reference.encontrarHeadgearAleatorio(mao_de_cartas_equipadas),
 	}
-	
-	
+		
 	cartasEncontradas = targetDict[target]
 
 	if (cartasEncontradas):
+		print(cartasEncontradas.nome)
 		for carta in cartasEncontradas:
 			self.alvoJogadorDoEfeito.maoCartasEquipadas.removeDaMao(carta)
 			#var tween = get_tree().create_tween()
@@ -75,91 +77,3 @@ func _finalizarEfeito() -> void:
 				self.textoResultado = "Não possui " + textEquipamentoDictNaoEncontrado[self.target]+" e perdeu " + str(abs(self.acaoParametro)) + " de nível"
 			else:
 				self.textoResultado = "Ganhou " + str(self.acaoParametro) + " de nível"
-
-
-
-# Implementar information expert
-func encontraEquipamentoMaisForte(mao_de_carta: Array[CartaClass]):
-	var equipamentoMaisForte = null
-	var forcaEquipamentoMaisForte = -1
-	for carta in mao_de_carta:
-		if (carta.tipo != 2):
-			continue
-		if (carta.forca > forcaEquipamentoMaisForte):
-			equipamentoMaisForte = carta
-			forcaEquipamentoMaisForte = carta.forca
-	return [equipamentoMaisForte] if equipamentoMaisForte != null else null
-
-func encontrarEquipamentoAleatorio(mao_de_carta: Array[CartaClass]):
-	var equipamentoAleatorio = null
-	var equipamentos = []
-	for carta in mao_de_carta:
-		if (carta.tipo != 2):
-			continue
-		if (carta.isBig):
-			continue
-		equipamentos.append(carta)
-	if (equipamentos.size() > 0):
-		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
-	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
-
-func encontrarBigItemAleatorio(mao_de_carta: Array[CartaClass]):
-	var equipamentoAleatorio = null
-	var equipamentos = []
-	for carta in mao_de_carta:
-		if (carta.tipo != 2):
-			continue
-		if (!carta.isBig):
-			continue
-		equipamentos.append(carta)
-	if (equipamentos.size() > 0):
-		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
-	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
-
-func encontrarFootgearAleatorio(mao_de_carta: Array[CartaClass]):
-	var equipamentoAleatorio = null
-	var equipamentos = []
-	for carta in mao_de_carta:
-		if (carta.tipo != 2):
-			continue
-		if (carta.tipo_equipamento != 6):
-			continue
-		equipamentos.append(carta)
-	if (equipamentos.size() > 0):
-		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
-	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
-
-func encontrarArmorAleatorio(mao_de_carta: Array[CartaClass]):
-	var equipamentoAleatorio = null
-	var equipamentos = []
-	for carta in mao_de_carta:
-		if (carta.tipo != 2):
-			continue
-		if (carta.tipo_equipamento != 4):
-			continue
-		equipamentos.append(carta)
-	if (equipamentos.size() > 0):
-		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
-	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
-
-func todosOsEquipamentos(mao_de_carta: Array[CartaClass]):
-	var equipamentos = []
-	for carta in mao_de_carta:
-		if (carta.tipo != 2):
-			continue
-		equipamentos.append(carta)
-	return equipamentos
-
-func encontrarHeadgearAleatorio(mao_de_carta: Array[CartaClass]):
-	var equipamentoAleatorio = null
-	var equipamentos = []
-	for carta in mao_de_carta:
-		if (carta.tipo != 2):
-			continue
-		if (carta.tipo_equipamento != 5):
-			continue
-		if (carta.tipo == 2 and carta.tipo_equipamento == 5):
-			equipamentos.append(carta)
-	if (equipamentos.size() > 0):
-		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
-	return [equipamentoAleatorio] if equipamentoAleatorio != null else null

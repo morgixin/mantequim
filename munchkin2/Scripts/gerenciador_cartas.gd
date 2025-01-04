@@ -58,7 +58,7 @@ func sortearCarta(path: String, tipo: int, cenario: int = 1, mao = null, playerR
 	}
 	var cartas_array = carregarCartas(path)
 	var selectedCard 
-	if cenario == 1: #sorteio para mesa
+	if cenario == 1 or cartas_array.size() <= 4: #sorteio para mesa
 		selectedCard = gerarRandom(cartas_array)
 	else: #sorteio para mão
 		selectedCard = evitarRepeticao(cartas_array, mao)

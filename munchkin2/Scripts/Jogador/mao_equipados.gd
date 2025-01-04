@@ -88,3 +88,88 @@ func resize() -> void:
 	if !isBot:
 		end_screen_x = get_viewport().size.x
 		updatePosicoes()
+
+
+func encontraEquipamentoMaisForte(mao_de_carta: Array[CartaClass]):
+	var equipamentoMaisForte = null
+	var forcaEquipamentoMaisForte = -1
+	for carta in mao_de_carta:
+		if (carta.tipo != 2):
+			continue
+		if (carta.forca > forcaEquipamentoMaisForte):
+			equipamentoMaisForte = carta
+			forcaEquipamentoMaisForte = carta.forca
+	return [equipamentoMaisForte] if equipamentoMaisForte != null else null
+
+func encontrarEquipamentoAleatorio(mao_de_carta: Array[CartaClass]):
+	var equipamentoAleatorio = null
+	var equipamentos = []
+	for carta in mao_de_carta:
+		if (carta.tipo != 2):
+			continue
+		if (carta.isBig):
+			continue
+		equipamentos.append(carta)
+	if (equipamentos.size() > 0):
+		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
+	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
+
+func encontrarBigItemAleatorio(mao_de_carta: Array[CartaClass]):
+	var equipamentoAleatorio = null
+	var equipamentos = []
+	for carta in mao_de_carta:
+		if (carta.tipo != 2):
+			continue
+		if (!carta.isBig):
+			continue
+		equipamentos.append(carta)
+	if (equipamentos.size() > 0):
+		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
+	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
+
+func encontrarFootgearAleatorio(mao_de_carta: Array[CartaClass]):
+	var equipamentoAleatorio = null
+	var equipamentos = []
+	for carta in mao_de_carta:
+		if (carta.tipo != 2):
+			continue
+		if (carta.tipo_equipamento != 6):
+			continue
+		equipamentos.append(carta)
+	if (equipamentos.size() > 0):
+		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
+	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
+
+func encontrarArmorAleatorio(mao_de_carta: Array[CartaClass]):
+	var equipamentoAleatorio = null
+	var equipamentos = []
+	for carta in mao_de_carta:
+		if (carta.tipo != 2):
+			continue
+		if (carta.tipo_equipamento != 4):
+			continue
+		equipamentos.append(carta)
+	if (equipamentos.size() > 0):
+		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
+	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
+
+func todosOsEquipamentos(mao_de_carta: Array[CartaClass]):
+	var equipamentos = []
+	for carta in mao_de_carta:
+		if (carta.tipo != 2):
+			continue
+		equipamentos.append(carta)
+	return equipamentos
+
+func encontrarHeadgearAleatorio(mao_de_carta: Array[CartaClass]):
+	var equipamentoAleatorio = null
+	var equipamentos = []
+	for carta in mao_de_carta:
+		if (carta.tipo != 2):
+			continue
+		if (carta.tipo_equipamento != 3):
+			continue
+		equipamentos.append(carta)
+	if (equipamentos.size() > 0):
+		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
+	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
