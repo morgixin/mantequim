@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
-			var card = raycast_check_for_card()
+			var card = raycast_check(COLLISION_MASK)
 			if card:
 				start_drag(card)
 		else:
@@ -46,10 +46,10 @@ func start_drag(card):
 func stop_drag():
 	if (cardBeingDragged != null):
 		cardBeingDragged.scale = Vector2(1.05, 1.05)
-		var cardSlotFound = raycast_check_for_card_slot()
-		var cardEquipFound = raycast_check_for_card_equip()
-		var cardUseFound = raycast_check_for_card_use()
-		var discardFound = raycast_check_for_discard()
+		var cardSlotFound = raycast_check(COLLISION_MASK_SLOT)
+		var cardEquipFound = raycast_check(COLLISION_MASK_EQUIP)
+		var cardUseFound = raycast_check(COLLISION_MASK_USE)
+		var discardFound = raycast_check(COLLISION_MASK_DISCARD)
 		if cardSlotFound:
 			playerHandReference.removeDaMao(cardBeingDragged)
 			playerItemsHandReference.removeDaMao(cardBeingDragged)
@@ -114,7 +114,7 @@ func hovered_on_card(card):
 func hovered_off_card(card):
 	if !cardBeingDragged:
 		highlight_card(card,false)
-		var newCardHovered = raycast_check_for_card()
+		var newCardHovered = raycast_check(COLLISION_MASK)
 		if newCardHovered:
 			highlight_card(newCardHovered, true)
 		else:
@@ -142,57 +142,12 @@ func get_card_with_highest_z_index(cards):
 	
 	return highest_z_card
 	
-	
-func raycast_check_for_card_equip():
+func raycast_check(collider: int):
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_EQUIP
-	var result = space_state.intersect_point(parameters)
-	if result.size() > 0:
-		return result[0].collider.get_parent()
-	return null
-
-func raycast_check_for_card_slot():
-	var space_state = get_world_2d().direct_space_state
-	var parameters = PhysicsPointQueryParameters2D.new()
-	parameters.position = get_global_mouse_position()
-	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_SLOT
-	var result = space_state.intersect_point(parameters)
-	if result.size() > 0:
-		return result[0].collider.get_parent()
-	return null
-
-func raycast_check_for_card_use():
-	var space_state = get_world_2d().direct_space_state
-	var parameters = PhysicsPointQueryParameters2D.new()
-	parameters.position = get_global_mouse_position()
-	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_USE
-	var result = space_state.intersect_point(parameters)
-	if result.size() > 0:
-		return get_card_with_highest_z_index(result)
-	return null
-
-func raycast_check_for_card():
-	var space_state = get_world_2d().direct_space_state
-	var parameters = PhysicsPointQueryParameters2D.new()
-	parameters.position = get_global_mouse_position()
-	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK
-	var result = space_state.intersect_point(parameters)
-	if result.size() > 0:
-		return get_card_with_highest_z_index(result)
-	return null
-	
-func raycast_check_for_discard():
-	var space_state = get_world_2d().direct_space_state
-	var parameters = PhysicsPointQueryParameters2D.new()
-	parameters.position = get_global_mouse_position()
-	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_DISCARD
+	parameters.collision_mask = collider
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return get_card_with_highest_z_index(result)

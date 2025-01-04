@@ -1,65 +1,65 @@
 [
 	{
-	"tipo": 5,
-	"nome_carta": "Halfling",
-	"descricao_carta": "Você tem duas tentativas quando quiser fugir de monstros, caso a primeira não dê certo.",
-	"frame": 5,
-	"raca": 4 
-  },
+		"tipo": 5,
+		"nome_carta": "Halfling",
+		"descricao_carta": "Você tem duas tentativas quando quiser fugir de monstros, caso a primeira não dê certo.",
+		"frame": 5,
+		"raca": 4
+	},
 	{
-	"tipo": 5,
-	"nome_carta": "Halfling",
-	"descricao_carta": "Você tem duas tentativas quando quiser fugir de monstros, caso a primeira não dê certo.",
-	"frame": 11,
-	"raca": 4 
-  },
+		"tipo": 5,
+		"nome_carta": "Halfling",
+		"descricao_carta": "Você tem duas tentativas quando quiser fugir de monstros, caso a primeira não dê certo.",
+		"frame": 11,
+		"raca": 4
+	},
 	{
-	"tipo": 5,
-	"nome_carta": "Halfling",
-	"descricao_carta": "Você tem duas tentativas quando quiser fugir de monstros, caso a primeira não dê certo.",
-	"frame": 87,
-	"raca": 4 
-  },
-{
-	"tipo": 5,
-	"nome_carta": "Elf",
-	"descricao_carta": "Quando quiser fugir de um monstro, você sempre terá um ponto extra (espero que seja útil!)",
-	"frame": 9,
-	"raca":  2
-  },
-{
-	"tipo": 5,
-	"nome_carta": "Elf",
-	"descricao_carta": "Quando quiser fugir de um monstro, você sempre terá um ponto extra (espero que seja útil!)",
-	"frame": 19,
-	"raca":  2
-  },
-{
-	"tipo": 5,
-	"nome_carta": "Elf",
-	"descricao_carta": "Quando quiser fugir de um monstro, você sempre terá um ponto extra (espero que seja útil!)",
-	"frame": 82,
-	"raca":  2
-  },
-{
-	"tipo": 5,
-	"nome_carta": "Dwarf",
-	"descricao_carta": "Você pode carregar mais de um Big item.",
-	"frame": 26,
-	"raca":  3
-  },
-{
-	"tipo": 5,
-	"nome_carta": "Dwarf",
-	"descricao_carta": "Você pode carregar mais de um Big item.",
-	"frame": 38,
-	"raca":  3
-  },
-{
-	"tipo": 5,
-	"nome_carta": "Dwarf",
-	"descricao_carta": "Você pode carregar mais de um Big item.",
-	"frame": 39,
-	"raca":  3
-  },
-] 
+		"tipo": 5,
+		"nome_carta": "Halfling",
+		"descricao_carta": "Você tem duas tentativas quando quiser fugir de monstros, caso a primeira não dê certo.",
+		"frame": 87,
+		"raca": 4
+	},
+	{
+		"tipo": 5,
+		"nome_carta": "Elf",
+		"descricao_carta": "Quando quiser fugir de um monstro, você sempre terá um ponto extra (espero que seja útil!)",
+		"frame": 9,
+		"raca": 2
+	},
+	{
+		"tipo": 5,
+		"nome_carta": "Elf",
+		"descricao_carta": "Quando quiser fugir de um monstro, você sempre terá um ponto extra (espero que seja útil!)",
+		"frame": 19,
+		"raca": 2
+	},
+	{
+		"tipo": 5,
+		"nome_carta": "Elf",
+		"descricao_carta": "Quando quiser fugir de um monstro, você sempre terá um ponto extra (espero que seja útil!)",
+		"frame": 82,
+		"raca": 2
+	},
+	{
+		"tipo": 5,
+		"nome_carta": "Dwarf",
+		"descricao_carta": "Você pode carregar mais de um Big item.",
+		"frame": 26,
+		"raca": 3
+	},
+	{
+		"tipo": 5,
+		"nome_carta": "Dwarf",
+		"descricao_carta": "Você pode carregar mais de um Big item.",
+		"frame": 38,
+		"raca": 3
+	},
+	{
+		"tipo": 5,
+		"nome_carta": "Dwarf",
+		"descricao_carta": "Você pode carregar mais de um Big item.",
+		"frame": 39,
+		"raca": 3
+	}
+]

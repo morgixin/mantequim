@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ficxtf4vno84"]
 
-[ext_resource type="Script" path="res://Scripts/player_box.gd" id="1_6j8cv"]
+[ext_resource type="Script" path="res://Scripts/UI/player_box.gd" id="1_6j8cv"]
 [ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="1_hsvhv"]
 
 [node name="PlayerBox" type="MarginContainer"]

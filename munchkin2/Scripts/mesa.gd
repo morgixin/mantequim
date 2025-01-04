@@ -3,6 +3,11 @@ class_name Mesa extends Control
 const BOTS_COUNT = 2
 const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
 const BOT_PLAYER_PATH = "res://Scenes/JogadorBot.tscn"
+const DATA_MONSTER = "res://data/cartas_monstro.json"
+const DATA_ITEM = "res://data/cartas_tesouro.json"
+const DATA_MALDITION = "res://data/cartas_maldicao.json"
+const DATA_CLASS = "res://data/cartas_classe.json"
+const DATA_RACA = "res://data/cartas_raca.json"
 
 # VARIÁVEIS DE JOGO
 var momentoDoJogo = 0
@@ -14,7 +19,7 @@ var cartaSorteadaTurno: CartaClass
 var cartasInterferenciaTurno: Array[CartaClass] = []
 var cartasSlotDeAjuda: Array[CartaClass] = []
 
-var gerCartas: GerenciadorCartasClass
+var gerCartas = GerenciadorCartasClass.getInstancia()
 var useCardSlot = null
 @onready var prompt1 = $Confirmation
 @onready var prompt2 = $useCardSlotPrompt
@@ -25,7 +30,6 @@ var useCardSlot = null
 func _ready() -> void:
 	jogadores.append($Jogador)
 	instanciarBots()
-	gerCartas = GerenciadorCartasClass.new()
 	
 	# Iniciando primeiro momento do Jogo
 	momentoSeEquipar()
@@ -61,7 +65,7 @@ func momentoSeEquipar() -> void:
 			bot.aplicarEquipamentos()
 			bot.aplicarClassesRacas()
 		if jogadorChutouAPorta:
-			cartaSorteadaTurno = gerCartas.sortearCartaPorta()
+			cartaSorteadaTurno = gerCartas.gerarCartaPorta(VariaveisGlobais.DATA_MONSTER)
 			monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado", true, "Continuar")
 			remove_child(equip_slot)
 			var jogadorContinuou = await monster_box.prompt()
@@ -78,13 +82,12 @@ func momentoSeEquipar() -> void:
 		for bot in jogadores_bot:
 			bot.aplicarEquipamentos()
 			bot.aplicarClassesRacas()
-		cartaSorteadaTurno = gerCartas.sortearCartaPorta()
+		cartaSorteadaTurno = gerCartas.gerarCartaPorta(VariaveisGlobais.DATA_MONSTER)
 		monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado (Turno de "+nomeDoJogadorDoTurno+")", true, "Aguardando " + nomeDoJogadorDoTurno + " continuar", "", true, true)
 		remove_child(equip_slot)
 		monster_box.setTimerToClose(5)
 		await monster_box.prompt()
 		mudarParaBatalha()
-
 
 #! MOMENTO EM QUE O JOGADOR ENTRA NO FLUXO DE BATALHA
 func mudarParaBatalha() -> void:
@@ -162,7 +165,6 @@ func momentoInterferencia(irParaResumo: bool = true) -> void:
 			jogadores[jogadorAtual].addIncremento(carta.acao_parametro)
 		jogadores[jogadorAtual].calcularForcaTurno()
 		
-		
 	if (jogadorAtual != 0):
 		for carta in newUseCardSlot.cartasUsadas:
 			cartasInterferenciaTurno.append(carta) 
@@ -219,7 +221,9 @@ func momentoDescarte() -> void:
 	if (jogadores[0].maoCartas.maoJogador.size() > 5):
 		prompt1.mudarStatusBotao(0, true)
 	await prompt1.prompt(false)
-	
+	for bot in jogadores_bot:
+		bot.descartarCartas()
+		print(bot.maoCartas.maoJogador.size())
 	jogadorAtual = (jogadorAtual+1)%(BOTS_COUNT+1)
 	remove_child(newDiscard)
 	await get_tree().create_timer(0.2).timeout
@@ -237,8 +241,8 @@ func atacarMonstro() -> void:
 			jogadores[jogadorAtual].aumentarNivel(lvl_gain)
 			jogadores[jogadorAtual].maoCartas.gerarCartasTesouro(tesouro)
 	else:
+		# FUNÇÃO DE BADSTUFF QUE RETORNA O TEXTO PARA ADICIONAR NO PROMPT
 		var vaiDiminuirNivel: bool = cartaSorteadaTurno.acao == 2
-		print(cartaSorteadaTurno)
 		if vaiDiminuirNivel:
 			if (jogadores[jogadorAtual].nivel - abs(cartaSorteadaTurno.acaoParametro) > 0):
 				prompt1.customize(nomeTratamento+" perdeu o combate!", nomeTratamento+" perdeu " + str(abs(cartaSorteadaTurno.acaoParametro)) + " nível(is).", "Continuar", "", true)
@@ -331,7 +335,6 @@ func instanciarBots():
 #! FUNÇOES AUXILIARES
 func aplicarEfeitoJogador(carta: CartaItem):
 	var jogadorAlvo = jogadores[jogadorAtual]
-	
 	
 func mostrarCartasDaLista(lista_cartas: Array[CartaClass]) -> void:
 	var nomeDoJogadorDoTurno = jogadores[jogadorAtual].jogador

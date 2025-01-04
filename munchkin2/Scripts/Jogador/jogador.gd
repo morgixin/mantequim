@@ -85,6 +85,7 @@ func verificaEquipadas(carta: CartaItem):
 		if arrayTiposEquip.count(1) != 0 or arrayTiposEquip.count(2) == 1:
 			return false
 	elif arrayTiposEquip.count(tipo) >= 1:
+		print("Cheguei")
 		return false
 	return true
 

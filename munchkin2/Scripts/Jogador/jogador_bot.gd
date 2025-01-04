@@ -49,5 +49,56 @@ func aplicarEquipamentos() -> void:
 func custom_array_sort(a, b):
 	return a.forca > b.forca
 
-func _process(delta: float) -> void:
+func descartarCartas() -> void:
+	var array_cartas = self.maoCartas.maoJogador
+	var array_equipados = self.maoCartasEquipadas.cartasEquipadas
+	
+	if array_cartas.size() <= 5:
+		return
+	
+	# Descarta cartas com força menor das que estão equipadas
+	for carta in array_cartas:
+		if carta.tipo != 2:
+			continue
+		for carta_equipada in array_equipados:
+			if carta_equipada.tipo != 2:
+				continue
+			if carta_equipada.tipo_equipamento != carta.tipo_equipamento:
+				continue
+			if carta_equipada.forca > carta.forca:
+				self.maoCartas.removeDaMao(carta)
+				break
+		if array_cartas.size() <= 5:
+			break
+
+	if array_cartas.size() <= 5:
+		return
+
+	# Se eu já tiver uma classe ou raça aplicadas, descarta as cartas de classe e raça
+	if self.classe != -1:
+		for carta in array_cartas:
+			if carta.tipo == 4:
+				self.maoCartas.removeDaMao(carta)
+				if array_cartas.size() <= 5:
+					break
+	
+	if array_cartas.size() <= 5:
+		return
+
+	if self.raca != -1:
+		for carta in array_cartas:
+			if carta.tipo == 5:
+				self.maoCartas.removeDaMao(carta)
+				if array_cartas.size() <= 5:
+					break
+	
+	if array_cartas.size() <= 5:
+		return
+
+	# Descartar cartas aleatoriamente 
+	while array_cartas.size() > 5:
+		var index = randi() % array_cartas.size()
+		self.maoCartas.removeDaMao(array_cartas[index])
+
+func _process(_delta: float) -> void:
 	player_box.customize(jogador, classeDict[classe], nivel, forca_turno, racaDict[raca])

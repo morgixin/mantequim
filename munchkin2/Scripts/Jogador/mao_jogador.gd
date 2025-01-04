@@ -4,6 +4,11 @@ const HAND_COUNT_TREASURE = 4
 const HAND_COUNT_DOOR = 4
 const CARD_ITEM_PATH = "res://Scenes/Cartas/CartaItem.tscn"
 const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
+const DATA_MONSTER = "res://data/cartas_monstro.json"
+const DATA_ITEM = "res://data/cartas_tesouro.json"
+const DATA_MALDITION = "res://data/cartas_maldicao.json"
+const DATA_CLASS = "res://data/cartas_classe.json"
+const DATA_RACA = "res://data/cartas_raca.json"
 const CARD_WIDTH = 120
 var MAO_Y: int
 
@@ -13,7 +18,7 @@ var cartas_tesouro = []
 var cartas_monstro = []
 var isBot: bool = false
 var playerReference
-var gerCartas: GerenciadorCartasClass
+var gerCartas = GerenciadorCartasClass.getInstancia()
 
 static func create(donoDaMao = null) -> MaoJogador:
 	var newObject = MaoJogador.new()
@@ -21,15 +26,14 @@ static func create(donoDaMao = null) -> MaoJogador:
 	return newObject
 	
 func _ready() -> void:
-	gerCartas = GerenciadorCartasClass.new()
 	if (!playerReference):
 		playerReference = $"../Jogador"
 	
 	get_tree().get_root().size_changed.connect(resize)
 	center_screen_x = get_viewport().size.x / 2
 	MAO_Y = get_viewport().size.y - 100
-	cartas_tesouro = gerCartas.carregarCartasTesouro()
-	cartas_monstro = gerCartas.carregarCartasMonstro()
+	cartas_tesouro = gerCartas.carregarCartas(VariaveisGlobais.DATA_ITEM)
+	cartas_monstro = gerCartas.carregarCartas(VariaveisGlobais.DATA_MONSTER)
 	gerarCartasTesouro(HAND_COUNT_TREASURE)
 	gerarCartasPorta(HAND_COUNT_DOOR)
 
@@ -70,7 +74,7 @@ func removeDaMao(card):
 		
 func gerarCartasTesouro(qtd: int):
 	for i in range(qtd):		
-		var cartaTesouro = gerCartas.sortearCartaTesouro(self.maoJogador, playerReference)
+		var cartaTesouro = gerCartas.sortearCarta(VariaveisGlobais.DATA_ITEM, 4, 2, self.maoJogador, playerReference)
 		if !isBot:
 			$"../cartasDaMesa".add_child(cartaTesouro)
 		addMao(cartaTesouro)
@@ -78,10 +82,10 @@ func gerarCartasTesouro(qtd: int):
 func gerarCartasPorta(qtd: int):
 	for i in range(qtd):		
 		var dicCartasDoor = {
-			0: gerCartas.sortearCartaMonstro(self.maoJogador, playerReference),
-			1: gerCartas.sortearCartaMaldicao(self.maoJogador, playerReference),
-			2: gerCartas.sortearCartaRaca(self.maoJogador, playerReference),
-			3: gerCartas.sortearCartaClasse(self.maoJogador, playerReference)
+			0: gerCartas.sortearCarta(VariaveisGlobais.DATA_MONSTER, 0, 2, self.maoJogador, playerReference),
+			1: gerCartas.sortearCarta(VariaveisGlobais.DATA_MALDITION, 1, 2, self.maoJogador, playerReference),
+			2: gerCartas.sortearCarta(VariaveisGlobais.DATA_CLASS, 2, 2, self.maoJogador, playerReference),
+			3: gerCartas.sortearCarta(VariaveisGlobais.DATA_RACA, 3, 2, self.maoJogador, playerReference)
 		}
 		var cartaDoor = dicCartasDoor[randi_range(0,3)]
 		if !isBot:

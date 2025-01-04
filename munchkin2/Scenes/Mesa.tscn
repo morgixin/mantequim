@@ -77,9 +77,11 @@ mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
+offset_right = 288.0
+offset_bottom = 140.0
 theme_override_constants/separation = 20
 
 [node name="PlayerBox" parent="HBoxContainer" instance=ExtResource("10_yeufm")]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 0
 mouse_filter = 2

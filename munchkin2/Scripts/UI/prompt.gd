@@ -1,4 +1,4 @@
-class_name Confirmation extends Control
+class_name Prompt extends Control
 signal confirmed(isConfirmed: bool)
 var isOpen: bool = false
 var shouldUnpause: bool = false
