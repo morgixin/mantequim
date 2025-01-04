@@ -59,6 +59,7 @@ func momentoSeEquipar() -> void:
 		
 		for bot in jogadores_bot:
 			bot.aplicarEquipamentos()
+			bot.aplicarClassesRacas()
 		if jogadorChutouAPorta:
 			cartaSorteadaTurno = gerCartas.sortearCartaPorta()
 			monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado", true, "Continuar")
@@ -76,6 +77,7 @@ func momentoSeEquipar() -> void:
 		
 		for bot in jogadores_bot:
 			bot.aplicarEquipamentos()
+			bot.aplicarClassesRacas()
 		cartaSorteadaTurno = gerCartas.sortearCartaPorta()
 		monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado (Turno de "+nomeDoJogadorDoTurno+")", true, "Aguardando " + nomeDoJogadorDoTurno + " continuar", "", true, true)
 		remove_child(equip_slot)

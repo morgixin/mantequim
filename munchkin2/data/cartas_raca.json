@@ -46,20 +46,20 @@
 	"nome_carta": "Dwarf",
 	"descricao_carta": "Você pode carregar mais de um Big item.",
 	"frame": 26,
-	"raca":  2
+	"raca":  3
   },
 {
 	"tipo": 5,
 	"nome_carta": "Dwarf",
 	"descricao_carta": "Você pode carregar mais de um Big item.",
 	"frame": 38,
-	"raca":  2
+	"raca":  3
   },
 {
 	"tipo": 5,
 	"nome_carta": "Dwarf",
 	"descricao_carta": "Você pode carregar mais de um Big item.",
 	"frame": 39,
-	"raca":  2
+	"raca":  3
   },
 ] 

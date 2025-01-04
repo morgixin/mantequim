@@ -76,6 +76,8 @@ func stop_drag():
 			cardBeingDragged.z_index = cardEquipFound.getNextStackIndex()
 			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = false
 			playerItemsHandReference.addMao(cardBeingDragged)
+			
+			
 		elif discardFound:
 			var cartaParaDescarte = cardBeingDragged
 			playerHandReference.removeDaMao(cardBeingDragged)
