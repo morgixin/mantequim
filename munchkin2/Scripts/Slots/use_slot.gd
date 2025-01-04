@@ -5,7 +5,6 @@ var slotAjudaJogador = false #Determina se esse slot mostrará prompt para que o
 var use_card_confirmation
 var btn
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	position = Vector2(get_viewport().size.x/2, get_viewport().size.y/2)
 	pass # Replace with function body.	
@@ -27,12 +26,9 @@ func admiteCarta(carta) -> bool:
 	return true
 	
 func removerDaMao(carta: CartaClass) -> void:
-	print("Removendo Carta")
-	
 	if carta in cartasUsadas:
 		carta.alvoDoEfeito = -1
 		cartasUsadas.erase(carta)
-	print(cartasUsadas)
 
 func addCartaUsada(carta: CartaClass) -> void:
 	if (slotAjudaJogador == false):
@@ -50,5 +46,3 @@ func addCartaUsada(carta: CartaClass) -> void:
 	else:
 		cartasUsadas.append(carta)
 		carta.alvoDoEfeito = 1
-	print(carta.alvoDoEfeito)
-	print(cartasUsadas)
