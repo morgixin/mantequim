@@ -219,7 +219,9 @@ func momentoDescarte() -> void:
 	if (jogadores[0].maoCartas.maoJogador.size() > 5):
 		prompt1.mudarStatusBotao(0, true)
 	await prompt1.prompt(false)
-	
+	for bot in jogadores_bot:
+		bot.descartarCartas()
+		print(bot.maoCartas.maoJogador.size())
 	jogadorAtual = (jogadorAtual+1)%(BOTS_COUNT+1)
 	remove_child(newDiscard)
 	await get_tree().create_timer(0.2).timeout
