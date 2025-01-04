@@ -136,7 +136,7 @@ func setFuga(value: bool):
 	self.podeFugir = value
 
 func _process(_delta: float) -> void:
-	player_box.customize(jogador, classeDict[classe], nivel, forca_turno, racaDict[raca])
+	player_box.customize(self, jogador, classeDict[classe], nivel, forca_turno, racaDict[raca])
 	
 	
 	

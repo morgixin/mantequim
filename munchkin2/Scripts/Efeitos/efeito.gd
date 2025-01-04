@@ -12,7 +12,7 @@ var textoResultado: String = "O jogador não sofreu efeito"
 static func create(tipoEfeito: int) -> Efeito:
 	var novoEfeito: Efeito
 	var efeitoDict = {
-		#1: EfeitoMudaForca,
+		1: EfeitoMudaForca,
 		2: EfeitoModificarNivel,
 		3: EfeitoRemoveItem,
 		4: EfeitoRemoveClasse,
