@@ -27,7 +27,6 @@ func _aplicarEfeito() -> void:
 	cartasEncontradas = targetDict[target]
 
 	if (cartasEncontradas):
-		print(cartasEncontradas.nome)
 		for carta in cartasEncontradas:
 			self.alvoJogadorDoEfeito.maoCartasEquipadas.removeDaMao(carta)
 			#var tween = get_tree().create_tween()

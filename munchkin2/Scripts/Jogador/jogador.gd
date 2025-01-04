@@ -127,7 +127,7 @@ func admitirCarta(carta: CartaClass) -> bool:
 	return true
 
 func _process(_delta: float) -> void:
-	player_box.customize(jogador, classeDict[classe], nivel, forca_turno, racaDict[raca])
+	player_box.customize(self, jogador, classeDict[classe], nivel, forca_turno, racaDict[raca])
 	
 	
 	
