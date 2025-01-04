@@ -5,6 +5,11 @@ func _ready() -> void:
 	isHost = false
 
 func aplicarEquipamentos() -> void:
+	print("CARTAS EQUIPADAS DE "+self.jogador+":")
+	print(maoCartasEquipadas.cartasEquipadas)
+	print("CARTAS DA MAO DE "+self.jogador+":")
+	print(maoCartas.maoJogador)
+	print("-----------------------")
 	var array_cartas = self.maoCartas.maoJogador
 	var array_equipados = self.maoCartasEquipadas.cartasEquipadas
 	var appendDict = {1: [], 2: [], 3: [], 4: [], 5: [], 6: []}
@@ -28,22 +33,27 @@ func aplicarEquipamentos() -> void:
 				if(admitirCarta(melhorCartaDict)):
 					self.maoCartas.removeDaMao(melhorCartaDict)
 					self.maoCartasEquipadas.addMao(melhorCartaDict)
-					print(melhorCartaDict.nome)
 					appendDict[carta.tipo_equipamento].erase(melhorCartaDict)
 				else:
 					self.maoCartas.removeDaMao(carta)
 					self.maoCartasEquipadas.addMao(carta)
-					print(melhorCartaDict.nome)
 		
-	for i in range(1, appendDict.size()+1):
-		var nome = admitirCarta(appendDict[i][0]) if appendDict[i].size() > 0 else null
-		if appendDict[i].size() > 0 and admitirCarta(appendDict[i][0]):
-			self.maoCartas.removeDaMao(appendDict[i][0])
-			self.maoCartasEquipadas.addMao(appendDict[i][0])
-			print((appendDict[i][0]).nome)
-			appendDict[i].erase(appendDict[i][0])
-			print(self.maoCartasEquipadas.cartasEquipadas)
+	for chave in appendDict:
+		var nome = admitirCarta(appendDict[chave][0]) if appendDict[chave].size() > 0 else null
+		if appendDict[chave].size() > 0 and admitirCarta(appendDict[chave][0]):
+			#print("--------------- CARTA DE "+self.jogador+" --------------- ")
+			#print("nome: "+(appendDict[chave][0]).nome)
+			#print("força: "+str(appendDict[chave][0].forca))
+			#print("Tipo: "+equipDict[appendDict[chave][0].tipo_equipamento])
+			self.maoCartas.removeDaMao(appendDict[chave][0])
+			self.maoCartasEquipadas.addMao(appendDict[chave][0])
+			appendDict[chave].erase(appendDict[chave][0])
 	
+	print("CARTAS EQUIPADAS DE "+self.jogador+":")		
+	print(maoCartasEquipadas.cartasEquipadas)
+	print("CARTAS DA MAO DE "+self.jogador+":")
+	print(maoCartas.maoJogador)
+	print("-----------------------")
 func custom_array_sort(a, b):
 	return a.forca > b.forca
 

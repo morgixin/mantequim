@@ -297,7 +297,7 @@ func escolherCartaAjudaBot():
 func instanciarBots():
 	for i in range(BOTS_COUNT):
 		var novoBot = JogadorBot.new()
-		var maoEquipadosBot = MaoEquipados.new()
+		var maoEquipadosBot = MaoEquipados.create(novoBot)
 		var maoJogadorBot = MaoJogador.create(novoBot)
 		maoEquipadosBot.isBot = true
 		maoJogadorBot.isBot = true
