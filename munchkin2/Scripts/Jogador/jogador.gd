@@ -3,8 +3,8 @@ extends Node2D
 
 var UC = UserController.getInstancia()
 @export var jogador: String = UC.get_logged_user_username() if UC.get_logged_user_username() != null else "Rafael"
-@export var nivel: int = 1
-@export var forca: int = 1
+@export var nivel: int = 3
+@export var forca: int = self.nivel
 @export var forca_turno: int = 1
 var incrementos_forca: Array[int] = []
 
@@ -14,7 +14,7 @@ var maoCartas: MaoJogador
 var maoCartasEquipadas: MaoEquipados
 var isHost = true
 var estaMorto = false
-var podeFugir = false
+var podeFugir = true
 
 const racaDict = {
 	-1: "Nenhum",
@@ -44,6 +44,7 @@ func _ready() -> void:
 	maoCartas = $"../MaoJogador"
 	maoCartasEquipadas = $"../MaoEquipados"
 	player_box = $"../HBoxContainer/PlayerBox"
+	calcularForcaTurno()
 
 func setForca(novo_valor: int) -> void:
 	forca = novo_valor

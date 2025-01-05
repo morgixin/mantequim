@@ -63,13 +63,13 @@ func _finalizarEfeito() -> void:
 	if (cartasEncontradas):
 		self.textoResultado = "Perdeu "+textEquipamentoDictEncontrado[self.target]
 	else:
-		if (self.alvoJogadorDoEfeito.nivel - abs(self.acaoParametro) <= 0):
+		if (self.alvoJogadorDoEfeito.nivel<= 0):
 			self.alvoJogadorDoEfeito.estaMorto = true
 
 		if (self.alvoDoEfeito == 0):
 			self.textoResultado = "O monstro recebeu um incremento de " + str(self.acaoParametro) + " de força"
 		if (self.alvoDoEfeito == 1):
 			if (self.acaoParametro < 0):
-				self.textoResultado = "Não possui " + textEquipamentoDictNaoEncontrado[self.target]+" e perdeu " + str(abs(self.acaoParametro)) + " de nível"
+				self.textoResultado = " Não possui " + textEquipamentoDictNaoEncontrado[self.target]+" e perdeu " + str(abs(self.acaoParametro)) + " de nível"
 			else:
-				self.textoResultado = "Ganhou " + str(self.acaoParametro) + " de nível"
+				self.textoResultado = " Ganhou " + str(self.acaoParametro) + " de nível"
