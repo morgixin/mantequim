@@ -9,8 +9,9 @@ var playerReference
 const COLLISION_MASK = 1
 const COLLISION_MASK_SLOT = 2
 const COLLISION_MASK_EQUIP = 4
-const COLLISION_MASK_DISCARD = 16
 const COLLISION_MASK_USE = 8
+const COLLISION_MASK_DISCARD = 16
+const COLLISION_MASK_MONSTER = 32
 
 func _ready() -> void:
 	screenSize = get_viewport_rect().size
@@ -50,6 +51,7 @@ func stop_drag():
 		var cardEquipFound = raycast_check(COLLISION_MASK_EQUIP)
 		var cardUseFound = raycast_check(COLLISION_MASK_USE)
 		var discardFound = raycast_check(COLLISION_MASK_DISCARD)
+		var monsterFound = raycast_check(COLLISION_MASK_MONSTER)
 		if cardSlotFound:
 			playerHandReference.removeDaMao(cardBeingDragged)
 			playerItemsHandReference.removeDaMao(cardBeingDragged)
@@ -61,6 +63,16 @@ func stop_drag():
 				random_degrees
 			)
 			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = true
+		elif monsterFound and monsterFound.admiteCarta(cardBeingDragged):
+			playerHandReference.removeDaMao(cardBeingDragged)
+			playerItemsHandReference.removeDaMao(cardBeingDragged)
+			cardBeingDragged.z_index = monsterFound.getNextStackIndex()
+			cardBeingDragged.position = monsterFound.position
+			var random_degrees = randf_range(-10, 10)
+			cardBeingDragged.rotation = deg_to_rad(random_degrees)
+			monsterFound.adicionarCartaSlot(cardBeingDragged)
+			cardBeingDragged.get_node("Area2D/CollisionShape2D").disabled = false
+			
 		elif cardUseFound and cardUseFound.admiteCarta(cardBeingDragged):
 			playerHandReference.removeDaMao(cardBeingDragged)
 			playerItemsHandReference.removeDaMao(cardBeingDragged)
@@ -86,6 +98,8 @@ func stop_drag():
 			playerItemsHandReference.removeDaMao(cartaParaDescarte)
 			if $"..".useCardSlot:
 				$"..".useCardSlot.removerDaMao(cartaParaDescarte)
+			if $"..".monsterCardSlot:
+				$"..".monsterCardSlot.removerCartaSlot(cardBeingDragged)
 			if toDiscard:
 				var tween_hide = get_tree().create_tween()
 				
@@ -99,6 +113,8 @@ func stop_drag():
 			playerItemsHandReference.removeDaMao(cardBeingDragged)
 			if $"..".useCardSlot:
 				$"..".useCardSlot.removerDaMao(cardBeingDragged)
+			if $"..".monsterCardSlot:
+				$"..".monsterCardSlot.removerCartaSlot(cardBeingDragged)
 			playerHandReference.addMao(cardBeingDragged)
 		cardBeingDragged = null
 

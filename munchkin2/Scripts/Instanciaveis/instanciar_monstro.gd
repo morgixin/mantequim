@@ -18,6 +18,7 @@ static func instanciarCartas(selectedCard, playerReference = null):
 	newCard.acaoParametro = selectedCard.acao_parametro
 	newCard.target = selectedCard.target
 	newCard.donoDaCarta = playerReference
+	newCard.min_level = selectedCard.min_level
 	return newCard
 
 # Called when the node enters the scene tree for the first time.
