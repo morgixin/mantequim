@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://7h7kxwtk87ko"]
+[gd_scene load_steps=8 format=3 uid="uid://7h7kxwtk87ko"]
 
 [ext_resource type="FontFile" uid="uid://cmk05c25d4mm3" path="res://assets/fonts/Pixeled.ttf" id="1_4yo3e"]
 [ext_resource type="Texture2D" uid="uid://b4rtj0vytj22y" path="res://icon.svg" id="2_a46e1"]
 [ext_resource type="Texture2D" uid="uid://b3wa2gukroggf" path="res://assets/imagens/Menu/background.png" id="2_qv67g"]
 [ext_resource type="Texture2D" uid="uid://jhurflg8708j" path="res://assets/imagens/Menu/title.png" id="3_0a5o2"]
+[ext_resource type="Script" path="res://Scripts/opçoes_do_jogo.gd" id="4_75kib"]
 [ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="5_48xyy"]
 
 [sub_resource type="GDScript" id="GDScript_rf7gb"]
@@ -48,10 +49,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Background" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = -40.0
-offset_right = 1240.0
-offset_bottom = 720.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_qv67g")
 expand_mode = 3
 
@@ -102,6 +105,43 @@ size_flags_vertical = 3
 texture = ExtResource("3_0a5o2")
 expand_mode = 3
 stretch_mode = 5
+
+[node name="opçoesDoJogo" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+script = ExtResource("4_75kib")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/opçoesDoJogo"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/opçoesDoJogo/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_48xyy")
+theme_override_font_sizes/font_size = 20
+text = "Quantidade de jogadores bot"
+horizontal_alignment = 1
+
+[node name="quantidadeBots" type="OptionButton" parent="MarginContainer/VBoxContainer/opçoesDoJogo/VBoxContainer"]
+layout_mode = 2
+item_count = 4
+popup/item_0/text = "selecione uma quantidadade"
+popup/item_0/disabled = true
+popup/item_1/text = "2"
+popup/item_1/id = 1
+popup/item_2/text = "3"
+popup/item_2/id = 2
+popup/item_3/text = "4"
+popup/item_3/id = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/opçoesDoJogo"]
+layout_mode = 2
+
+[node name="jogoRapido" type="CheckButton" parent="MarginContainer/VBoxContainer/opçoesDoJogo/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_48xyy")
+theme_override_font_sizes/font_size = 18
+text = "JOGO RÁPIDO (começar no nível 5)"
 
 [node name="Botões" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -180,6 +220,8 @@ Rafael Amparo
 Thales Abranches"
 horizontal_alignment = 2
 
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/opçoesDoJogo/VBoxContainer/quantidadeBots" to="MarginContainer/VBoxContainer/opçoesDoJogo" method="_on_quantidade_bots_item_selected"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/opçoesDoJogo/VBoxContainer2/jogoRapido" to="MarginContainer/VBoxContainer/opçoesDoJogo" method="_on_jogo_rapido_toggled"]
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_entered"]
 [connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_exited"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_pressed"]

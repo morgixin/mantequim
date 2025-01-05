@@ -11,3 +11,5 @@ const DATA_MALDITION = "res://data/cartas_maldicao.json"
 const DATA_CLASS = "res://data/cartas_classe.json"
 const DATA_RACA = "res://data/cartas_raca.json"
 const BOT_PLAYER_PATH = "res://Scenes/JogadorBot.tscn"
+var BOTS_COUNT: int = 2
+var MODO_FACIL: bool = true

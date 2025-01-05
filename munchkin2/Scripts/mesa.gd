@@ -1,6 +1,6 @@
 class_name Mesa extends Control
 
-const BOTS_COUNT = 2
+var bots_count = VariaveisGlobais.BOTS_COUNT
 const CARD_MONSTER_PATH = "res://Scenes/Cartas/CartaMonstro.tscn"
 const BOT_PLAYER_PATH = "res://Scenes/JogadorBot.tscn"
 const DATA_MONSTER = "res://data/cartas_monstro.json"
@@ -448,7 +448,7 @@ func escolherCartaAjudaBot():
 			contadorInterf +=1	
 
 func instanciarBots():
-	for i in range(BOTS_COUNT):
+	for i in range(bots_count):
 		var novoBot = JogadorBot.new()
 		var maoEquipadosBot = MaoEquipados.create(novoBot)
 		var maoJogadorBot = MaoJogador.create(novoBot)

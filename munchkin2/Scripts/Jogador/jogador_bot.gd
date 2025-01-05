@@ -2,6 +2,7 @@ class_name JogadorBot extends Jogador
 
 func _ready() -> void:
 	isHost = false
+	calcularForcaTurno()
 
 func aplicarClassesRacas() -> void:
 	var array_cartas = self.maoCartas.maoJogador

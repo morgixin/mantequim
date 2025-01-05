@@ -3,8 +3,8 @@ extends Node2D
 
 var UC = UserController.getInstancia()
 @export var jogador: String = UC.get_logged_user_username() if UC.isUserLogged() else "Troy"
-@export var nivel: int = 1
-@export var forca: int = self.nivel
+@export var nivel: int = 5 if VariaveisGlobais.MODO_FACIL else 3
+@export var forca: int = 5 if VariaveisGlobais.MODO_FACIL else 3
 @export var forca_turno: int = 1
 var incrementos_forca: Array[int] = []
 
@@ -41,7 +41,6 @@ const equipDict = {
 var player_box: PlayerBox
 
 func _ready() -> void:
-	
 	maoCartas = $"../MaoJogador"
 	maoCartasEquipadas = $"../MaoEquipados"
 	player_box = $"../HBoxContainer/PlayerBox"
@@ -85,7 +84,7 @@ func verificaEquipadas(carta: CartaItem):
 	var arrayTiposEquip = []
 	for i in range (arrayEquip.size()):
 		if (arrayEquip[i].tipo == 2):
-			arrayTiposEquip.insert(i, arrayEquip[i].getTipoEquip())
+			arrayTiposEquip.append(arrayEquip[i].getTipoEquip())
 	if tipo == 1:
 		if arrayTiposEquip.count(1) == 2 or arrayTiposEquip.count(2) == 1:
 			return false
@@ -138,7 +137,9 @@ func admitirCarta(carta: CartaClass) -> bool:
 			return false
 		if carta.tipo_equipamento == -1:
 			return false
+		print("BBYG")
 		if !verificaEquipadas(carta):
+			print("FALSO!!!")
 			return false
 	if carta.tipo == 4 or carta.tipo == 5:
 		if !verificarClasseRaca(carta):
