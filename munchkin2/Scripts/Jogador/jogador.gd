@@ -13,7 +13,7 @@ var maoCartas: MaoJogador
 var maoCartasEquipadas: MaoEquipados
 var isHost = true
 var estaMorto = false
-var podeFugir = true
+var podeFugir = false
 
 const racaDict = {
 	-1: "Nenhum",

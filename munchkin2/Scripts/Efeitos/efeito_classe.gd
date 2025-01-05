@@ -1,6 +1,8 @@
 class_name EfeitoRemoveClasse extends Efeito
 
 func _aplicarEfeito() -> void:
+	if (alvoMonstroDoEfeito):
+		return
 	var classe = self.alvoJogadorDoEfeito.getClasseJogador()
 	var quantidadeDeNiveis = self.acaoParametro
 	if classe != -1:
@@ -9,6 +11,10 @@ func _aplicarEfeito() -> void:
 		self.alvoJogadorDoEfeito.aumentarNivel(acaoParametro)
 
 func _finalizarEfeito():
+	if (alvoMonstroDoEfeito):
+		return
+	if (alvoJogadorDoEfeito.nivel <= 0):
+		alvoJogadorDoEfeito.estaMorto = true
 	var classe = self.alvoJogadorDoEfeito.getClasseJogador()
 	if (classe == -1):
 		self.textoResultado = "Ficou sem classe!"

@@ -71,11 +71,13 @@ layout_mode = 2
 theme_override_constants/separation = 15
 
 [node name="TextureDoor" type="TextureRect" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro"]
+custom_minimum_size = Vector2(0, 227)
 layout_mode = 2
 texture = SubResource("AtlasTexture_3khfa")
 expand_mode = 3
 
 [node name="TextureTesouro" type="TextureRect" parent="Panel/MarginContainer/ContainerMonstro/Informações Monstro"]
+custom_minimum_size = Vector2(0, 227)
 layout_mode = 2
 texture = SubResource("AtlasTexture_52wf7")
 

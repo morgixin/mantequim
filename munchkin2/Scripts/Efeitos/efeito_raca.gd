@@ -1,6 +1,9 @@
 class_name EfeitoMudaRaca extends Efeito
 
 func _aplicarEfeito() -> void:
+	if (alvoMonstroDoEfeito):
+		return
+	
 	var raca = self.alvoJogadorDoEfeito.getRacaJogador()
 	var quantidadeDeNiveis = self.acaoParametro
 	if raca != 1:
@@ -9,6 +12,12 @@ func _aplicarEfeito() -> void:
 		self.alvoJogadorDoEfeito.aumentarNivel(acaoParametro)
 
 func _finalizarEfeito():
+	if (alvoMonstroDoEfeito):
+		return
+		
+	if (alvoJogadorDoEfeito.nivel <= 0):
+		alvoJogadorDoEfeito.estaMorto = true
+	
 	var raca = self.alvoJogadorDoEfeito.getRacaJogador()
 	if (raca == 1):
 		self.textoResultado = "Voltou a ser humano!"
