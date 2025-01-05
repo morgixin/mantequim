@@ -54,6 +54,8 @@ func loginUser(username, password):
 	_isUserLogged = true
 
 func createUser(username, password):
+	print(username.strip_edges(true, true))
+	print(password.strip_edges(true, true))
 	var data = {
 		"username" : username.strip_edges(true, true), 
 		"password" : cryptoUtil.HashData(password.strip_edges(true, true))

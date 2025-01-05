@@ -53,8 +53,6 @@ func _process(delta):
 			var dataString = packet.get_string_from_utf8()
 			var data = JSON.parse_string(dataString)
 			
-			print(data, " auauau")
-			
 			if data.message == Utilities.Message.id:
 				id = data.id
 				connected(id)

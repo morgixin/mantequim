@@ -11,9 +11,6 @@ func _ready() -> void:
 func setClasse(classe: int) -> void:
 	self.classe = classe
 	
-func _process(delta: float) -> void:
-	pass
-	
 func _on_area_2d_mouse_entered() -> void:
 	emit_signal("hovered", self)
 

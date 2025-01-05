@@ -30,7 +30,6 @@ var monsterCardSlot = null
 
 func _ready() -> void:
 	print(UC.get_logged_user_username())
-	print("ana")
 	jogadores.append($Jogador)
 	instanciarBots()
 	
@@ -208,7 +207,7 @@ func momentoLootarCartas() -> void:
 	momentoDescarte()
 	
 func momentoBatalharMonstroMao() -> void:
-	await get_tree().create_timer(0.2)
+	await get_tree().create_timer(0.2).timeout
 	if !jogadores[jogadorAtual].isHost:
 		var nome_do_jogador_atual = jogadores[jogadorAtual].jogador
 		prompt1.customize("Aguardando "+nome_do_jogador_atual+"escolher um monstro", "", "Aguarde", "", true)
@@ -404,7 +403,7 @@ func escolherCartaAjudaBot():
 		var num = RandomNumberGenerator.new()
 		num.randomize()
 		var chance = num.randi_range(1,4)
-		if contadorInterf < 2:
+		if contadorInterf < 2 and chance > 2:
 			cartasSlotDeAjuda.append(cartaValida)
 			bot.maoCartas.removeDaMao(cartaValida)
 			contadorInterf +=1	

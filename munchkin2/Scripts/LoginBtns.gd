@@ -7,10 +7,6 @@ signal LoginUser(username, password)
 func _ready() -> void:
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass 
-
 
 ## ON HOVER
 # menu btns hover interaction
