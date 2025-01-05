@@ -2,70 +2,70 @@
 	{
 	"tipo": 4,
 	"nome_carta": "Thief (ladrão)",
-	"descricao_carta": "Sua experiência batendo carteiras e correndo é muito útil aqui: você pode fugir de qualquer monstro.",
+	"descricao_carta": "Você terá direito a equipamentos exclusivos para ladrões.",
 	"frame": 4,
 	"classe": 1 
   },
 	{
 	"tipo": 4,
 	"nome_carta": "Thief (ladrão)",
-	"descricao_carta": "Sua experiência batendo carteiras e correndo é muito útil aqui: você pode fugir de qualquer monstro.",
+	"descricao_carta": "Você terá direito a equipamentos exclusivos para ladrões.",
 	"frame": 71,
 	"classe": 1 
   },
 	{
 	"tipo": 4,
 	"nome_carta": "Thief (ladrão)",
-	"descricao_carta": "Sua experiência batendo carteiras e correndo é muito útil aqui: você pode fugir de qualquer monstro.",
+	"descricao_carta": "Você terá direito a equipamentos exclusivos para ladrões.",
 	"frame": 89,
 	"classe": 1 
   },
 	{
 	"tipo": 4,
 	"nome_carta": "Wizard (mago)",
-	"descricao_carta": "Você pode usar a sua magia para usar equipamentos específicos de outras classes.",
+	"descricao_carta": "Você terá direito a equipamentos exclusivos para magos.",
 	"frame": 10,
 	"classe": 3 
   },
 	{
 	"tipo": 4,
 	"nome_carta": "Wizard (mago)",
-	"descricao_carta": "Você pode usar a sua magia para usar equipamentos específicos de outras classes.",
+	"descricao_carta": "Você terá direito a equipamentos exclusivos para magos.",
 	"frame": 88,
 	"classe": 3 
   },
 	{
 	"tipo": 4,
 	"nome_carta": "Cleric (clérigo)",
-	"descricao_carta": "Que Deus te recompense. +5 de força!",
+	"descricao_carta": "Você terá direito a equipamentos exclusivos para clérigos.",
 	"frame": 35,
 	"classe": 2 
   },
 	{
 	"tipo": 4,
 	"nome_carta": "Cleric (clérigo)",
-	"descricao_carta": "Que Deus te recompense. +5 de força!",
+	"descricao_carta": "Você terá direito a equipamentos exclusivos para clérigos.",
 	"frame": 77,
 	"classe": 2 
   },
 {
 	"tipo": 4,
 	"nome_carta": "Warrior (guerreiro)",
-	"descricao_carta": "Sua espada te dá aquela forcinha a mais necessária para vencer em qualquer empate.",
+	"descricao_carta": "Você terá direito a equipamentos exclusivos para guerreiros.",
 	"frame": 14,
 	"classe": 4 
   },
 {
 	"tipo": 4,
 	"nome_carta": "Warrior (guerreiro)",
-	"descricao_carta": "Sua espada te dá aquela forcinha a mais necessária para vencer em qualquer empate.",
+	"descricao_carta": "Você terá direito a equipamentos exclusivos para guerreiros.",
 	"frame": 86,
 	"classe": 4 
   },
 {
 	"tipo": 4,
 	"nome_carta": "Warrior (guerreiro)",
-	"descricao_carta": "Sua espada te dá aquela forcinha a mais necessária para vencer em qualquer empate.",
+	"descricao_carta": "Você terá direito a equipamentos exclusivos para guerreiros.",
 	"frame": 46,
 	"classe": 4 
   }

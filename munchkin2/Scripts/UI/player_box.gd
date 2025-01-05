@@ -10,8 +10,8 @@ class_name PlayerBox extends Control
 func _ready() -> void:
 	pass # Replace with function body.
 
-func customize(jogador: String, classe: String, nivel: int, forca: int, raca: String = "Humano"):
-	jogador_ref.text = "Jogador: " + jogador
+func customize(jogadorReference: Jogador, jogador: String, classe: String, nivel: int, forca: int, raca: String = "Humano"):
+	jogador_ref.text = "Jogador: " + jogador + (" [MORTO]" if jogadorReference.estaMorto else "")
 	raca_ref.text = "Raça: " + raca
 	classe_ref.text = "Classe: " + classe
 	nivel_ref.text = "Nível: " + str(nivel)

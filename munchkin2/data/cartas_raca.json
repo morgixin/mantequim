@@ -2,63 +2,63 @@
 	{
 		"tipo": 5,
 		"nome_carta": "Halfling",
-		"descricao_carta": "Você tem duas tentativas quando quiser fugir de monstros, caso a primeira não dê certo.",
+		"descricao_carta": "Você terá direito a equipamentos exclusivos para halflings.",
 		"frame": 5,
 		"raca": 4
 	},
 	{
 		"tipo": 5,
 		"nome_carta": "Halfling",
-		"descricao_carta": "Você tem duas tentativas quando quiser fugir de monstros, caso a primeira não dê certo.",
+		"descricao_carta": "Você terá direito a equipamentos exclusivos para halflings.",
 		"frame": 11,
 		"raca": 4
 	},
 	{
 		"tipo": 5,
 		"nome_carta": "Halfling",
-		"descricao_carta": "Você tem duas tentativas quando quiser fugir de monstros, caso a primeira não dê certo.",
+		"descricao_carta": "Você terá direito a equipamentos exclusivos para halflings.",
 		"frame": 87,
 		"raca": 4
 	},
 	{
 		"tipo": 5,
 		"nome_carta": "Elf",
-		"descricao_carta": "Quando quiser fugir de um monstro, você sempre terá um ponto extra (espero que seja útil!)",
+		"descricao_carta": "Você terá direito a equipamentos exclusivos para elfos.",
 		"frame": 9,
 		"raca": 2
 	},
 	{
 		"tipo": 5,
 		"nome_carta": "Elf",
-		"descricao_carta": "Quando quiser fugir de um monstro, você sempre terá um ponto extra (espero que seja útil!)",
+		"descricao_carta": "Você terá direito a equipamentos exclusivos para elfos.",
 		"frame": 19,
 		"raca": 2
 	},
 	{
 		"tipo": 5,
 		"nome_carta": "Elf",
-		"descricao_carta": "Quando quiser fugir de um monstro, você sempre terá um ponto extra (espero que seja útil!)",
+		"descricao_carta": "Você terá direito a equipamentos exclusivos para elfos.",
 		"frame": 82,
 		"raca": 2
 	},
 	{
 		"tipo": 5,
 		"nome_carta": "Dwarf",
-		"descricao_carta": "Você pode carregar mais de um Big item.",
+		"descricao_carta": "Você terá direito a equipamentos exclusivos para anões.",
 		"frame": 26,
 		"raca": 3
 	},
 	{
 		"tipo": 5,
 		"nome_carta": "Dwarf",
-		"descricao_carta": "Você pode carregar mais de um Big item.",
+		"descricao_carta": "Você terá direito a equipamentos exclusivos para anões.",
 		"frame": 38,
 		"raca": 3
 	},
 	{
 		"tipo": 5,
 		"nome_carta": "Dwarf",
-		"descricao_carta": "Você pode carregar mais de um Big item.",
+		"descricao_carta": "Você terá direito a equipamentos exclusivos para anões.",
 		"frame": 39,
 		"raca": 3
 	}

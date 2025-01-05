@@ -97,3 +97,22 @@ func resize() -> void:
 		center_screen_x = get_viewport().size.x / 2
 		MAO_Y = get_viewport().size.y - 100
 		updatePosicoes()
+		
+func limpaMao(qtd: int):
+	if qtd == 99 or self.maoJogador.size() < qtd:
+		for i in range(self.maoJogador.size()):
+			maoJogador[-1].scale = Vector2(0,0)
+			maoJogador[-1].hide()
+			self.removeDaMao(maoJogador[-1])
+
+	else:
+		for i in range(qtd):
+			var cartaEscolhida = maoJogador[randi()%(self.maoJogador.size())]
+			cartaEscolhida.hide()
+			cartaEscolhida.scale = Vector2(0,0)
+			self.removeDaMao(cartaEscolhida)
+			
+			
+		
+		
+	

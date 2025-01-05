@@ -19,10 +19,14 @@ func getNextStackIndex() -> int:
 	return stack_index
 	
 func admiteCarta(carta) -> bool:
-	if (carta.tipo != 1):
-		return false
-	if (carta.acao != 1 and carta.acao != 2):
-		return false
+	if (slotAjudaJogador):
+		if (carta.tipo != 1):
+			return false
+		if (carta.acao != 1 and carta.acao != 2):
+			return false
+	else:
+		if (carta.tipo != 1 and carta.tipo != 6):
+			return false
 	return true
 	
 func removerDaMao(carta: CartaClass) -> void:
@@ -44,5 +48,5 @@ func addCartaUsada(carta: CartaClass) -> void:
 		if (btn):
 			btn.show()
 	else:
-		cartasUsadas.append(carta)
 		carta.alvoDoEfeito = 1
+		cartasUsadas.append(carta)
