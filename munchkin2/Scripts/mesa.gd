@@ -193,6 +193,7 @@ func momentoReceberMaldicao() -> void:
 
 func momentoLootarCartas() -> void:
 	var cartaLootSorteada = gerCartas.gerarCartaPorta(false)
+	cartaLootSorteada.donoDaCarta = jogadores[jogadorAtual]
 	if (jogadores[jogadorAtual].isHost):
 		$cartasDaMesa.add_child(cartaLootSorteada)
 	jogadores[jogadorAtual].maoCartas.addMao(cartaLootSorteada)
@@ -374,10 +375,15 @@ func escolherCartasInterferenciaBots():
 		var cartasAtual = bot.maoCartas.maoJogador
 		var cartasValidas = []
 		for carta in cartasAtual:
-			if carta.tipo == 1 and carta.acao == 1:
+			if carta.tipo == 1 and (carta.acao == 1 or carta.acao == 2):
 				print("Aplicando carta "+carta.nome+" no monstro")
 				carta.alvoDoEfeito = 0
 				cartasValidas.append(carta)
+			if carta.tipo == 6:
+				print("Aplicando carta "+carta.nome+" no jogador")
+				carta.alvoDoEfeito = 1
+				cartasValidas.append(carta)
+				
 		print(cartasValidas)
 		var contadorInterf = 0
 		for cartaValida in cartasValidas:
