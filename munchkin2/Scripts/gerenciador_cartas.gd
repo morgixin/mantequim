@@ -72,14 +72,18 @@ func evitarRepeticao(cartas_array, mao):
 			cartaSelecionada = evitarRepeticao(cartas_array, mao)
 	return cartaSelecionada
 
-func gerarCartaPorta(path) -> CartaClass:	#TODO: ADICIONAR MAIS TIPOS DE CARTA NO SORTEIO
+func gerarCartaPorta(sorteioChutePorta: bool = true) -> CartaClass:	#TODO: ADICIONAR MAIS TIPOS DE CARTA NO SORTEIO
 	var dicCartasDoor = {
-			0: sortearCarta(path, 0),
-			#1: sortearCarta(path, 1),
-			#2: sortearCarta(path, 2),
-			#3: sortearCarta(path, 3),
+			0: sortearCarta(VariaveisGlobais.DATA_MONSTER, 0),
+			1: sortearCarta(VariaveisGlobais.DATA_MALDITION, 1),
+			2: sortearCarta(VariaveisGlobais.DATA_CLASS, 2),
+			3: sortearCarta(VariaveisGlobais.DATA_RACA, 3)
 		}
-	var cartaSorteada = dicCartasDoor[randi_range(0,0)]
+	var cartaSorteada 
+	if (sorteioChutePorta):
+		cartaSorteada = dicCartasDoor[randi_range(0,1)]
+	else:
+		cartaSorteada = dicCartasDoor[randi_range(0,3)]
 	return cartaSorteada
 
 func _ready() -> void:

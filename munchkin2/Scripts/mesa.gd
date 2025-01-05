@@ -19,7 +19,7 @@ var cartaSorteadaTurno: CartaClass
 var cartasInterferenciaTurno: Array[CartaClass] = []
 var cartasSlotDeAjuda: Array[CartaClass] = []
 
-var gerCartas = GerenciadorCartasClass.getInstancia()
+var gerCartas: GerenciadorCartasClass = GerenciadorCartasClass.getInstancia()
 var useCardSlot = null
 @onready var prompt1 = $Confirmation
 @onready var prompt2 = $useCardSlotPrompt
@@ -64,12 +64,20 @@ func momentoSeEquipar() -> void:
 			bot.aplicarEquipamentos()
 			bot.aplicarClassesRacas()
 		if jogadorChutouAPorta:
-			cartaSorteadaTurno = gerCartas.gerarCartaPorta(VariaveisGlobais.DATA_MONSTER)
-			monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado", true, "Continuar")
-			remove_child(equip_slot)
-			var jogadorContinuou = await monster_box.prompt()
-			if jogadorContinuou:
-				mudarParaBatalha()
+			cartaSorteadaTurno = gerCartas.gerarCartaPorta()
+			if (cartaSorteadaTurno.tipo == 3):
+				monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado", true, "Continuar")
+				remove_child(equip_slot)
+				var jogadorContinuou = await monster_box.prompt()
+				if jogadorContinuou:
+					mudarParaBatalha()
+			if (cartaSorteadaTurno.tipo == 6):
+				cartaSorteadaTurno.alvoDoEfeito = 1
+				monster_box.customizarBox(cartaSorteadaTurno, "Maldição Sorteada", true, "Continuar")	
+				remove_child(equip_slot)
+				var jogadorContinuou = await monster_box.prompt()
+				if jogadorContinuou:
+					momentoReceberMaldicao()
 	else:
 		prompt1.customize("É o turno de "+nomeDoJogadorDoTurno+"!", "Equipe cartas de classe, raça e equipamentos antes de avançar", "Continuar", "", true, true)
 		await prompt1.prompt(false)
@@ -81,12 +89,20 @@ func momentoSeEquipar() -> void:
 		for bot in jogadores_bot:
 			bot.aplicarEquipamentos()
 			bot.aplicarClassesRacas()
-		cartaSorteadaTurno = gerCartas.gerarCartaPorta(VariaveisGlobais.DATA_MONSTER)
-		monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado (Turno de "+nomeDoJogadorDoTurno+")", true, "Aguardando " + nomeDoJogadorDoTurno + " continuar", "", true, true)
-		remove_child(equip_slot)
-		monster_box.setTimerToClose(5)
-		await monster_box.prompt()
-		mudarParaBatalha()
+		cartaSorteadaTurno = gerCartas.gerarCartaPorta()
+		if (cartaSorteadaTurno.tipo == 3):
+			monster_box.customizarBox(cartaSorteadaTurno, "Monstro Sorteado (Turno de "+nomeDoJogadorDoTurno+")", true, "Aguardando " + nomeDoJogadorDoTurno + " continuar", "", true, true)
+			remove_child(equip_slot)
+			monster_box.setTimerToClose(5)
+			await monster_box.prompt()
+			mudarParaBatalha()
+		if (cartaSorteadaTurno.tipo == 6):
+			cartaSorteadaTurno.alvoDoEfeito = 1
+			monster_box.customizarBox(cartaSorteadaTurno, "Maldição Sorteada (Turno de "+nomeDoJogadorDoTurno+")", true, "Aguardando " + nomeDoJogadorDoTurno + " continuar", "", true, true)
+			remove_child(equip_slot)
+			var jogadorContinuou = await monster_box.prompt()
+			if jogadorContinuou:
+				momentoReceberMaldicao()
 
 #! MOMENTO EM QUE O JOGADOR ENTRA NO FLUXO DE BATALHA
 func mudarParaBatalha() -> void:
@@ -140,6 +156,45 @@ func mudarParaBatalha() -> void:
 		await mostrarCartasDaLista(cartasSlotDeAjuda)
 		mostrarResumoDaBatalha()
 
+func momentoReceberMaldicao() -> void:
+	var efeitoMaldicao = aplicarEfeitoJogador(cartaSorteadaTurno)
+	var nomeTratamento = "Você" if jogadores[jogadorAtual].isHost else jogadores[jogadorAtual].jogador
+	if (jogadores[jogadorAtual].isHost):
+		prompt1.customize("Efeito Aplicado", nomeTratamento+" "+efeitoMaldicao.obterTextoResultado(), "Continuar", "", true, false)	
+	else:
+		prompt1.customize("Efeito Aplicado em "+nomeTratamento, nomeTratamento+" "+efeitoMaldicao.obterTextoResultado(), "Aguarde "+nomeTratamento+" continaur", "", true, false)	
+		prompt1.mudarStatusBotao(0, true)
+	verficarMorte()
+	await get_tree().create_timer(0.2).timeout
+	if (jogadores[jogadorAtual].isHost):
+		monster_box.customizarBox(cartaSorteadaTurno, "Escolha o que você irá fazer", false, "Loot the room", "Batalhar com monstro da mão")	
+		var decidiuLootear = await monster_box.prompt()
+		if (decidiuLootear):
+			momentoLootarCartas()
+	else:
+		monster_box.customizarBox(cartaSorteadaTurno, "Aguardando decisão de "+jogadores[jogadorAtual].jogador, true, "Aguarde", "",true)	
+		monster_box.setTimerToClose(5)
+		await monster_box.prompt()
+		momentoLootarCartas()
+#		TODO: Bot escolher se vai lootear ou jogar carta monstro
+		
+func momentoLootarCartas() -> void:
+	var cartaLootSorteada = gerCartas.gerarCartaPorta(false)
+	if (jogadores[jogadorAtual].isHost):
+		$cartasDaMesa.add_child(cartaLootSorteada)
+	jogadores[jogadorAtual].maoCartas.addMao(cartaLootSorteada)
+	await get_tree().create_timer(0.2).timeout
+	if (jogadores[jogadorAtual].isHost):
+		monster_box.customizarBox(cartaLootSorteada, "Carta Sorteada", true, "Continuar")
+		await monster_box.prompt()
+	else:
+		monster_box.customizarBox(cartaLootSorteada, "Aguardando "+jogadores[jogadorAtual].jogador+" continuar", true, "Aguarde", "",true)	
+		monster_box.setTimerToClose(5)
+		await monster_box.prompt()
+	momentoDescarte()
+	
+	
+
 #! MOMENTO DO JOGADOR INTERFERIR NO SEU PRÓPRIO TURNO OU TURNO DE OUTROS JOGADORES
 func momentoInterferencia(irParaResumo: bool = true) -> void:
 	momentoDoJogo = 2
@@ -182,7 +237,8 @@ func mostrarResumoDaBatalha() -> void:
 	var nomeDoJogadorDoTurno = jogadores[jogadorAtual].jogador
 	momentoDoJogo = 3
 	if o_turno_e_meu:
-		monster_box.customizarBox(cartaSorteadaTurno, "Resumo da Batalha de " + nomeDoJogadorDoTurno, false, "Atacar Monstro", "Fugir", false)
+		var podeFugir = jogadores[jogadorAtual].podeFugir
+		monster_box.customizarBox(cartaSorteadaTurno, "Resumo da Batalha de " + nomeDoJogadorDoTurno, false, "Atacar Monstro", "Fugir", false, !podeFugir)
 	else:
 		monster_box.customizarBox(cartaSorteadaTurno, "Resumo da Batalha de " + nomeDoJogadorDoTurno, true, "Aguarde "+nomeDoJogadorDoTurno, "Fugir", true)
 		monster_box.setTimerToClose(6)
@@ -245,18 +301,7 @@ func atacarMonstro() -> void:
 		prompt1.customize(nomeTratamento+" perdeu o combate!", efeitoBadStuff.obterTextoResultado(), "Continuar", "", true)
 		await prompt1.prompt(false)
 
-		if (jogadores[jogadorAtual].estaMorto):
-			await get_tree().create_timer(0.2).timeout
-			if jogadores[jogadorAtual].isHost:
-				prompt1.customize(nomeTratamento+" morreu!", "", "Ir para o Menu", "", true)
-				await prompt1.prompt(false)
-				get_tree().change_scene_to_file.bind("res://Scenes/Menu.tscn").call_deferred()
-			else:
-				prompt1.customize(nomeTratamento+" morreu!", "", "Continuar", "", true)
-				await prompt1.prompt(false)
-				var bot = jogadores[jogadorAtual]
-				jogadores.erase(bot)
-				jogadores_bot.erase(bot)
+		verficarMorte()
 
 func fugirMonstro() -> void:
 	var nomeTratamento = "Você" if jogadores[jogadorAtual].isHost else jogadores[jogadorAtual].jogador
@@ -335,7 +380,22 @@ func instanciarBots():
 		$HBoxContainer.add_child(botPlayerBox)
 
 #! FUNÇOES AUXILIARES
-func aplicarEfeitoJogador(carta: CartaItem):
+func verficarMorte():
+	if (jogadores[jogadorAtual].estaMorto):
+		var nomeTratamento = "Você" if jogadores[jogadorAtual].isHost else jogadores[jogadorAtual].jogador
+		await get_tree().create_timer(0.2).timeout
+		if jogadores[jogadorAtual].isHost:
+			prompt1.customize(nomeTratamento+" morreu!", "", "Ir para o Menu", "", true)
+			await prompt1.prompt(false)
+			get_tree().change_scene_to_file.bind("res://Scenes/Menu.tscn").call_deferred()
+		else:
+			prompt1.customize(nomeTratamento+" morreu!", "", "Continuar", "", true)
+			await prompt1.prompt(false)
+			var bot = jogadores[jogadorAtual]
+			jogadores.erase(bot)
+			jogadores_bot.erase(bot)
+
+func aplicarEfeitoJogador(carta: CartaClass) -> Efeito:
 	var jogadorAlvo = jogadores[jogadorAtual]
 	var objetoDoEfeito = jogadorAlvo
 	if (cartaSorteadaTurno.tipo == 3):
@@ -343,6 +403,7 @@ func aplicarEfeitoJogador(carta: CartaItem):
 	var target = carta.target if ("target" in carta) else -1
 	var efeitoInterferencia = Efeito.create(carta.acao)
 	efeitoInterferencia.processarEfeito(carta.alvoDoEfeito, objetoDoEfeito, carta.acao_parametro, target)
+	return efeitoInterferencia
 	
 func mostrarCartasDaLista(lista_cartas: Array[CartaClass]) -> void:
 	var nomeDoJogadorDoTurno = jogadores[jogadorAtual].jogador
@@ -355,16 +416,6 @@ func mostrarCartasDaLista(lista_cartas: Array[CartaClass]) -> void:
 		else:
 			monster_box.customizarBox(carta, nomeDono + " interferiu no jogo de "+nomeDoJogadorDoTurno, true, "Continuar")
 		aplicarEfeitoJogador(carta)
-		#var efeitoInterferencia = Efeito.create(carta.acao)
-		#var objetoDoEfeito = jogadores[jogadorAtual] if carta.alvoDoEfeito == 1 else cartaSorteadaTurno
-		#var target = carta.target if carta.target != null else -1
-		#efeitoInterferencia.processarEfeito(carta.alvoDoEfeito, objetoDoEfeito, carta.acao_parametro, target)
-		#if (carta.acao == 1 and cartaSorteadaTurno.tipo == 3):
-			#if (carta.alvoDoEfeito == 0):
-				#cartaSorteadaTurno.adicionarIncrementoForca(carta.acao_parametro) # Método de carta monstro que adiciona força incremental
-			#elif(carta.alvoDoEfeito == 1):
-				#jogadores[jogadorAtual].addIncremento(carta.acao_parametro)
-				#jogadores[jogadorAtual].calcularForcaTurno()
 		await monster_box.prompt()
 		await get_tree().create_timer(0.2).timeout # Esperar antes de mostrar a próxima caixa
 	

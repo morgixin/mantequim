@@ -9,8 +9,6 @@ func _aplicarEfeito() -> void:
 		self.alvoJogadorDoEfeito.aumentarNivel(quantidadeDeNiveis)
 
 func _finalizarEfeito() -> void:
-	
-	
 	if (alvoDoEfeito == 1):
 		if (self.alvoJogadorDoEfeito.nivel - abs(self.acaoParametro) <= 0):
 			self.alvoJogadorDoEfeito.estaMorto = true
