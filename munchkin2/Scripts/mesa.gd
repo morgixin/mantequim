@@ -177,6 +177,9 @@ func momentoReceberMaldicao() -> void:
 		prompt1.setTimerToClose(6)
 		await prompt1.prompt(false)
 	await verificarMorte()
+	if jogadores[jogadorAtual].estaMorto:
+		jogadorAtual = jogadorAtual%jogadores.size()
+		momentoSeEquipar()
 	await get_tree().create_timer(0.2).timeout
 	if (jogadores[jogadorAtual].isHost):
 		var jogadorTemCartaMonstro = jogadores[jogadorAtual].maoCartas.verificarCartasMonstro(false) != null	
@@ -217,7 +220,7 @@ func momentoBatalharMonstroMao() -> void:
 	await get_tree().create_timer(0.2).timeout
 	if !jogadores[jogadorAtual].isHost:
 		var nome_do_jogador_atual = jogadores[jogadorAtual].jogador
-		prompt1.customize("Aguardando "+nome_do_jogador_atual+"escolher um monstro", "", "Aguarde", "", true)
+		prompt1.customize("Aguardando "+nome_do_jogador_atual+" escolher um monstro", "", "Aguarde", "", true)
 		prompt1.mudarStatusBotao(0,true)
 		prompt1.setTimerToClose(5)
 		await prompt1.prompt()

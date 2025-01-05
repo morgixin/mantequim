@@ -5,7 +5,7 @@
 	"descricao_carta": "Perca seu item de maior bônus - se não possuir nenhum, perca dois níveis!",
 	"frame": 12,
 	"acao": 3,
-	"acao_parametro": 2,
+	"acao_parametro": -2,
 	"target": 99,
 	"permanente": false
 },
