@@ -7,10 +7,12 @@ var user = User.new()
 var peer
 var cryptoUtil = UserCrypto.new()
 
+static var _isUserLogged
 static var instancia = null
 
 static func _UserController() -> UserController:
 	instancia = UserController.new()
+	_isUserLogged = false
 	return instancia
 
 static func getInstancia() -> UserController:
@@ -31,7 +33,7 @@ func get_logged_user_username():
 	return user.get_username()
 	
 func isUserLogged() -> bool:
-	return user.get_username() != ""
+	return _isUserLogged
 	
 func loginUser(username, password):
 	var data = {
@@ -49,6 +51,7 @@ func loginUser(username, password):
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	
 	set_username(username.strip_edges(true, true))
+	_isUserLogged = true
 	
 func createUser(username, password):
 	var data = {

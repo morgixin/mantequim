@@ -16,4 +16,5 @@ func _process(delta: float) -> void:
 	else:
 		$VBoxContainer/LoginSignin.show()
 		$VBoxContainer/UsernameLabel.hide()
+		$VBoxContainer/UsernameLabel/Username.text = ""
 	pass
