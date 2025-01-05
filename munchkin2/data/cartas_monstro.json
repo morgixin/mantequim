@@ -2,7 +2,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Slime",
-	"descricao_carta": "Se você for derrotado, perde um item usado no pé - se estiver descalço, perde um nível! +4 contra elfos.",
+	"descricao_carta": "Se você for derrotado, perde um item usado no pé - se estiver descalço, perde um nível!",
 	"frame": 6,
 	"força": 1,
 	"min_level": 1,
@@ -50,7 +50,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Coceira",
-	"descricao_carta": "Se perder, perca um item aqualquer imediatamente - se não estiver equipado com nada, desça um nível. Não há como fugir da coceira!",
+	"descricao_carta": "Se perder, perca um item aqualquer imediatamente - se não estiver equipado com nada, desça um nível.",
 	"frame": 24,
 	"força": 1,
 	"min_level": 1,
@@ -82,7 +82,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Leprechaun",
-	"descricao_carta": "Se perder, perca um item qualquer imediatamente - se não estiver equipado, desça um nível. +5 contra elfos.",
+	"descricao_carta": "Se perder, perca um item qualquer imediatamente - se não estiver equipado, desça um nível.",
 	"frame": 32,
 	"força": 4,
 	"min_level": 1,
@@ -226,7 +226,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Ladrão de estrada",
-	"descricao_carta": "Se perder, perca também todos os seus itens (caso não tenha nenhum, perca um nível)! Se ganhar, leve dois tesouros! +5 contra humanos.",
+	"descricao_carta": "Se perder, perca também todos os seus itens (caso não tenha nenhum, perca um nível)! Se ganhar, leve dois tesouros!",
 	"frame": 57,
 	"força": 4,
 	"min_level": 1,
@@ -242,7 +242,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Desarmonizador facial",
-	"descricao_carta": "Se perder, perca itens de cabeça (caso não tenha nenhum, perca um nível)! Se ganhar, leve dois tesouros! +6 contra elfos.",
+	"descricao_carta": "Se perder, perca itens de cabeça (caso não tenha nenhum, perca um nível)! Se ganhar, leve dois tesouros!",
 	"frame": 58,
 	"força": 6,
 	"min_level": 1,
@@ -258,7 +258,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Harpias",
-	"descricao_carta": "Se perder, perca dois níveis. Se ganhar, leve dois tesouros! +5 contra magos.",
+	"descricao_carta": "Se perder, perca dois níveis. Se ganhar, leve dois tesouros!",
 	"frame": 59,
 	"força": 4,
 	"min_level": 1,
@@ -306,7 +306,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Usuário médio de Discord",
-	"descricao_carta": "+6 contra guerreiros. Se perder, perca sua classe. Se for só um humano comum (sem classe), desça dois níveis.",
+	"descricao_carta": "Se perder, perca sua classe. Se for só um humano comum (sem classe), desça dois níveis.",
 	"frame": 70,
 	"força": 6,
 	"min_level": 1,
@@ -322,7 +322,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Vampiro de baixo orçamento",
-	"descricao_carta": "+3 contra clérigos. Se perder, perca três níveis.",
+	"descricao_carta": "Se perder, perca três níveis.",
 	"frame": 72,
 	"força": 12,
 	"min_level": 1,
@@ -338,7 +338,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Língua de chicote",
-	"descricao_carta": "+4 contra clérigos. Se perder, perca 2 níveis.",
+	"descricao_carta": "Se perder, perca 2 níveis.",
 	"frame": 74,
 	"força": 12,
 	"min_level": 1,
@@ -354,7 +354,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Pitbull",
-	"descricao_carta": "+5 contra humanos e ladrões (e +10 se você for os dois!). Se perder, perca dois níveis.",
+	"descricao_carta": "Se perder, perca dois níveis.",
 	"frame": 75,
 	"força": 2,
 	"min_level": 1,
