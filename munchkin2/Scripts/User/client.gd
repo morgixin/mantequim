@@ -82,6 +82,7 @@ func _process(delta):
 			if data.message == Utilities.Message.playerinfo:
 				# altera o valor de nome para o valor em data.username
 				UC.set_username(data.username)
+				UC.setIsUserLogged(true)
 				
 			if data.message == Utilities.Message.failedToLogin:
 				print(data.text)
