@@ -108,10 +108,12 @@ func verificarClasseRaca(carta: CartaClass) -> bool:
 				return false
 			if carta.tipo == 5 and cartaEquipada.raca_restrita == carta.raca_id:
 				return false
-			if carta.tipo == 4 and cartaEquipada.classe_exigida != carta.classe_id:
-				return false
-			if carta.tipo == 5 and cartaEquipada.raca_exigida != carta.raca_id:
-				return false
+			if cartaEquipada.classe_exigida != -1:
+				if carta.tipo == 4 and cartaEquipada.classe_exigida != carta.classe_id:
+					return false
+			if cartaEquipada.raca_exigida != -1:
+				if carta.tipo == 5 and cartaEquipada.raca_exigida != carta.raca_id:
+					return false
 		if cartaEquipada.tipo == 4:
 			cartasClassesEquipadas.append(cartaEquipada)
 		elif cartaEquipada.tipo == 5:

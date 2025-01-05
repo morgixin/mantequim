@@ -38,7 +38,7 @@ func addCartaUsada(carta: CartaClass) -> void:
 	if (slotAjudaJogador == false):
 		if (btn):
 			btn.hide()
-		use_card_confirmation.customize("Quem deseja ajudar?", "Escolha entre o monstro ou o jogador", "Jogador", "Monstro", false, false)
+		use_card_confirmation.customize("Quem deseja interferir?", "Escolha entre o monstro ou o jogador", "Jogador", "Monstro", false, false)
 		var escolheuJogador = await use_card_confirmation.prompt(true)
 		if (escolheuJogador):
 			carta.alvoDoEfeito = 1
