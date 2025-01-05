@@ -7,7 +7,7 @@ var promptBtn
 
 func _ready() -> void:
 	position = Vector2(get_viewport().size.x/2, get_viewport().size.y/2)
-	pass # Replace with function body.	
+	get_tree().get_root().size_changed.connect(resize)	
 
 func setPrompt(prompt_obt: Prompt):
 	promptBtn = prompt_obt
@@ -26,6 +26,10 @@ func verificarBotao() -> void:
 			promptBtn.mudarStatusBotao(0, false)
 		else:
 			promptBtn.mudarStatusBotao(0, true)
+
+func resize():
+	var screen = get_viewport_rect().size
+	position = Vector2(screen.x/2, screen.y/2)
 
 func removerCartaSlot(carta: CartaClass) -> void:
 	if (carta in cartaEscolhida):

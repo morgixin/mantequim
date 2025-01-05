@@ -7,12 +7,16 @@ var btn
 
 func _ready() -> void:
 	position = Vector2(get_viewport().size.x/2, get_viewport().size.y/2)
-	pass # Replace with function body.	
+	get_tree().get_root().size_changed.connect(resize)
 
 func desativarCartas() -> void:
 	for carta in cartasUsadas:
 		carta.get_node("Area2D/CollisionShape2D").disabled = true
 		carta.hide()
+
+func resize():
+	var screen = get_viewport_rect().size
+	position = Vector2(screen.x/2, screen.y/2)
 
 func getNextStackIndex() -> int:
 	stack_index += 1
