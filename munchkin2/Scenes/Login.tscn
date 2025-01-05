@@ -10,9 +10,10 @@
 
 [node name="Login" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_right = 0.971
+anchor_bottom = 0.965
+offset_right = 11.7999
+offset_bottom = 11.2
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -21,11 +22,10 @@ script = ExtResource("2_4wn5o")
 
 [node name="Control" type="Control" parent="Client"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1.0
-offset_bottom = -1.0
+anchor_right = 1.001
+anchor_bottom = 0.969
+offset_right = -0.200073
+offset_bottom = 3.31995
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -33,10 +33,9 @@ size_flags_vertical = 3
 
 [node name="Background" type="TextureRect" parent="Client/Control"]
 layout_mode = 0
-offset_left = -53.0
-offset_top = -17.0
-offset_right = 1227.0
-offset_bottom = 703.0
+offset_left = -40.0
+offset_right = 1240.0
+offset_bottom = 720.0
 texture = ExtResource("1_sy4iv")
 expand_mode = 3
 
@@ -235,15 +234,6 @@ fit_content = true
 [node name="Server" type="Node" parent="."]
 script = ExtResource("8_pu8xu")
 
-[node name="AOSDASODA" type="Button" parent="."]
-z_index = 1
-layout_mode = 0
-offset_left = 1004.0
-offset_top = 368.0
-offset_right = 1139.0
-offset_bottom = 456.0
-text = "asdasda"
-
 [connection signal="mouse_entered" from="Client/Control/MarginContainer/VBoxContainer/Botões" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/LoginBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_login_btn_mouse_entered"]
 [connection signal="mouse_exited" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/LoginBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_login_btn_mouse_exited"]
@@ -254,4 +244,3 @@ text = "asdasda"
 [connection signal="mouse_entered" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_entered"]
 [connection signal="mouse_exited" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_exited"]
 [connection signal="pressed" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="AOSDASODA" to="Server" method="_on_aosdasoda_pressed"]

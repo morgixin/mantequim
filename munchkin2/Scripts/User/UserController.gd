@@ -18,7 +18,7 @@ func set_id(_id: int):
 func set_username(username: String):
 	user.set_username(username)
 
-func get_logged_user_username() -> String:
+func get_logged_user_username():
 	# if _isUserLogged:
 	return user.get_username()
 	
