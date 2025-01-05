@@ -3,7 +3,7 @@ extends Node2D
 
 var UC = UserController.getInstancia()
 @export var jogador: String = UC.get_logged_user_username() if UC.isUserLogged() else "Troy"
-@export var nivel: int = 3
+@export var nivel: int = 1
 @export var forca: int = self.nivel
 @export var forca_turno: int = 1
 var incrementos_forca: Array[int] = []

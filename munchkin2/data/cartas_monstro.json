@@ -98,7 +98,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Ratatuilla",
-	"descricao_carta": "Se perder, perca um nível. +3 contra clérigos.",
+	"descricao_carta": "Se perder, perca um nível.",
 	"frame": 40,
 	"força": 1,
 	"min_level": 1,
@@ -290,7 +290,7 @@
   {
 	"tipo": 3,
 	"nome_carta": "Zumbivalo",
-	"descricao_carta": "+5 contra anões. Se perder, perca dois níveis.",
+	"descricao_carta": "Se perder, perca dois níveis.",
 	"frame": 68,
 	"força": 4,
 	"min_level": 1,
