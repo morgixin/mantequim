@@ -16,7 +16,7 @@ func _aplicarEfeito() -> void:
 				continue
 			acharCartaRaca = carta
 			break
-		mao_equipados_array.removeDaMao(acharCartaRaca)
+		mao_equipados_reference.removeDaMao(acharCartaRaca)
 	else:
 		self.alvoJogadorDoEfeito.aumentarNivel(acaoParametro)
 

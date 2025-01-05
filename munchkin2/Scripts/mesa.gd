@@ -72,7 +72,13 @@ func momentoSeEquipar() -> void:
 				remove_child(equip_slot)
 				var jogadorContinuou = await monster_box.prompt()
 				if jogadorContinuou:
-					mudarParaBatalha()
+					if cartaSorteadaTurno.min_level > jogadores[jogadorAtual].nivel:
+						await get_tree().create_timer(0.2).timeout
+						prompt1.customize("O monstro sorteado não luta com gente do seu nível.", "Cresça! Mas enquanto isso, ganhe uma carta de brinde.", "Continuar", "", true, false)
+						await prompt1.prompt(false)
+						momentoLootarCartas()
+					else:	
+						mudarParaBatalha()
 			if (cartaSorteadaTurno.tipo == 6):
 				cartaSorteadaTurno.alvoDoEfeito = 1
 				monster_box.customizarBox(cartaSorteadaTurno, "Maldição Sorteada", true, "Continuar")	

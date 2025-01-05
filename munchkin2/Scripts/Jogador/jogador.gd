@@ -103,6 +103,15 @@ func verificarClasseRaca(carta: CartaClass) -> bool:
 	var cartasClassesEquipadas = []
 	var cartasRacasEquipadas = []
 	for cartaEquipada in arrayCartasEquipadas:
+		if cartaEquipada.tipo == 2:
+			if carta.tipo == 4 and cartaEquipada.classe_restrita == carta.classe_id:
+				return false
+			if carta.tipo == 5 and cartaEquipada.raca_restrita == carta.raca_id:
+				return false
+			if carta.tipo == 4 and cartaEquipada.classe_exigida != carta.classe_id:
+				return false
+			if carta.tipo == 5 and cartaEquipada.raca_exigida != carta.raca_id:
+				return false
 		if cartaEquipada.tipo == 4:
 			cartasClassesEquipadas.append(cartaEquipada)
 		elif cartaEquipada.tipo == 5:

@@ -14,7 +14,7 @@ func _aplicarEfeito() -> void:
 				continue
 			acharCartaClasse = carta
 			break
-		mao_equipados_array.removeDaMao(acharCartaClasse)
+		mao_equipados_reference.removeDaMao(acharCartaClasse)
 	else:
 		self.alvoJogadorDoEfeito.aumentarNivel(acaoParametro)
 
