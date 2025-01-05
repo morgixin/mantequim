@@ -9,6 +9,8 @@ var message_ref
 var startOnLeft = false
 var posInicial
 var screen
+var outrosPrompts: Array[Prompt] = []
+var devoEsconderOutrosPrompts: bool = false
 @onready var modal = $Modal
 var timer: int = 0
 
@@ -42,7 +44,9 @@ func resize() -> void:
 #func _unhandled_key_input(event: InputEvent) -> void:
 	#if event.is_action_pressed("ui_cancel"):
 		#onCancel() # Se o prompt aparecer e o usuário perder esc, vamos fechar o prompt
-
+func adicionarPromptNaLista(promptParaAdd: Prompt):
+	outrosPrompts.append(promptParaAdd)
+	
 func close_modal(isConfirmed):
 	set_process_unhandled_key_input(false) #Desativa o reconhecimento de input
 	confirmed.emit(isConfirmed)
@@ -63,7 +67,8 @@ func mudarStatusBotao(btn_index: int, value: bool) -> void:
 	elif btn_index == 1:
 		cancel_ref.disabled = value
 
-func customize(header: String, msg: String, confirmText: String = "Confirmar", cancelText: String = "Cancelar", oneButton: bool = false, beOnLeft: bool = false):
+func customize(header: String, msg: String, confirmText: String = "Confirmar", cancelText: String = "Cancelar", oneButton: bool = false, beOnLeft: bool = false, hideOthers: bool = false):
+	devoEsconderOutrosPrompts = hideOthers
 	timer = 0
 	confirmed_ref.disabled = false
 	cancel_ref.disabled = false
@@ -84,6 +89,12 @@ func setTimerToClose(tempo: int) -> void:
 	
 func prompt(pause: bool = false) -> bool:
 	shouldUnpause = (get_tree().paused == false) and pause
+	var prompt_para_mostrar_novamente = []
+	if devoEsconderOutrosPrompts:
+		for promptParaFechar in outrosPrompts:
+			if promptParaFechar.is_visible_in_tree():
+				prompt_para_mostrar_novamente.append(promptParaFechar)
+				promptParaFechar.hide()
 
 	if pause:
 		get_tree().paused = true
@@ -99,9 +110,17 @@ func prompt(pause: bool = false) -> bool:
 	if (timer != 0):
 		await get_tree().create_timer(timer).timeout
 		close_modal(true)
+		if devoEsconderOutrosPrompts:
+			for promptParaMostrar in prompt_para_mostrar_novamente:
+				promptParaMostrar.show()
+		devoEsconderOutrosPrompts = false
 		return true
 	else:
 		var isConfirmed = await confirmed # Aguareda o sinal que só é enviado na função close
+		if devoEsconderOutrosPrompts:
+			for promptParaMostrar in prompt_para_mostrar_novamente:
+				promptParaMostrar.show()
+		devoEsconderOutrosPrompts = false
 		return isConfirmed
 
 func _process(delta: float) -> void:

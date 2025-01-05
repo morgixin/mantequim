@@ -15,7 +15,7 @@ func getNextStackIndex() -> int:
 	
 func resize():
 	var screen = get_viewport_rect().size
-	position = Vector2(screen.x/2+120, screen.y/2)
+	position = Vector2(screen.x/2, screen.y/2)
 	
 func confirmaDescarte() -> bool:
 	if btn:

@@ -24,6 +24,7 @@ var useCardSlot = null
 var monsterCardSlot = null
 @onready var prompt1: Prompt = $Confirmation
 @onready var prompt2: Prompt = $useCardSlotPrompt
+@onready var prompt3: Prompt = $promptESQ
 @onready var monster_box: MonsterBoxUI = $MonsterBox
 @onready var sprite_mesa: TextureRect = $sprite_mesa
 @onready var sprite_batalha: TextureRect = $sprite_batalha
@@ -33,8 +34,20 @@ func _ready() -> void:
 	jogadores.append($Jogador)
 	instanciarBots()
 	
+	prompt3.adicionarPromptNaLista(prompt1)
+	prompt3.adicionarPromptNaLista(prompt2)
+	
 	# Iniciando primeiro momento do Jogo
 	momentoSeEquipar()
+	
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		prompt3.customize("Deseja sair do jogo?", "Escolha a opção desejada", "Fechar Jogo", "Cancelar",false, false, true )
+		var isConfirmed = await prompt3.prompt(true)
+		if isConfirmed:
+			get_tree().quit()
+	else:
+		pass
 # ---------------------------------------------------
 #! MOMENTO PARA O JOGADOR SE EQUIPAR
 func momentoSeEquipar() -> void:
