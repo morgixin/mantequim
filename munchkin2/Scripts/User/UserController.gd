@@ -34,6 +34,9 @@ func get_logged_user_username():
 
 func isUserLogged() -> bool:
 	return _isUserLogged
+	
+func setIsUserLogged(value: bool):
+	_isUserLogged = value
 
 func loginUser(username, password):
 	var data = {
@@ -49,9 +52,6 @@ func loginUser(username, password):
 		"Lobby": lobbyValue
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
-
-	set_username(username.strip_edges(true, true))
-	_isUserLogged = true
 
 func createUser(username, password):
 	var data = {

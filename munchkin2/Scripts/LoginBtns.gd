@@ -7,10 +7,11 @@ signal LoginUser(username, password)
 func _ready() -> void:
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass 
-
+	if UC.isUserLogged():
+		queue_free()
+		get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
+	pass # Replace with function body.
 
 ## ON HOVER
 # menu btns hover interaction
@@ -43,9 +44,6 @@ func _on_exit_btn_pressed() -> void:
 
 func _on_login_btn_pressed() -> void:
 	LoginUser.emit($UsernameLineEdit.text, $PasswordLineEdit.text)
-	if UC.isUserLogged():
-		queue_free()
-		get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
 	
 func _on_signin_btn_pressed() -> void:
 	CreateUser.emit($UsernameLineEdit.text, $PasswordLineEdit.text)
