@@ -9,8 +9,3 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func _get_is_logged():
-	if UC.isUserLogged():
-		$MarginContainer2/VBoxContainer/Label.visible = true
-		$MarginContainer2/VBoxContainer/Label/Username.text = UC.getUsername()

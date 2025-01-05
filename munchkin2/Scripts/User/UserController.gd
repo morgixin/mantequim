@@ -40,7 +40,7 @@ func loginUser(username, password):
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	
-	user.set_username(username.strip_edges(true, true))
+	set_username(username.strip_edges(true, true))
 	
 func createUser(username, password):
 	var data = {

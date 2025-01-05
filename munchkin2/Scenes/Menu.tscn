@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://vlr6he2fwspg"]
+[gd_scene load_steps=9 format=3 uid="uid://vlr6he2fwspg"]
 
 [ext_resource type="Texture2D" uid="uid://b3wa2gukroggf" path="res://assets/imagens/Menu/background.png" id="1_5c7gq"]
 [ext_resource type="Script" path="res://Scripts/menu.gd" id="1_hijy2"]
@@ -6,11 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://jhurflg8708j" path="res://assets/imagens/Menu/title.png" id="2_m1ywh"]
 [ext_resource type="Texture2D" uid="uid://b4rtj0vytj22y" path="res://icon.svg" id="2_wg2el"]
 [ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="5_wr4il"]
+[ext_resource type="Script" path="res://Scripts/login_space.gd" id="7_ovpsg"]
 
 [sub_resource type="GDScript" id="GDScript_ol461"]
 script/source = "extends Node
-
-@onready var LoginSigninText = $\"../../../MarginContainer2/VBoxContainer/LoginSignin/RichTextLabel\"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -52,9 +51,9 @@ func _on_exit_btn_mouse_exited() -> void:
 	
 
 func _on_login_signin_mouse_entered() -> void:
-	LoginSigninText.text = \"[wave][center]\"+LoginSigninText.text
+	$\"../../../LoginSpace/VBoxContainer/LoginSignin/LoginSigninText\".text = \"[wave][center]\"+$\"../../../LoginSpace/VBoxContainer/LoginSignin/LoginSigninText\".text
 func _on_login_signin_mouse_exited() -> void:
-	LoginSigninText.text = \"[wave][center]\"+LoginSigninText.text
+	$\"../../../LoginSpace/VBoxContainer/LoginSignin/LoginSigninText\".text = \"[wave][center]\"+$\"../../../LoginSpace/VBoxContainer/LoginSignin/LoginSigninText\".text
 
 
 
@@ -287,7 +286,7 @@ Rafael Amparo
 Thales Abranches"
 horizontal_alignment = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
+[node name="LoginSpace" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -299,15 +298,16 @@ theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
+script = ExtResource("7_ovpsg")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LoginSpace"]
 layout_mode = 2
 
-[node name="LoginSignin" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="LoginSignin" type="Button" parent="LoginSpace/VBoxContainer"]
 custom_minimum_size = Vector2(0, 53)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/LoginSignin"]
+[node name="LoginSigninText" type="RichTextLabel" parent="LoginSpace/VBoxContainer/LoginSignin"]
 clip_contents = false
 layout_mode = 1
 anchors_preset = 14
@@ -327,12 +327,12 @@ text = "[center]Entrar em conta"
 fit_content = true
 autowrap_mode = 0
 
-[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="UsernameLabel" type="Label" parent="LoginSpace/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Username" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/Label"]
+[node name="Username" type="RichTextLabel" parent="LoginSpace/VBoxContainer/UsernameLabel"]
 clip_contents = false
 layout_mode = 1
 anchors_preset = 14
@@ -363,6 +363,6 @@ autowrap_mode = 0
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_entered"]
 [connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_exited"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Botões/ExitBtn" to="MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_pressed"]
-[connection signal="mouse_entered" from="MarginContainer2/VBoxContainer/LoginSignin" to="MarginContainer/VBoxContainer/Botões" method="_on_login_signin_mouse_entered"]
-[connection signal="mouse_exited" from="MarginContainer2/VBoxContainer/LoginSignin" to="MarginContainer/VBoxContainer/Botões" method="_on_login_signin_mouse_exited"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/LoginSignin" to="MarginContainer/VBoxContainer/Botões" method="_on_login_signin_pressed"]
+[connection signal="mouse_entered" from="LoginSpace/VBoxContainer/LoginSignin" to="MarginContainer/VBoxContainer/Botões" method="_on_login_signin_mouse_entered"]
+[connection signal="mouse_exited" from="LoginSpace/VBoxContainer/LoginSignin" to="MarginContainer/VBoxContainer/Botões" method="_on_login_signin_mouse_exited"]
+[connection signal="pressed" from="LoginSpace/VBoxContainer/LoginSignin" to="MarginContainer/VBoxContainer/Botões" method="_on_login_signin_pressed"]
