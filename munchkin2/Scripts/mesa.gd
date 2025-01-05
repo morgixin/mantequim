@@ -308,8 +308,9 @@ func mostrarResumoDaBatalha() -> void:
 #! MOMENTO DE DESCARTAR CARTAS
 func momentoDescarte() -> void:
 	momentoDoJogo = 4
-	jogadores[jogadorAtual].incrementos_forca = []
-	jogadores[jogadorAtual].calcularForcaTurno()
+	if(jogadorAtual < jogadores.size()):
+		jogadores[jogadorAtual].incrementos_forca = []
+		jogadores[jogadorAtual].calcularForcaTurno()
 	var useDiscardScene = preload("res://Scenes/Slots/DiscardSlot.tscn") 
 	var newDiscard = useDiscardScene.instantiate()
 	var screen = get_viewport_rect().size
