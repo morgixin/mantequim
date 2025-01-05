@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://vlr6he2fwspg"]
 
 [ext_resource type="Texture2D" uid="uid://b3wa2gukroggf" path="res://assets/imagens/Menu/background.png" id="1_5c7gq"]
-[ext_resource type="Script" path="res://Scenes/menu.gd" id="1_hijy2"]
+[ext_resource type="Script" path="res://Scripts/menu.gd" id="1_hijy2"]
 [ext_resource type="FontFile" uid="uid://cmk05c25d4mm3" path="res://assets/fonts/Pixeled.ttf" id="1_llpjc"]
 [ext_resource type="Texture2D" uid="uid://jhurflg8708j" path="res://assets/imagens/Menu/title.png" id="2_m1ywh"]
 [ext_resource type="Texture2D" uid="uid://b4rtj0vytj22y" path="res://icon.svg" id="2_wg2el"]
@@ -324,6 +324,31 @@ theme_override_fonts/normal_font = ExtResource("1_llpjc")
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
 text = "[center]Entrar em conta"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Username" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/Label"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -54.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("1_llpjc")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "NomeLogado"
 fit_content = true
 autowrap_mode = 0
 
