@@ -14,12 +14,14 @@ var raça_especifica: int = -1
 var tesouro: int = 1
 var target: int = -1
 var lvl_reward: int = 1
+var min_level: int = 1
 
 func _ready() -> void:
 	get_parent().connect_card_signals(self)
 	definirFrame()
 	self.isTreasure = false
 	self.isMonster = true
+	calcularForcaTotal()
 
 func calcularForcaTotal() -> int:
 	var somaDasForcas = forca

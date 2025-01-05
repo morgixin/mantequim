@@ -2,7 +2,7 @@ class_name Jogador
 extends Node2D
 
 @export var jogador: String = "Rafael"
-@export var nivel: int = 1
+@export var nivel: int = 3
 @export var forca: int = 1
 @export var forca_turno: int = 1
 var incrementos_forca: Array[int] = []
@@ -13,7 +13,7 @@ var maoCartas: MaoJogador
 var maoCartasEquipadas: MaoEquipados
 var isHost = true
 var estaMorto = false
-var podeFugir = false
+var podeFugir = true
 
 const racaDict = {
 	-1: "Nenhum",
@@ -43,6 +43,7 @@ func _ready() -> void:
 	maoCartas = $"../MaoJogador"
 	maoCartasEquipadas = $"../MaoEquipados"
 	player_box = $"../HBoxContainer/PlayerBox"
+	calcularForcaTurno()
 
 func setForca(novo_valor: int) -> void:
 	forca = novo_valor

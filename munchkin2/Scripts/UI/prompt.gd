@@ -10,7 +10,7 @@ var startOnLeft = false
 var posInicial
 var screen
 @onready var modal = $Modal
-
+var timer: int = 0
 
 func _ready() -> void:
 	set_process_unhandled_key_input(false) #Desativa o reconhecimento de input
@@ -64,6 +64,9 @@ func mudarStatusBotao(btn_index: int, value: bool) -> void:
 		cancel_ref.disabled = value
 
 func customize(header: String, msg: String, confirmText: String = "Confirmar", cancelText: String = "Cancelar", oneButton: bool = false, beOnLeft: bool = false):
+	timer = 0
+	confirmed_ref.disabled = false
+	cancel_ref.disabled = false
 	header_ref.text = header
 	message_ref.text = msg
 	confirmed_ref.text = confirmText
@@ -75,6 +78,9 @@ func customize(header: String, msg: String, confirmText: String = "Confirmar", c
 		cancel_ref.show()
 	modal.size = Vector2(0,0)
 	return self
+	
+func setTimerToClose(tempo: int) -> void:
+	timer = tempo
 	
 func prompt(pause: bool = false) -> bool:
 	shouldUnpause = (get_tree().paused == false) and pause
@@ -90,8 +96,13 @@ func prompt(pause: bool = false) -> bool:
 		var posMeio =Vector2(screen.x/2 - $Modal.size[0]/2, screen.y/2 - $Modal.size[1]/2 - 30)
 	isOpen = true
 	set_process_unhandled_key_input(true) #Ativa o reconhecimento de input
-	var isConfirmed = await confirmed # Aguareda o sinal que só é enviado na função close
-	return isConfirmed
+	if (timer != 0):
+		await get_tree().create_timer(timer).timeout
+		close_modal(true)
+		return true
+	else:
+		var isConfirmed = await confirmed # Aguareda o sinal que só é enviado na função close
+		return isConfirmed
 
 func _process(delta: float) -> void:
 	pass

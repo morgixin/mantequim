@@ -8,4 +8,4 @@ func _aplicarEfeito() -> void:
 func _finalizarEfeito() -> void:
 	if (alvoMonstroDoEfeito):
 		return
-	self.textoResultado = "Você não pode mais fugir!!"
+	self.textoResultado = " não pode mais fugir!!"
