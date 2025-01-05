@@ -7,7 +7,7 @@ var hostId : int
 var lobbyValue = ""
 var lobbyInfo = {}
 var cryptoUtil = UserCrypto.new()
-#var UC : UserController = UserController.new()
+var UC = UserController.getInstancia()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
@@ -62,11 +62,9 @@ func _process(delta):
 				connected(id)
 				
 			if data.message == Utilities.Message.userConnected:
-				# GameManager.Players[data.id] = data.player
 				createPeer(data.id)
 				
 			if data.message == Utilities.Message.lobby:
-				# GameManager.Players = JSON.parse_string(data.players)
 				hostId = data.host
 				lobbyValue = data.lobbyValue
 				
@@ -162,31 +160,3 @@ func iceCandidateCreated(midName, indexName, sdpName, id):
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	pass
-
-func _on_start_client_button_down():
-	connectToServer()
-	pass # Replace with function body.
-
-func _on_button_start_game_down():
-	StartGame.rpc()
-	pass # Replace with function body.
-
-@rpc("any_peer", "call_local")
-func StartGame():
-	var message = {
-		"message": Utilities.Message.removeLobby,
-		"lobbyID" : lobbyValue
-	}
-	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
-	var scene = load("res://Scenes/Mesa.tscn").instantiate()
-	get_tree().root.add_child(scene)
-
-func _on_join_lobby_button_down():
-	var message = {
-		"id" : id,
-		"message" : Utilities.Message.lobby,
-		"name" : "",
-		"lobbyValue" : $LineEdit.text
-	}
-	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
-	pass # Replace with function body.

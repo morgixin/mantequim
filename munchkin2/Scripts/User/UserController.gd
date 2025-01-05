@@ -1,13 +1,22 @@
 extends Node
 class_name UserController
 
-# var _isUserLogged : bool
 var lobbyValue = ""
 var id : int
 var user = User.new()
 var peer
 var cryptoUtil = UserCrypto.new()
 
+static var instancia = null
+
+static func _UserController() -> UserController:
+	instancia = UserController.new()
+	return instancia
+
+static func getInstancia() -> UserController:
+	if instancia == null:
+		instancia = _UserController()
+	return instancia
 
 func set_peer(_peer: WebSocketMultiplayerPeer):
 	peer = _peer
@@ -19,7 +28,6 @@ func set_username(username: String):
 	user.set_username(username)
 
 func get_logged_user_username():
-	# if _isUserLogged:
 	return user.get_username()
 	
 func isUserLogged() -> bool:
