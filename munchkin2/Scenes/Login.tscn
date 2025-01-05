@@ -1,0 +1,196 @@
+[gd_scene load_steps=8 format=3 uid="uid://dkxacmsoy8dml"]
+
+[ext_resource type="Texture2D" uid="uid://b3wa2gukroggf" path="res://assets/imagens/Menu/background.png" id="1_sy4iv"]
+[ext_resource type="Script" path="res://Scripts/User/client.gd" id="2_4wn5o"]
+[ext_resource type="FontFile" uid="uid://cmk05c25d4mm3" path="res://assets/fonts/Pixeled.ttf" id="2_je6p1"]
+[ext_resource type="Texture2D" uid="uid://jhurflg8708j" path="res://assets/imagens/Menu/title.png" id="3_ghul4"]
+[ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="5_sqtci"]
+[ext_resource type="Script" path="res://Scripts/LoginBtns.gd" id="8_dkufe"]
+[ext_resource type="Script" path="res://Scripts/User/server.gd" id="8_pu8xu"]
+
+[node name="Login" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Client" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_4wn5o")
+
+[node name="Control" type="Control" parent="Client"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="Client/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.044985, 0.00906574, 0.0783896, 1)
+
+[node name="Background" type="TextureRect" parent="Client/Control"]
+modulate = Color(1, 1, 1, 0.772549)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_sy4iv")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Client/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -225.5
+offset_right = 225.5
+offset_bottom = 492.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Client/Control/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 40
+
+[node name="TextureRect" type="TextureRect" parent="Client/Control/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_ghul4")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Botões" type="VBoxContainer" parent="Client/Control/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 15
+script = ExtResource("8_dkufe")
+
+[node name="UsernameLabel" type="Label" parent="Client/Control/MarginContainer/VBoxContainer/Botões"]
+modulate = Color(1, 1, 1, 0.552941)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_sqtci")
+theme_override_font_sizes/font_size = 20
+text = "Username"
+
+[node name="UsernameLineEdit" type="LineEdit" parent="Client/Control/MarginContainer/VBoxContainer/Botões"]
+layout_mode = 2
+
+[node name="PasswordLabel" type="Label" parent="Client/Control/MarginContainer/VBoxContainer/Botões"]
+modulate = Color(1, 1, 1, 0.552941)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_sqtci")
+theme_override_font_sizes/font_size = 20
+text = "Senha"
+
+[node name="PasswordLineEdit" type="LineEdit" parent="Client/Control/MarginContainer/VBoxContainer/Botões"]
+layout_mode = 2
+secret = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Client/Control/MarginContainer/VBoxContainer/Botões"]
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LoginBtn" type="Button" parent="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="LoginLabel" type="RichTextLabel" parent="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/LoginBtn"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("2_je6p1")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Logar"
+fit_content = true
+
+[node name="SigninBtn" type="Button" parent="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="SigninLabel" type="RichTextLabel" parent="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/SigninBtn"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("2_je6p1")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Cadastrar"
+fit_content = true
+
+[node name="ExitBtn" type="Button" parent="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CancelLabel" type="RichTextLabel" parent="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("2_je6p1")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Cancelar"
+fit_content = true
+
+[node name="Server" type="Node" parent="."]
+script = ExtResource("8_pu8xu")
+
+[connection signal="mouse_entered" from="Client/Control/MarginContainer/VBoxContainer/Botões" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/LoginBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_login_btn_mouse_entered"]
+[connection signal="mouse_exited" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/LoginBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_login_btn_mouse_exited"]
+[connection signal="pressed" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/LoginBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_login_btn_pressed"]
+[connection signal="mouse_entered" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/SigninBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_signin_btn_mouse_entered"]
+[connection signal="mouse_exited" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/SigninBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_signin_btn_mouse_exited"]
+[connection signal="pressed" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/SigninBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_signin_btn_pressed"]
+[connection signal="mouse_entered" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_entered"]
+[connection signal="mouse_exited" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_exited"]
+[connection signal="pressed" from="Client/Control/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn" to="Client/Control/MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_pressed"]

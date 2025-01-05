@@ -1,0 +1,284 @@
+[gd_scene load_steps=9 format=3 uid="uid://xqcje1ei54kp"]
+
+[ext_resource type="Texture2D" uid="uid://b3wa2gukroggf" path="res://assets/imagens/Menu/background.png" id="1_sy4iv"]
+[ext_resource type="Script" path="res://Scripts/User/client.gd" id="2_4wn5o"]
+[ext_resource type="FontFile" uid="uid://cmk05c25d4mm3" path="res://assets/fonts/Pixeled.ttf" id="2_je6p1"]
+[ext_resource type="Texture2D" uid="uid://jhurflg8708j" path="res://assets/imagens/Menu/title.png" id="3_ghul4"]
+[ext_resource type="Texture2D" uid="uid://b4rtj0vytj22y" path="res://icon.svg" id="4_qvcsf"]
+[ext_resource type="FontFile" uid="uid://dr4rsvqy8246x" path="res://assets/fonts/PixelifySans.ttf" id="5_sqtci"]
+[ext_resource type="Script" path="res://Scripts/LoginBtns.gd" id="8_dkufe"]
+[ext_resource type="Script" path="res://Scripts/User/server.gd" id="8_pu8xu"]
+
+[node name="Config" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Client" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1200.0
+offset_bottom = -720.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_4wn5o")
+
+[node name="Background" type="TextureRect" parent="Client"]
+layout_mode = 0
+offset_left = -40.0
+offset_right = 1240.0
+offset_bottom = 720.0
+texture = ExtResource("1_sy4iv")
+expand_mode = 3
+
+[node name="Node2" type="Node" parent="Client"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Client/Node2"]
+visible = false
+position = Vector2(952.6, 59.6)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_qvcsf")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Client/Node2"]
+visible = false
+offset_left = 985.6
+offset_top = 36.6
+offset_right = 1128.6
+offset_bottom = 80.6
+theme_override_fonts/normal_font = ExtResource("2_je6p1")
+theme_override_font_sizes/normal_font_size = 14
+
+[node name="MarginContainer2" type="MarginContainer" parent="Client"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 923.0
+offset_top = 483.0
+offset_right = 1160.0
+offset_bottom = 680.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Client/MarginContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Client/MarginContainer2/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.552941)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_sqtci")
+theme_override_font_sizes/font_size = 20
+text = "Ana Beatriz Ferreira
+João Gabriel Marinho
+Júlia Spezani
+Matheus Lima
+Rafael Amparo
+Thales Abranches"
+horizontal_alignment = 2
+
+[node name="Panel" type="Panel" parent="Client"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 303.0
+offset_top = 90.0
+offset_right = 851.0
+offset_bottom = 627.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Client/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Client"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 354.5
+offset_top = 94.0
+offset_right = 805.5
+offset_bottom = 586.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Client/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 40
+
+[node name="TextureRect" type="TextureRect" parent="Client/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_ghul4")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Botões" type="VBoxContainer" parent="Client/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 15
+script = ExtResource("8_dkufe")
+
+[node name="UsernameLabel" type="Label" parent="Client/MarginContainer/VBoxContainer/Botões"]
+modulate = Color(1, 1, 1, 0.552941)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_sqtci")
+theme_override_font_sizes/font_size = 20
+text = "Username"
+
+[node name="UsernameLineEdit" type="LineEdit" parent="Client/MarginContainer/VBoxContainer/Botões"]
+layout_mode = 2
+
+[node name="PasswordLabel" type="Label" parent="Client/MarginContainer/VBoxContainer/Botões"]
+modulate = Color(1, 1, 1, 0.552941)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_sqtci")
+theme_override_font_sizes/font_size = 20
+text = "Senha"
+
+[node name="PasswordLineEdit" type="LineEdit" parent="Client/MarginContainer/VBoxContainer/Botões"]
+layout_mode = 2
+secret = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Client/MarginContainer/VBoxContainer/Botões"]
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LoginBtn" type="Button" parent="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="LoginLabel" type="RichTextLabel" parent="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/LoginBtn"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("2_je6p1")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Logar"
+fit_content = true
+
+[node name="SigninBtn" type="Button" parent="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="SigninLabel" type="RichTextLabel" parent="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/SigninBtn"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("2_je6p1")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Cadastrar"
+fit_content = true
+
+[node name="ExitBtn" type="Button" parent="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CancelLabel" type="RichTextLabel" parent="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("2_je6p1")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Cancelar"
+fit_content = true
+
+[node name="Server" type="Node" parent="."]
+script = ExtResource("8_pu8xu")
+
+[node name="LoginBtn" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LoginBtn"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("2_je6p1")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Logar"
+fit_content = true
+
+[connection signal="mouse_entered" from="." to="Client" method="_on_config_mouse_entered"]
+[connection signal="mouse_entered" from="Client/MarginContainer/VBoxContainer/Botões" to="Client/MarginContainer/VBoxContainer/Botões" method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/LoginBtn" to="Client/MarginContainer/VBoxContainer/Botões" method="_on_login_btn_mouse_entered"]
+[connection signal="mouse_exited" from="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/LoginBtn" to="Client/MarginContainer/VBoxContainer/Botões" method="_on_login_btn_mouse_exited"]
+[connection signal="pressed" from="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/LoginBtn" to="Client/MarginContainer/VBoxContainer/Botões" method="_on_login_btn_pressed"]
+[connection signal="mouse_entered" from="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/SigninBtn" to="Client/MarginContainer/VBoxContainer/Botões" method="_on_signin_btn_mouse_entered"]
+[connection signal="mouse_exited" from="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/SigninBtn" to="Client/MarginContainer/VBoxContainer/Botões" method="_on_signin_btn_mouse_exited"]
+[connection signal="pressed" from="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/SigninBtn" to="Client/MarginContainer/VBoxContainer/Botões" method="_on_signin_btn_pressed"]
+[connection signal="mouse_entered" from="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn" to="Client/MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_entered"]
+[connection signal="mouse_exited" from="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn" to="Client/MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_mouse_exited"]
+[connection signal="pressed" from="Client/MarginContainer/VBoxContainer/Botões/HBoxContainer/ExitBtn" to="Client/MarginContainer/VBoxContainer/Botões" method="_on_exit_btn_pressed"]

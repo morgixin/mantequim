@@ -29,6 +29,8 @@ var monsterCardSlot = null
 @onready var sprite_batalha: TextureRect = $sprite_batalha
 
 func _ready() -> void:
+	print(UC.get_logged_user_username())
+	print("ana")
 	jogadores.append($Jogador)
 	instanciarBots()
 	

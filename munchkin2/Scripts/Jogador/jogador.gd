@@ -1,9 +1,9 @@
 class_name Jogador
 extends Node2D
 
-@export var jogador: String = "Rafael"
+@export var jogador: String = UC.get_logged_user_username() if UC.get_logged_user_username() != "" else "Troy"
 @export var nivel: int = 3
-@export var forca: int = 1
+@export var forca: int = self.nivel
 @export var forca_turno: int = 1
 var incrementos_forca: Array[int] = []
 
@@ -40,6 +40,7 @@ const equipDict = {
 var player_box: PlayerBox
 
 func _ready() -> void:
+	
 	maoCartas = $"../MaoJogador"
 	maoCartasEquipadas = $"../MaoEquipados"
 	player_box = $"../HBoxContainer/PlayerBox"
