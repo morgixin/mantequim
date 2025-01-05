@@ -1,4 +1,4 @@
-extends Node
+extends Control
 
 var peer = WebSocketMultiplayerPeer.new()
 var id = 0

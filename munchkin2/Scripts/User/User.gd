@@ -1,7 +1,7 @@
 extends Node
 class_name User
 
-var username = null
+var username = ""
 
 # Called when the node enters the scene tree for the first time.
 func get_username():
