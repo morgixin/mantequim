@@ -4,7 +4,6 @@ var peer = WebSocketMultiplayerPeer.new()
 var users = {}
 var lobbies = {}
 var dao = DAO.new()
-# var Characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 @export var hostPort = 8915
 
 var cryptoUtil = UserCrypto.new()
@@ -16,11 +15,8 @@ func _ready():
 		
 	peer.connect("peer_connected", peer_connected)
 	peer.connect("peer_disconnected", peer_disconnected)
-	pass # Replace with function body.
-
-func _init() -> void:
 	startServer()
-	pass
+	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -31,9 +27,6 @@ func _process(delta):
 			var dataString = packet.get_string_from_utf8()
 			var data = JSON.parse_string(dataString)
 			print(data)
-			
-			#if data.message ==  Utilities.Message.lobby:
-				#JoinLobby(data)
 			
 			if data.message == Utilities.Message.loginUser:
 				login(data)
@@ -77,7 +70,6 @@ func login(data):
 			"username" : userData.username,
 			"id" : userData.id,
 			"message" : Utilities.Message.playerinfo,
-			# "score" : userData.score
 		}
 		peer.get_peer(data.peer).put_packet(JSON.stringify(returnData).to_utf8_buffer())
 	else:

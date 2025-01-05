@@ -31,16 +31,16 @@ func set_username(username: String):
 
 func get_logged_user_username():
 	return user.get_username()
-	
+
 func isUserLogged() -> bool:
 	return _isUserLogged
-	
+
 func loginUser(username, password):
 	var data = {
 		"username" : username.strip_edges(true, true), 
 		"password" : cryptoUtil.HashData(password.strip_edges(true, true))
 	}
-	
+
 	var message = {
 		"peer" : id,
 		"orgPeer" : self.id,
@@ -49,10 +49,10 @@ func loginUser(username, password):
 		"Lobby": lobbyValue
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
-	
+
 	set_username(username.strip_edges(true, true))
 	_isUserLogged = true
-	
+
 func createUser(username, password):
 	var data = {
 		"username" : username.strip_edges(true, true), 

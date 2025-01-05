@@ -14,12 +14,10 @@ func _ready():
 	multiplayer.connected_to_server.connect(RTCServerConnected)
 	multiplayer.peer_connected.connect(RTCPeerConnected)
 	multiplayer.peer_disconnected.connect(RTCPeerDisconnected)
+	connectToServer()
 	$"Control/MarginContainer/VBoxContainer/Botões".CreateUser.connect(UC.createUser)
 	$"Control/MarginContainer/VBoxContainer/Botões".LoginUser.connect(UC.loginUser)
 	pass # Replace with function body.
-
-func _init() -> void:
-	connectToServer()
 
 func connectToServer():
 	peer.create_client("ws://127.0.0.1:8915")
