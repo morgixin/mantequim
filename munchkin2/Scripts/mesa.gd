@@ -164,7 +164,7 @@ func momentoReceberMaldicao() -> void:
 	else:
 		prompt1.customize("Efeito Aplicado em "+nomeTratamento, nomeTratamento+" "+efeitoMaldicao.obterTextoResultado(), "Aguarde "+nomeTratamento+" continaur", "", true, false)	
 		prompt1.mudarStatusBotao(0, true)
-	verficarMorte()
+	await verificarMorte()
 	await get_tree().create_timer(0.2).timeout
 	if (jogadores[jogadorAtual].isHost):
 		monster_box.customizarBox(cartaSorteadaTurno, "Escolha o que você irá fazer", false, "Loot the room", "Batalhar com monstro da mão")	
@@ -301,7 +301,7 @@ func atacarMonstro() -> void:
 		prompt1.customize(nomeTratamento+" perdeu o combate!", efeitoBadStuff.obterTextoResultado(), "Continuar", "", true)
 		await prompt1.prompt(false)
 
-		verficarMorte()
+		await verificarMorte()
 
 func fugirMonstro() -> void:
 	var nomeTratamento = "Você" if jogadores[jogadorAtual].isHost else jogadores[jogadorAtual].jogador
@@ -380,7 +380,7 @@ func instanciarBots():
 		$HBoxContainer.add_child(botPlayerBox)
 
 #! FUNÇOES AUXILIARES
-func verficarMorte():
+func verificarMorte():
 	if (jogadores[jogadorAtual].estaMorto):
 		var nomeTratamento = "Você" if jogadores[jogadorAtual].isHost else jogadores[jogadorAtual].jogador
 		await get_tree().create_timer(0.2).timeout
