@@ -1,7 +1,8 @@
 class_name Jogador
 extends Node2D
 
-@export var jogador: String = UC.get_logged_user_username() if UC.get_logged_user_username() != "" else "Troy"
+var UC = UserController.getInstancia()
+@export var jogador: String = UC.get_logged_user_username() if UC.isUserLogged() else "Troy"
 @export var nivel: int = 3
 @export var forca: int = self.nivel
 @export var forca_turno: int = 1
