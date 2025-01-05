@@ -100,58 +100,6 @@ func encontraEquipamentoMaisForte():
 			forcaEquipamentoMaisForte = carta.forca
 	return [equipamentoMaisForte] if equipamentoMaisForte != null else null
 
-func encontrarEquipamentoAleatorio (tipo_equip: int = 0):
-	var equipamentoAleatorio = null
-	var equipamentos = []
-	for carta in self.cartasEquipadas:
-		if (carta.tipo != 2):
-			continue
-		if (carta.isBig):
-			continue
-		equipamentos.append(carta)
-	if (equipamentos.size() > 0):
-		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
-	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
-
-func encontrarBigItemAleatorio():
-	var equipamentoAleatorio = null
-	var equipamentos = []
-	for carta in self.cartasEquipadasa:
-		if (carta.tipo != 2):
-			continue
-		if (!carta.isBig):
-			continue
-		equipamentos.append(carta)
-	if (equipamentos.size() > 0):
-		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
-	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
-
-func encontrarFootgearAleatorio():
-	var equipamentoAleatorio = null
-	var equipamentos = []
-	for carta in self.cartasEquipadas:
-		if (carta.tipo != 2):
-			continue
-		if (carta.tipo_equipamento != 6):
-			continue
-		equipamentos.append(carta)
-	if (equipamentos.size() > 0):
-		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
-	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
-
-func encontrarArmorAleatorio():
-	var equipamentoAleatorio = null
-	var equipamentos = []
-	for carta in self.cartasEquipadas:
-		if (carta.tipo != 2):
-			continue
-		if (carta.tipo_equipamento != 4):
-			continue
-		equipamentos.append(carta)
-	if (equipamentos.size() > 0):
-		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
-	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
-
 func getEquipados():
 	var equipamentos = []
 	for carta in self.cartasEquipadas:
@@ -159,19 +107,6 @@ func getEquipados():
 			continue
 		equipamentos.append(carta)
 	return equipamentos
-
-func encontrarHeadgearAleatorio():
-	var equipamentoAleatorio = null
-	var equipamentos = []
-	for carta in self.cartasEquipadas:
-		if (carta.tipo != 2):
-			continue
-		if (carta.tipo_equipamento != 3):
-			continue
-		equipamentos.append(carta)
-	if (equipamentos.size() > 0):
-		equipamentoAleatorio = equipamentos[randi() % equipamentos.size()]
-	return [equipamentoAleatorio] if equipamentoAleatorio != null else null
 
 func encontrarEquipamento(tipo_equip: int = 0, procurandoBig: bool = false):
 	var equipamentoAleatorio = null

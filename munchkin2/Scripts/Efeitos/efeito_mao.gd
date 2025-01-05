@@ -11,17 +11,14 @@ func _aplicarEfeito() -> void:
 		self.alvoJogadorDoEfeito.aumentarNivel(-1)
 
 func _finalizarEfeito() -> void:
+	if (!self.alvoJogadorDoEfeito):
+		return
 	if (alvoJogadorDoEfeito.nivel <= 0):
 		alvoJogadorDoEfeito.estaMorto = true
 	if (!self.alvoJogadorDoEfeito):
 		return
-	self.textoResultado = "Acho que sua mão deu uma esvaziada..."
+	self.textoResultado = " Acho que sua mão deu uma esvaziada..."
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

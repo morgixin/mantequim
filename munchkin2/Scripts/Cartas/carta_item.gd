@@ -16,8 +16,6 @@ func _ready() -> void:
 	self.isTreasure = true
 	pass
 
-func _process(delta: float) -> void:
-	pass
 
 func getTipoEquip() -> int:
 	return self.tipo_equipamento

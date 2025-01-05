@@ -30,7 +30,6 @@ var monsterCardSlot = null
 
 func _ready() -> void:
 	print(UC.get_logged_user_username())
-	print("ana")
 	jogadores.append($Jogador)
 	instanciarBots()
 	
@@ -73,7 +72,13 @@ func momentoSeEquipar() -> void:
 				remove_child(equip_slot)
 				var jogadorContinuou = await monster_box.prompt()
 				if jogadorContinuou:
-					mudarParaBatalha()
+					if cartaSorteadaTurno.min_level > jogadores[jogadorAtual].nivel:
+						await get_tree().create_timer(0.2).timeout
+						prompt1.customize("O monstro sorteado não luta com gente do seu nível.", "Cresça! Mas enquanto isso, ganhe uma carta de brinde.", "Continuar", "", true, false)
+						await prompt1.prompt(false)
+						momentoLootarCartas()
+					else:	
+						mudarParaBatalha()
 			if (cartaSorteadaTurno.tipo == 6):
 				cartaSorteadaTurno.alvoDoEfeito = 1
 				monster_box.customizarBox(cartaSorteadaTurno, "Maldição Sorteada", true, "Continuar")	
@@ -194,6 +199,7 @@ func momentoReceberMaldicao() -> void:
 
 func momentoLootarCartas() -> void:
 	var cartaLootSorteada = gerCartas.gerarCartaPorta(false)
+	cartaLootSorteada.donoDaCarta = jogadores[jogadorAtual]
 	if (jogadores[jogadorAtual].isHost):
 		$cartasDaMesa.add_child(cartaLootSorteada)
 	jogadores[jogadorAtual].maoCartas.addMao(cartaLootSorteada)
@@ -208,7 +214,7 @@ func momentoLootarCartas() -> void:
 	momentoDescarte()
 	
 func momentoBatalharMonstroMao() -> void:
-	await get_tree().create_timer(0.2)
+	await get_tree().create_timer(0.2).timeout
 	if !jogadores[jogadorAtual].isHost:
 		var nome_do_jogador_atual = jogadores[jogadorAtual].jogador
 		prompt1.customize("Aguardando "+nome_do_jogador_atual+"escolher um monstro", "", "Aguarde", "", true)
@@ -309,8 +315,9 @@ func mostrarResumoDaBatalha() -> void:
 #! MOMENTO DE DESCARTAR CARTAS
 func momentoDescarte() -> void:
 	momentoDoJogo = 4
-	jogadores[jogadorAtual].incrementos_forca = []
-	jogadores[jogadorAtual].calcularForcaTurno()
+	if(jogadorAtual < jogadores.size()):
+		jogadores[jogadorAtual].incrementos_forca = []
+		jogadores[jogadorAtual].calcularForcaTurno()
 	var useDiscardScene = preload("res://Scenes/Slots/DiscardSlot.tscn") 
 	var newDiscard = useDiscardScene.instantiate()
 	var screen = get_viewport_rect().size
@@ -374,10 +381,15 @@ func escolherCartasInterferenciaBots():
 		var cartasAtual = bot.maoCartas.maoJogador
 		var cartasValidas = []
 		for carta in cartasAtual:
-			if carta.tipo == 1 and carta.acao == 1:
+			if carta.tipo == 1 and (carta.acao == 1 or carta.acao == 2):
 				print("Aplicando carta "+carta.nome+" no monstro")
 				carta.alvoDoEfeito = 0
 				cartasValidas.append(carta)
+			if carta.tipo == 6:
+				print("Aplicando carta "+carta.nome+" no jogador")
+				carta.alvoDoEfeito = 1
+				cartasValidas.append(carta)
+				
 		print(cartasValidas)
 		var contadorInterf = 0
 		for cartaValida in cartasValidas:
@@ -404,7 +416,7 @@ func escolherCartaAjudaBot():
 		var num = RandomNumberGenerator.new()
 		num.randomize()
 		var chance = num.randi_range(1,4)
-		if contadorInterf < 2:
+		if contadorInterf < 2 and chance > 2:
 			cartasSlotDeAjuda.append(cartaValida)
 			bot.maoCartas.removeDaMao(cartaValida)
 			contadorInterf +=1	

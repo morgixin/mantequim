@@ -54,6 +54,8 @@ func loginUser(username, password):
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
 func createUser(username, password):
+	print(username.strip_edges(true, true))
+	print(password.strip_edges(true, true))
 	var data = {
 		"username" : username.strip_edges(true, true), 
 		"password" : cryptoUtil.HashData(password.strip_edges(true, true))

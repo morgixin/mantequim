@@ -14,7 +14,9 @@ func _aplicarEfeito() -> void:
 				continue
 			acharCartaClasse = carta
 			break
-		mao_equipados_array.removeDaMao(acharCartaClasse)
+		acharCartaClasse.hide()
+		acharCartaClasse.scale = Vector2(0,0)
+		mao_equipados_reference.removeDaMao(acharCartaClasse)
 	else:
 		self.alvoJogadorDoEfeito.aumentarNivel(acaoParametro)
 
@@ -32,8 +34,3 @@ func _finalizarEfeito():
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

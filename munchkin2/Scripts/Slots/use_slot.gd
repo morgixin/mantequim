@@ -22,7 +22,7 @@ func admiteCarta(carta) -> bool:
 	if (slotAjudaJogador):
 		if (carta.tipo != 1):
 			return false
-		if (carta.acao != 1 and carta.acao != 2):
+		if (carta.acao != 1 and carta.acao != 2 and carta.acao != 8):
 			return false
 	else:
 		if (carta.tipo != 1 and carta.tipo != 6):
@@ -38,7 +38,7 @@ func addCartaUsada(carta: CartaClass) -> void:
 	if (slotAjudaJogador == false):
 		if (btn):
 			btn.hide()
-		use_card_confirmation.customize("Quem deseja ajudar?", "Escolha entre o monstro ou o jogador", "Jogador", "Monstro", false, false)
+		use_card_confirmation.customize("Quem deseja interferir?", "Escolha entre o monstro ou o jogador", "Jogador", "Monstro", false, false)
 		var escolheuJogador = await use_card_confirmation.prompt(true)
 		if (escolheuJogador):
 			carta.alvoDoEfeito = 1
@@ -49,4 +49,6 @@ func addCartaUsada(carta: CartaClass) -> void:
 			btn.show()
 	else:
 		carta.alvoDoEfeito = 1
+		if (carta.acao == 8):
+			carta.alvoDoEfeito = 0
 		cartasUsadas.append(carta)

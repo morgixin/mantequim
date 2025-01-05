@@ -16,5 +16,3 @@ func _on_area_2d_mouse_entered() -> void:
 func _on_area_2d_mouse_exited() -> void:
 	emit_signal("hoveredOff", self)
 	
-func _process(delta: float) -> void:
-	pass
