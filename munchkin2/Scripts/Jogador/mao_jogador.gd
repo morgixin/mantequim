@@ -98,6 +98,21 @@ func resize() -> void:
 		MAO_Y = get_viewport().size.y - 100
 		updatePosicoes()
 		
+func verificarCartasMonstro(procurar_por_menor_nivel: bool = true) -> CartaMonstro:
+	var carta_escolhida: CartaMonstro = null
+	for carta in maoJogador:
+		if carta.tipo != 3:
+			continue
+		if carta_escolhida == null and procurar_por_menor_nivel == false and  playerReference.nivel >= carta.min_level:
+			carta_escolhida = carta
+			break
+		if procurar_por_menor_nivel:
+			if carta_escolhida == null:
+				carta_escolhida = carta
+			elif carta_escolhida.forca > carta.forca:
+				carta_escolhida = carta
+	return carta_escolhida
+		
 func limpaMao(qtd: int):
 	if qtd == 99 or self.maoJogador.size() < qtd:
 		for i in range(self.maoJogador.size()):

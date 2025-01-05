@@ -7,7 +7,15 @@ func _aplicarEfeito() -> void:
 	var raca = self.alvoJogadorDoEfeito.getRacaJogador()
 	var quantidadeDeNiveis = self.acaoParametro
 	if raca != 1:
-		self.alvoJogadorDoEfeito.setRacaJogador(1)
+		var mao_equipados_reference = self.alvoJogadorDoEfeito.maoCartasEquipadas
+		var mao_equipados_array = mao_equipados_reference.cartasEquipadas
+		var acharCartaRaca: CartaClass = null
+		for carta in mao_equipados_array:
+			if carta.tipo != 5:
+				continue
+			acharCartaRaca = carta
+			break
+		mao_equipados_array.removeDaMao(acharCartaRaca)
 	else:
 		self.alvoJogadorDoEfeito.aumentarNivel(acaoParametro)
 

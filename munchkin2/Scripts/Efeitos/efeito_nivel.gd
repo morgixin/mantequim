@@ -10,7 +10,7 @@ func _aplicarEfeito() -> void:
 
 func _finalizarEfeito() -> void:
 	if (alvoDoEfeito == 1):
-		if (self.alvoJogadorDoEfeito.nivel - abs(self.acaoParametro) <= 0):
+		if (self.alvoJogadorDoEfeito.nivel <= 0):
 			self.alvoJogadorDoEfeito.estaMorto = true
 
 	if (self.alvoDoEfeito == 0):
