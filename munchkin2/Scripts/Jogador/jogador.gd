@@ -40,6 +40,7 @@ const equipDict = {
 var player_box: PlayerBox
 
 func _ready() -> void:
+	
 	maoCartas = $"../MaoJogador"
 	maoCartasEquipadas = $"../MaoEquipados"
 	player_box = $"../HBoxContainer/PlayerBox"
