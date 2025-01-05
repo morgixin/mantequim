@@ -10,9 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Munchkin2"
+config/name="Mantequim"
+config/description="Adaptação digital do jogo \"Munchkin\", de Steve Jackson, para projeto universitário//Digital adaptation of \"Munchkin\" by Steve Jackson for a uni project"
+config/version="1"
 run/main_scene="res://Scenes/Menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/bg_color=Color(0.139965, 0.138823, 0.148029, 1)
+boot_splash/image="res://assets/imagens/Menu/title.png"
+boot_splash/fullsize=false
 config/icon="res://icon.svg"
 
 [autoload]
