@@ -8,13 +8,11 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if UC.isUserLogged():
 		$VBoxContainer/LoginSignin.hide()
-		$VBoxContainer/UsernameLabel.show()
-		$VBoxContainer/UsernameLabel/Username.text = "[wave]"+UC.get_logged_user_username()
+		$VBoxContainer/Username.show()
+		$VBoxContainer/Username.text = "[wave]Bem-vindo, "+UC.get_logged_user_username()
 	else:
 		$VBoxContainer/LoginSignin.show()
-		$VBoxContainer/UsernameLabel.hide()
-		$VBoxContainer/UsernameLabel/Username.text = ""
-	pass
+		$VBoxContainer/Username.hide()
