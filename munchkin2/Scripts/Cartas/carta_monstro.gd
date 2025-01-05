@@ -15,6 +15,7 @@ var tesouro: int = 1
 var target: int = -1
 var lvl_reward: int = 1
 var min_level: int = 1
+var estaZerado: bool = false
 
 func _ready() -> void:
 	get_parent().connect_card_signals(self)
@@ -24,6 +25,9 @@ func _ready() -> void:
 	calcularForcaTotal()
 
 func calcularForcaTotal() -> int:
+	if estaZerado:
+		forca = 0
+		incremento_forca = []
 	var somaDasForcas = forca
 	for valor_forca in incremento_forca:
 		somaDasForcas += valor_forca
@@ -38,6 +42,10 @@ func removerIncremento(valor: int) -> void:
 	if (valor in incremento_forca):
 		incremento_forca.erase(valor)
 	calcularForcaTotal()
+	
+func setZerado(valor: bool):
+	self.estaZerado = valor
+
 
 func _on_area_2d_mouse_entered() -> void:
 	emit_signal("hovered", self)

@@ -17,7 +17,7 @@ func _finalizarEfeito() -> void:
 		alvoJogadorDoEfeito.estaMorto = true
 	if (!self.alvoJogadorDoEfeito):
 		return
-	self.textoResultado = "Acho que sua mão deu uma esvaziada..."
+	self.textoResultado = " Acho que sua mão deu uma esvaziada..."
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

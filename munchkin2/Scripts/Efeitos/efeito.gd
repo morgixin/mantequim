@@ -18,7 +18,8 @@ static func create(tipoEfeito: int) -> Efeito:
 		4: EfeitoRemoveClasse,
 		5: EfeitoRemoveCartas,
 		6: EfeitoMudaRaca,
-		7: EfeitoFuga
+		7: EfeitoFuga,
+		8: EfeitoPassaro
 	}
 
 	novoEfeito = efeitoDict[tipoEfeito].new() if efeitoDict.has(tipoEfeito) else Efeito.new()

@@ -11,6 +11,6 @@ func _aplicarEfeito() -> void:
 
 func _finalizarEfeito() -> void:
 	if (self.alvoDoEfeito == 0):
-		self.textoResultado = "O monstro recebeu um incremento de " + str(self.acaoParametro) + " de força"
+		self.textoResultado = " O monstro recebeu um incremento de " + str(self.acaoParametro) + " de força"
 	if (self.alvoDoEfeito == 1):
-		self.textoResultado = "Ganhou " + str(self.acaoParametro) + " de força"
+		self.textoResultado = " Ganhou " + str(self.acaoParametro) + " de força"

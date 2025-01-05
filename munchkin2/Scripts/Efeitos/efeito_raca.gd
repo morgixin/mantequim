@@ -29,9 +29,9 @@ func _finalizarEfeito():
 	
 	var raca = self.alvoJogadorDoEfeito.getRacaJogador()
 	if (mudouRaça):
-		self.textoResultado = "Voltou a ser humano!"
+		self.textoResultado = " Voltou a ser humano!"
 	else:
-		self.textoResultado = "Perdeu um nível"
+		self.textoResultado = " Perdeu um nível"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

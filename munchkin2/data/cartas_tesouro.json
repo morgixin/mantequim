@@ -506,7 +506,7 @@
 	"raça_restrita": -1,
 	"descricao_carta": "One shot item que transforma o monstro em um papagaio indefeso de força 0.",
 	"força": -1,
-	"acao": 1,
+	"acao": 8,
 	"acao_parametro": -99	
 },
 {
@@ -628,5 +628,5 @@
 	"força": 3,
 	"acao": -1,
 	"acao_parametro": -1	
-},
+}
 ]
